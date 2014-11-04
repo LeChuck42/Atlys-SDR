@@ -231,6 +231,9 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="74"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="74"/>
     </file>
+    <file xil_pn:name="atlys_sdr.ucf" xil_pn:type="FILE_UCF">
+      <association xil_pn:name="Implementation" xil_pn:seqID="80"/>
+    </file>
     <file xil_pn:name="hdl/simple_gemac/coregen/fifo_xlnx_64x36_2clk.xise" xil_pn:type="FILE_COREGENISE">
       <association xil_pn:name="Implementation" xil_pn:seqID="87"/>
     </file>
