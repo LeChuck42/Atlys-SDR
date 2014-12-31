@@ -1,0 +1,2 @@
+verilog work ../../FPGA_MUX.v
+verilog work ../example_design/FPGA_MUX_exdes.v
