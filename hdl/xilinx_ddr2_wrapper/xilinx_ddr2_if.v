@@ -38,7 +38,10 @@
 ////                                                              ////
 //////////////////////////////////////////////////////////////////////
 
-module xilinx_ddr2_if ( 
+module xilinx_ddr2_if # (
+	parameter SIMULATION = "FALSE"
+	)
+	( 
     input [31:0]       wb0_adr_i,
     input 	           wb0_stb_i,
     input 	           wb0_cyc_i,
@@ -579,7 +582,7 @@ module xilinx_ddr2_if (
     .DEBUG_EN(0),
     .C3_MEMCLK_PERIOD(3750),
     .C3_CALIB_SOFT_IP("TRUE"),
-    .C3_SIMULATION("FALSE"),
+    .C3_SIMULATION(SIMULATION),
     .C3_RST_ACT_LOW(0),
     .C3_INPUT_CLK_TYPE("SINGLE_ENDED"),
     .C3_MEM_ADDR_ORDER("BANK_ROW_COLUMN"),
@@ -870,7 +873,7 @@ module wb_to_userport (
    
    always @(posedge wb_clk) begin
       wb_ack_write <= ddr2_px_wr_en;/*wb_req & wb_we_i & !wb_ack_write & !ddr2_px_wr_full &
-		      !ddr2_px_cmd_full*/;
+		      !ddr2_px_cmd_full;*/
    end
    
    

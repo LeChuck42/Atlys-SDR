@@ -1,18 +1,18 @@
 `timescale 1ns / 1ps
-
+`default_nettype none
 ////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer:
 //
 // Create Date:   20:22:06 10/27/2014
 // Design Name:   ethernet_test_top
-// Module Name:   C:/FPGA/atlys_ethernet_test_v1/ethernet_test_top_tb.v
+// Module Name:   
 // Project Name:  atlys_ethernet_test
 // Target Device:  
 // Tool versions:  
 // Description: 
 //
-// Verilog Test Fixture created by ISE for module: ethernet_test_top
+// Verilog Test Fixture created by ISE for module: 
 //
 // Dependencies:
 // 
@@ -58,12 +58,36 @@ module soc_top_tb;
 	wire VHDCI_MUX_CLK_P;
 	wire VHDCI_MUX_CLK_N;
 	wire rs232_tx;
-
+	
+	
+	// ram
+	wire [12:0] ddr2_a;
+	wire [2:0] ddr2_ba;
+	wire ddr2_ras_n;
+	wire ddr2_cas_n;
+	wire ddr2_we_n;
+	wire ddr2_rzq;
+	wire ddr2_zio;
+	wire ddr2_odt;
+	wire ddr2_cke;
+	wire ddr2_dm;
+	wire ddr2_udm;
+	wire [15:0] ddr2_dq;
+	wire ddr2_dqs;
+	wire ddr2_dqs_n;
+	wire ddr2_udqs;
+	wire ddr2_udqs_n;
+	wire ddr2_ck;
+	wire ddr2_ck_n;
+	
 	// Bidirs
 	wire MDIO_pin;
 
 	// Instantiate the Unit Under Test (UUT)
-	soc_top uut (
+	soc_top #(
+	.SIMULATION("TRUE")
+	)
+	uut (
 		.clk_100_pin(clk_100_pin), 
 		.PhyResetOut_pin(PhyResetOut_pin), 
 		.MII_TX_CLK_pin(MII_TX_CLK_pin), 
@@ -95,7 +119,53 @@ module soc_top_tb;
 		.VHDCI_MUX_IN_P(VHDCI_MUX_IN_P), 
 		.VHDCI_MUX_IN_N(VHDCI_MUX_IN_N), 
 		.rs232_tx(rs232_tx), 
-		.rs232_rx(rs232_rx)
+		.rs232_rx(rs232_rx),
+		.ddr2_a(ddr2_a),
+		.ddr2_ba(ddr2_ba),
+		.ddr2_ras_n(ddr2_ras_n),
+		.ddr2_cas_n(ddr2_cas_n),
+		.ddr2_we_n(ddr2_we_n),
+		.ddr2_rzq(ddr2_rzq),
+		.ddr2_zio(ddr2_zio),
+		.ddr2_odt(ddr2_odt),
+		.ddr2_cke(ddr2_cke),
+		.ddr2_dm(ddr2_dm),
+		.ddr2_udm(ddr2_udm),
+		.ddr2_dq(ddr2_dq),
+		.ddr2_dqs(ddr2_dqs),
+		.ddr2_dqs_n(ddr2_dqs_n),
+		.ddr2_udqs(ddr2_udqs),
+		.ddr2_udqs_n(ddr2_udqs_n),
+		.ddr2_ck(ddr2_ck),
+		.ddr2_ck_n(ddr2_ck_n),
+		
+		.tdo_pad_o(),
+		.tms_pad_i(),
+		.tck_pad_i(),
+		.tdi_pad_i(),
+		
+		.flash_spi_csn(),
+		.flash_spi_sck(),
+		.flash_spi_io()
+
+	);
+	
+	ddr2_model_c3 ddr2_model_c3_inst (
+		.ck(ddr2_ck),
+		.ck_n(ddr2_ck_n),
+		.cke(ddr2_cke),
+		.cs_n(1'b0),
+		.ras_n(ddr2_ras_n),
+		.cas_n(ddr2_cas_n),
+		.we_n(ddr2_we_n),
+		.dm_rdqs({ddr2_udm, ddr2_dm}),
+		.ba(ddr2_ba),
+		.addr(ddr2_a),
+		.dq(ddr2_dq),
+		.dqs({ddr2_udqs, ddr2_dqs}),
+		.dqs_n({ddr2_udqs_n, ddr2_dqs_n}),
+		.rdqs_n(),
+		.odt(ddr2_odt)
 	);
 
        
@@ -126,9 +196,11 @@ module soc_top_tb;
 		rs232_rx = 1;
 		mux_data = 8'h01;
 		mux_counter = 0;
-		btn = 6'h3F;
+		btn = 6'b111110;
 		// Wait for global reset to finish
-		#1442;
+		#200;
+		btn = 6'b111111;
+		#1500;
       /*
 		rs232_send(8'h52); // set rising trigger
 		#234;

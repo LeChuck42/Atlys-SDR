@@ -17,7 +17,7 @@ entity wb_flash_if is
 		-- Wishbone slave
 		WB_RST_I : in std_logic;
 		WB_CLK_I : in std_logic;
-		WB_ADR_I : in std_logic_vector(FLASH_ADR_WIDTH downto 2);
+		WB_ADR_I : in std_logic_vector(31 downto 0);
 		WB_DAT_I : in std_logic_vector(31 downto 0);
 		WB_DAT_O : out std_logic_vector(31 downto 0);
 		WB_WE_I  : in std_logic;
@@ -147,7 +147,7 @@ begin
 					if trx_cnt = "000" then
 						-- delayed read of address to relax timings
 						addr_buf <= (others => '0');
-						addr_buf(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I;
+						addr_buf(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH downto 2);
 						flash_state <= ADDRESS;
 						trx_cnt <= to_unsigned(5,3);
 					else
@@ -176,7 +176,7 @@ begin
 							WB_DAT_O <= data_buf & SPI_IO;
 						end if;
 						if start_transfer = '1' and ack_int(1) /= '1' then
-							if addr_buf(FLASH_ADR_WIDTH downto 2) = WB_ADR_I then
+							if addr_buf(FLASH_ADR_WIDTH downto 2) = WB_ADR_I(FLASH_ADR_WIDTH downto 2) then
 								data_buf <= data_buf(23 downto 0) & SPI_IO;
 								trx_cnt <= trx_cnt - 1;
 								--ack needs two cycles to be recognized by 50MHz domain
@@ -187,7 +187,7 @@ begin
 									-- incrementing address burst cycle
 									burst_cnt <= burst_cnt + 1;
 									if burst_cnt = 0 then
-										burst_start(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I;
+										burst_start(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH downto 2);
 									elsif burst_wrap = '1' then
 										addr_buf <= addr_clipped;
 										flash_state <= RESTART;
@@ -199,7 +199,7 @@ begin
 							else
 								-- we (pre)read the wrong address -> restart with correct one
 								addr_buf <= (others => '0');
-								addr_buf(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I;
+								addr_buf(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH downto 2);
 								flash_state <= RESTART;
 								trx_cnt <= to_unsigned(1,3); -- we need one additional clock cycle to stay in sync
 							end if;
@@ -222,5 +222,5 @@ begin
 		end if;
 	end process;
 	
-	WB_ACK_O <= '1' when start_transfer = '1' and (ack_int(1) = '1' or (pause = '1' and addr_buf(FLASH_ADR_WIDTH downto 2) = WB_ADR_I)) else '0';
+	WB_ACK_O <= '1' when start_transfer = '1' and (ack_int(1) = '1' or (pause = '1' and addr_buf(FLASH_ADR_WIDTH downto 2) = WB_ADR_I(FLASH_ADR_WIDTH downto 2))) else '0';
 end architecture rtl;

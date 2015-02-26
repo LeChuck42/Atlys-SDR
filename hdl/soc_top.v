@@ -20,7 +20,10 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module soc_top(
+module soc_top # (
+	SIMULATION = "FALSE"
+	)
+	(
 	input wire clk_100_pin,
 	
 	// Ethernet
@@ -84,7 +87,7 @@ module soc_top(
 	output wire	ddr2_ck_n,
 
 	// Serial (USB)
-	output rs232_tx,
+	output wire rs232_tx,
 	input wire rs232_rx,
 	
 	// JTAG
@@ -109,7 +112,7 @@ module soc_top(
 	// Clock and reset generation module
 	//
 	////////////////////////////////////////////////////////////////////////
-	wire	async_rst;
+
 	wire	dbg_tck;
 	wire	dvi_clk;
 	wire	ddr2_if_clk;
@@ -119,8 +122,8 @@ module soc_top(
 	
 	clkgen clkgen0 (
 		.sys_clk_pad_i (clk_100_pin),
-		.rst_n_pad_i (phy_rst),
-		.async_rst_o (async_rst),
+		.rst_n_pad_i (btn[0]),
+		.async_rst_o (),
 		.wb_clk_o (wb_clk),
 		.wb_rst_o (wb_rst),
 		.tck_pad_i (tck_pad_i),
@@ -298,7 +301,7 @@ module soc_top(
 	
 	// Sync a pushbutton to FSM clock to initiate packet
 	wire sw_send_packet, sw_reconfig;
-	edge_detect edge_detect_s1 (.async_sig(btn[0]), .clk(dsp_clk), .rise(), .fall(sw_send_packet));
+	edge_detect edge_detect_s1 (.async_sig(btn[2]), .clk(dsp_clk), .rise(), .fall(sw_send_packet));
 	edge_detect edge_detect_s2 (.async_sig(btn[1]), .clk(dsp_clk), .rise(), .fall(sw_reconfig));
 
 	/*
@@ -570,10 +573,10 @@ module soc_top(
 		.wb_clk_i(wb_clk),
 		.wb_rst_i(wb_rst),
 		
-		.wb_dat_i(wb_m2s_uart0_dat),
-		.wb_dat_o(wb_s2m_uart0_dat),
+		.wb_dat_i(wb_m2s_uart0_dat[7:0]),
+		.wb_dat_o(wb_s2m_uart0_dat[7:0]),
 		
-		.wb_adr_i(wb_m2s_uart0_adr),
+		.wb_adr_i(wb_m2s_uart0_adr[0]),
 		
 		.wb_cyc_i(wb_m2s_uart0_cyc),
 		.wb_stb_i(wb_m2s_uart0_stb),
@@ -677,7 +680,10 @@ module soc_top(
 	// DDR2 SDRAM Memory Controller
 	//
 	////////////////////////////////////////////////////////////////////////
-	xilinx_ddr2_if xilinx_ddr2_0 (
+	xilinx_ddr2_if # (
+	.SIMULATION(SIMULATION)
+	)
+	xilinx_ddr2_0 (
 	// R/W
 	.wb0_adr_i (0),
 	.wb0_bte_i (0),
@@ -889,6 +895,8 @@ module soc_top(
      .DATA_OUT_FROM_DEVICE    (mux_out),
      .DATA_OUT_TO_PINS_P      ({VHDCI_MUX_OUT_P}),
      .DATA_OUT_TO_PINS_N      ({VHDCI_MUX_OUT_N}),
+	  .CLK_TO_PINS_P           (),
+     .CLK_TO_PINS_N           (),
      .BITSLIP                 (vhdci_mux_bitslip),
      .CLK_IN                  (clk_mux),
      .CLK_DIV_IN              (clk_mux_div),
