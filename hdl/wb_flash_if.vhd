@@ -4,10 +4,11 @@ use ieee.numeric_std.all;
 
 entity wb_flash_if is
 	generic (
-		FLASH_ADR_WIDTH: natural := 18;
-		DUMMY_CYCLES:    natural := 4);
+		FLASH_ADR_WIDTH: natural := 22;
+		DUMMY_CYCLES:    natural := 10);
 	port (
-		CLK      : in std_logic;
+	    CLK      : in std_logic;
+		CLK_INV  : in std_logic;
 		RESET    : in std_logic;
 		
 		SPI_CSN  : out std_logic;
@@ -32,40 +33,42 @@ entity wb_flash_if is
 end entity wb_flash_if;
 
 architecture rtl of wb_flash_if is
-	type flash_state_t is (IDLE, COMMAND, ADDRESS, MODE, DUMMY, READ_DATA, RESTART);
+	type flash_state_t is (INIT, ADDRESS, XIP_CONFIRM, DUMMY, READ_DATA, RESTART);
 	signal flash_state:     flash_state_t;
 	signal addr_buf:        std_logic_vector(23 downto 0);
 	signal burst_start:     std_logic_vector(23 downto 0);
-	signal trx_cnt:         unsigned (2 downto 0);
+	signal trx_cnt:         unsigned (5 downto 0);
 	signal burst_cnt:       unsigned (3 downto 0);
-	signal flash_command:   std_logic_vector(7 downto 0);
-	signal flash_mode:      std_logic_vector(7 downto 0);
+	signal flash_init_data: std_logic_vector(59 downto 0);
+	signal flash_init_cs:   std_logic_vector(59 downto 0);
+	signal flash_command:   std_logic_vector(7 downto 0)
 	signal data_buf:        std_logic_vector(27 downto 0);
 	signal burst_wrap:      std_logic;
 	signal addr_clipped:    std_logic_vector(23 downto 0);
 	signal start_transfer:  std_logic;
-	signal ack_int:         std_logic_vector(1 downto 0);
+	signal ack_int:         std_logic_vector(2 downto 0);
 	signal pause:           std_logic;
+	signal sync_state:      std_logic;
 begin
 
 	WB_RTY_O <= '0';
 	WB_ERR_O  <= '1' when WB_WE_I = '1' and WB_CYC_I = '1' and WB_STB_I = '1' else '0'; -- read only
 	
-	SPI_IO(0) <= flash_command(7) when flash_state = COMMAND else
-		addr_buf(20) when flash_state = ADDRESS else
-		flash_mode(4) when flash_state = MODE else 'Z';
+	WB_ACK_O <= '1' when start_transfer = '1' and (ack_int(2) = '1' or 
+		(pause = '1' and addr_buf(FLASH_ADR_WIDTH downto 2) = WB_ADR_I(FLASH_ADR_WIDTH downto 2))) else '0';
 	
-	SPI_IO(1) <= addr_buf(21) when flash_state = ADDRESS else
-		flash_mode(5) when flash_state = MODE else 'Z';
+	SPI_IO(0) <= flash_init_data(flash_init_data'LEFT) when flash_state = INIT else
+	             addr_buf(20)                          when flash_state = ADDRESS else
+	             '0'                                   when flash_state = XIP_CONFIRM else 'Z';
+	
+	SPI_IO(1) <= addr_buf(21) when flash_state = ADDRESS else 'Z';
+	SPI_IO(2) <= addr_buf(22) when flash_state = ADDRESS else 'Z';
+	SPI_IO(3) <= addr_buf(23) when flash_state = ADDRESS else 'Z';
 		
-	SPI_IO(2) <= addr_buf(22) when flash_state = ADDRESS else
-		flash_mode(6) when flash_state = MODE else 'Z';
-		
-	SPI_IO(3) <= addr_buf(23) when flash_state = ADDRESS else
-		flash_mode(7) when flash_state = MODE else 'Z';
-		
-	SPI_CSN <= '0'     when (flash_state /= IDLE and flash_state /= RESTART) else '1';
-	SPI_CLK <= not CLK when (flash_state /= IDLE and flash_state /= RESTART and pause = '0') else '0';
+	SPI_CSN <= flash_init_cs(flash_init_cs'LEFT) when flash_state = INIT else
+		'0' when flash_state /= RESTART else '1';
+	
+	SPI_CLK <= CLK_INV when (flash_state /= RESTART and pause = '0') else 'Z'; -- todo: check for fast alternative
 	
 	burst_wrap_proc: process(burst_start, WB_BTE_I, burst_cnt)
 	variable addr_burst:    unsigned(3 downto 0);
@@ -108,10 +111,10 @@ begin
 			start_transfer <= '0';
 		elsif rising_edge(WB_CLK_I) then
 			-- read WB control signals synchronous to wb_clk to relax timing
-			if WB_WE_I = '0' and WB_CYC_I = '1' and WB_STB_I = '1' and ack_int(1) = '0'  then
-				start_transfer <= '1';
+			if WB_CYC_I = '1' and WB_STB_I = '1' and WB_WE_I = '0' then
+				start_transfer <= '1' after 1 ns;
 			else
-				start_transfer <= '0';
+				start_transfer <= '0' after 1 ns;
 			end if;
 		end if;
 	end process;
@@ -119,102 +122,125 @@ begin
 	flash_fsm: process(CLK, RESET)
 	begin
 		if RESET = '1' then
-			flash_state <= IDLE;
-			trx_cnt <= (others => '0');
+			flash_state <= INIT;
+			trx_cnt <= to_unsigned(flash_init_data'LENGTH, trx_cnt'LENGTH);
 			burst_cnt <= (others => '0');
 			burst_start <= (others => '0');
 			ack_int <= (others => '0');
-			flash_command <= x"EB"; -- Quad I/O Read
-			flash_mode <= x"A0";
+			-- INIT COMMANDS:  WREN          WRVCR   DATA               WREN          WRVECR  DATA               QIOR
+			flash_init_data <= x"06" & "0" & x"81" & "11110000" & "0" & x"06" & "0" & x"61" & "01011111" & "0" & x"EB";
+			flash_init_cs   <= x"FF" & "0" & x"FF" & "11111111" & "0" & x"FF" & "0" & x"FF" & "11111111" & "0" & x"FF";
 			data_buf <= (others => '0');
 			WB_DAT_O <= (others => '0');
 			pause <= '0';
-			
+			sync_state <= '0';
+			addr_buf <= x"000100";
 		elsif rising_edge(CLK) then
-			ack_int <= ack_int(0) & '0';
+			if start_transfer = '1' then
+				sync_state <= not sync_state;
+			else
+				sync_state <= '0';
+			end if;
+			
+			ack_int <= ack_int(1 downto 0) & '0';
 			pause <= '0';
 			case (flash_state) is
-				when IDLE =>
+				
+				when INIT =>
+					-- shift out sequence to setup flash in XIP/QIOR mode
+					flash_init_data <= flash_init_data(flash_init_data'LEFT-1 downto 0) & flash_init_data(flash_init_data'LEFT); -- rol
+					flash_init_cs   <= flash_init_cs  (flash_init_cs'LEFT  -1 downto 0) & flash_init_cs  (flash_init_cs'LEFT  ); -- rol
 					burst_cnt <= (others => '0');
 					burst_start <= (others => '0');
-					flash_command <= x"EB"; -- reset value
-					trx_cnt <= to_unsigned(7,3);
-					if start_transfer = '1' then
-						flash_state <= COMMAND;
-					end if;
-				when COMMAND =>
-					flash_command <= flash_command(6 downto 0) & flash_command(7); -- rol
-					if trx_cnt = "000" then
-						-- delayed read of address to relax timings
-						addr_buf <= (others => '0');
-						addr_buf(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH downto 2);
+					
+					if trx_cnt = to_unsigned(0,trx_cnt'LENGTH) then
 						flash_state <= ADDRESS;
 						trx_cnt <= to_unsigned(5,3);
 					else
 						trx_cnt <= trx_cnt - 1;
 					end if;
+				
 				when ADDRESS =>
 					addr_buf <= addr_buf(19 downto 0) & addr_buf(23 downto 20); -- 4 byte rol
-					if trx_cnt = "000" then
-						flash_state <= MODE;
+					if trx_cnt = to_unsigned(0,trx_cnt'LENGTH) then
+						flash_state <= XIP_CONFIRM;
+						trx_cnt <= to_unsigned(DUMMY_CYCLES-1, trx_cnt'LENGTH);
 					else
 						trx_cnt <= trx_cnt - 1;
 					end if;
-				when MODE =>
+					
+				when XIP_CONFIRM =>
 					flash_state <= DUMMY;
-					trx_cnt <= to_unsigned(DUMMY_CYCLES, 3); -- 1 mode cycle + N dummy cycles
+					trx_cnt <= trx_cnt - 1;
+					
 				when DUMMY =>
 					-- bus turnaround
-					trx_cnt <= trx_cnt - 1;
-					if trx_cnt = "000" then
+					if trx_cnt = to_unsigned(0,trx_cnt'LENGTH) then
 						flash_state <= READ_DATA;
-						--trx_cnt <= to_unsigned(7,3);
+						trx_cnt <= to_unsigned(7,trx_cnt'LENGTH);
+						burst_start(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH downto 2);
+					else
+						trx_cnt <= trx_cnt - 1;
 					end if;
+					
 				when READ_DATA =>
-					if trx_cnt = "000" then
+					if trx_cnt = to_unsigned(0,trx_cnt'LENGTH) then
 						if pause = '0' then
 							WB_DAT_O <= data_buf & SPI_IO;
 						end if;
-						if start_transfer = '1' and ack_int(1) /= '1' then
-							if addr_buf(FLASH_ADR_WIDTH downto 2) = WB_ADR_I(FLASH_ADR_WIDTH downto 2) then
-								data_buf <= data_buf(23 downto 0) & SPI_IO;
-								trx_cnt <= trx_cnt - 1;
-								--ack needs two cycles to be recognized by 50MHz domain
-								ack_int <= "11";
+						if start_transfer = '1' then
+							if burst_cnt = 0 then
+								burst_start(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH downto 2);
+							end if;
+							if pause = '0' or ( pause = '1' and addr_buf(FLASH_ADR_WIDTH downto 2) = WB_ADR_I(FLASH_ADR_WIDTH downto 2)) then
+								--data_buf <= data_buf(23 downto 0) & SPI_IO;
+								trx_cnt <= to_unsigned(7,trx_cnt'LENGTH);
+								--synchronize ack signal
+								if sync_state = '0' then
+									ack_int <= "110";
+								elsif pause = '1' then
+									ack_int <= "100"; 
+								else
+									ack_int <= "011";
+								end if;
 								addr_buf <= std_logic_vector(unsigned(addr_buf) + 4);
-								pause <= pause;
+								
 								if WB_CTI_I = "010" then
 									-- incrementing address burst cycle
 									burst_cnt <= burst_cnt + 1;
-									if burst_cnt = 0 then
-										burst_start(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH downto 2);
-									elsif burst_wrap = '1' then
+									
+									if burst_wrap = '1' then
 										addr_buf <= addr_clipped;
 										flash_state <= RESTART;
-										trx_cnt <= to_unsigned(0,3);
+										trx_cnt <= to_unsigned(0,trx_cnt'LENGTH);
+										trx_cnt(0) <= not sync_state;
 									end if;
 								elsif WB_CTI_I = "111" then
 									burst_cnt <= (others => '0');
 								end if;
-							else
+							else -- if addr_buf
 								-- we (pre)read the wrong address -> restart with correct one
 								addr_buf <= (others => '0');
 								addr_buf(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH downto 2);
 								flash_state <= RESTART;
-								trx_cnt <= to_unsigned(1,3); -- we need one additional clock cycle to stay in sync
-							end if;
-						else
+								trx_cnt <= to_unsigned(0,trx_cnt'LENGTH);
+								trx_cnt(0) <= sync_state; -- we need one additional clock cycle to stay in sync
+							end if; -- if addr_buf
+						else -- if start_transfer
+							-- pre read finished, pause until next request
+							burst_start(FLASH_ADR_WIDTH downto 2) <= addr_buf(FLASH_ADR_WIDTH downto 2);
 							pause <= '1';
 						end if;
-					elsif pause = '0' then
+					elsif pause = '0' then -- if trx_cnt
 						-- TODO: also check address here, so pre-reads my be aborted if they got the wrong address
 						data_buf <= data_buf(23 downto 0) & SPI_IO;
 						trx_cnt <= trx_cnt - 1;
 					end if;
+					
 				when RESTART =>
-					if trx_cnt = "000" then
+					if trx_cnt = to_unsigned(0,trx_cnt'LENGTH) then
 						flash_state <= ADDRESS;
-						trx_cnt <= to_unsigned(5,3);
+						trx_cnt <= to_unsigned(5,trx_cnt'LENGTH);
 					else
 						trx_cnt <= trx_cnt - 1;
 					end if;
@@ -222,5 +248,4 @@ begin
 		end if;
 	end process;
 	
-	WB_ACK_O <= '1' when start_transfer = '1' and (ack_int(1) = '1' or (pause = '1' and addr_buf(FLASH_ADR_WIDTH downto 2) = WB_ADR_I(FLASH_ADR_WIDTH downto 2))) else '0';
 end architecture rtl;

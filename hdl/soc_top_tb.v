@@ -80,6 +80,12 @@ module soc_top_tb;
 	wire ddr2_ck;
 	wire ddr2_ck_n;
 	
+	// flash
+	
+	wire flash_sck;
+	wire flash_csn;
+	wire [3:0] flash_io;
+	
 	// Bidirs
 	wire MDIO_pin;
 
@@ -144,9 +150,9 @@ module soc_top_tb;
 		.tck_pad_i(),
 		.tdi_pad_i(),
 		
-		.flash_spi_csn(),
-		.flash_spi_sck(),
-		.flash_spi_io()
+		.flash_spi_csn(flash_csn),
+		.flash_spi_sck(flash_sck),
+		.flash_spi_io(flash_io)
 
 	);
 	
@@ -168,7 +174,15 @@ module soc_top_tb;
 		.odt(ddr2_odt)
 	);
 
-       
+    N25Qxxx flash0 (
+	.S(flash_csn),
+	.C(flash_sck),
+	.HOLD_DQ3(flash_io[3]),
+	.DQ0(flash_io[0]),
+	.DQ1(flash_io[1]),
+	.Vcc(3300),
+	.Vpp_W_DQ2(flash_io[2]));
+	
 		   // Loopback
    assign GMII_RX_DV_pin  = GMII_TX_EN_pin;
    assign GMII_RXD_pin    = GMII_TXD_pin;

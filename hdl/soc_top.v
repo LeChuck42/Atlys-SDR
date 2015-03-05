@@ -242,7 +242,7 @@ module soc_top # (
 	// speed limitations in the Spartan-3. Let's try running it at full speed.
 	//wire wb_clk = clk_125;
 	
-	wire clk_flash_io = clk_fwd; // 100MHz
+	wire clk_flash_io = clk100; // 100MHz
 	
 	wire baud_clk = clk_8;
 	
@@ -551,8 +551,8 @@ module soc_top # (
 			.SPI_CSN(flash_spi_csn),
 			.SPI_CLK(flash_spi_sck),
 			.SPI_IO(flash_spi_io),
-			.WB_RST_I(wb_clk),
-			.WB_CLK_I(wb_rst),
+			.WB_RST_I(wb_rst),
+			.WB_CLK_I(wb_clk),
 			.WB_ADR_I(wb_m2s_flash0_adr),
 			.WB_DAT_I(wb_m2s_flash0_dat),
 			.WB_DAT_O(wb_s2m_flash0_dat),
