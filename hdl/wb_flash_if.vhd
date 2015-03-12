@@ -65,8 +65,9 @@ begin
 	SPI_IO(2) <= addr_buf(22) when flash_state = ADDRESS else 'Z';
 	SPI_IO(3) <= addr_buf(23) when flash_state = ADDRESS else 'Z';
 		
-	SPI_CSN <= flash_init_cs(flash_init_cs'LEFT) when flash_state = INIT else
-		'0' when flash_state /= RESTART else '1';
+	SPI_CSN <= '1'                               when RESET = '1' else
+	           flash_init_cs(flash_init_cs'LEFT) when flash_state = INIT else
+		       '0'                               when flash_state /= RESTART else '1';
 	
 	SPI_CLK <= CLK_INV when (flash_state /= RESTART and pause = '0') else 'Z'; -- todo: check for fast alternative
 	
@@ -129,7 +130,7 @@ begin
 			ack_int <= (others => '0');
 			-- INIT COMMANDS:  WREN          WRVCR   DATA               WREN          WRVECR  DATA               QIOR
 			flash_init_data <= x"06" & "0" & x"81" & "11110000" & "0" & x"06" & "0" & x"61" & "01011111" & "0" & x"EB";
-			flash_init_cs   <= x"FF" & "0" & x"FF" & "11111111" & "0" & x"FF" & "0" & x"FF" & "11111111" & "0" & x"FF";
+			flash_init_cs   <= x"00" & "1" & x"00" & "00000000" & "1" & x"00" & "1" & x"00" & "00000000" & "1" & x"00";
 			data_buf <= (others => '0');
 			WB_DAT_O <= (others => '0');
 			pause <= '0';
@@ -155,7 +156,7 @@ begin
 					
 					if trx_cnt = to_unsigned(0,trx_cnt'LENGTH) then
 						flash_state <= ADDRESS;
-						trx_cnt <= to_unsigned(5,3);
+						trx_cnt <= to_unsigned(5,trx_cnt'LENGTH);
 					else
 						trx_cnt <= trx_cnt - 1;
 					end if;

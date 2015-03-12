@@ -155,7 +155,7 @@ module soc_top_tb;
 		.flash_spi_io(flash_io)
 
 	);
-	
+	pullup flash_sck_pull(flash_sck); 
 	ddr2_model_c3 ddr2_model_c3_inst (
 		.ck(ddr2_ck),
 		.ck_n(ddr2_ck_n),
@@ -232,11 +232,6 @@ module soc_top_tb;
 		
 		#100;*/
 		rs232_send(8'h41); // arm scope
-		
-		#100;
-		btn = 6'h3E;
-		#5000;
-		btn = 6'h3F;
 	end
 	
 	task rs232_send;

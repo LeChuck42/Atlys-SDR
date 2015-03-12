@@ -130,7 +130,8 @@ module soc_top # (
 		.dbg_tck_o (dbg_tck),
 		.ddr2_if_clk_o (ddr2_if_clk),
 		.ddr2_if_rst_o (ddr2_if_rst),
-		.clk100_o (clk100)
+		.clk100_o (clk100),
+		.clk_mux_prebufg (clk_mux),
 		);
 	// System clock
 	//wire clk_100;
@@ -139,114 +140,6 @@ module soc_top # (
 	//	.O(clk_100));
 	// 125 MHz for PHY. 90 degree shifted clock drives PHY's GMII_TX_CLK.
 	wire clk_8, clk_50, clk_125, clk_fwd, clk_125_GTX_CLK, pll_locked;
-	//wire pll_rst;
-	//clk_gen clk_125_tx(
-	//	.CLK_IN1(clk_100_pin),
-	//	.CLK_OUT1(clk_125), // 0 deg
-	//	.CLK_OUT2(clk_125_GTX_CLK),// 90 deg
-	//	.CLK_OUT3(clk_50),
-	//	.CLK_OUT4(clk_8),
-	//	.CLK_OUT5(clk_fwd),
-		//.RESET(pll_rst),
-	//	.LOCKED(pll_locked));
-	
-	wire clk_mux, clk_mux_out, clk_250_int, clk_mux_div, clk_mux_div_int, mux_pll_locked, clkfbout, clkfbout_buf;
-   PLL_BASE
-   #(.BANDWIDTH             ("OPTIMIZED"),
-     .CLK_FEEDBACK          ("CLKFBOUT"),
-     .COMPENSATION          ("SYSTEM_SYNCHRONOUS"),
-     .DIVCLK_DIVIDE         (1),
-     .CLKFBOUT_MULT         (10),
-     .CLKFBOUT_PHASE        (0.000),
-     .CLKOUT0_DIVIDE        (2),
-     .CLKOUT0_PHASE         (0.000),
-     .CLKOUT0_DUTY_CYCLE    (0.500),
-	  .CLKOUT1_DIVIDE        (4),
-	  .CLKOUT1_PHASE         (90.000),
-	  .CLKOUT1_DUTY_CYCLE    (0.500),
-     .CLKOUT2_DIVIDE        (16),
-     .CLKOUT2_PHASE         (0.000),
-     .CLKOUT2_DUTY_CYCLE    (0.500),
-     .CLKIN_PERIOD          (10.0),
-     .REF_JITTER            (0.010))
-   pll_base_inst
-     // Output clocks
-    (
-	  .CLKFBOUT              (clkfbout),
-     .CLKOUT0               (clk_mux),
-     .CLKOUT1               (clk_250_int),
-     .CLKOUT2               (clk_mux_div_int),
-     .CLKOUT3               (),
-     .CLKOUT4               (),
-     .CLKOUT5               (),
-     // Status and control signals
-     .LOCKED                (mux_pll_locked),
-     .RST                   (1'b0),
-      // Input clock control
-     .CLKFBIN               (clkfbout_buf),
-     .CLKIN                 (clk_fwd));
-
-	BUFG clkf_buf
-    (.O (clk_mux_div),
-     .I (clk_mux_div_int));
-	  
-	BUFG clkout_buf
-	 (.O (clk_mux_out),
-	  .I (clk_250_int));
-	  
-	BUFG clkfb_buf
-    (.O (clkfbout_buf),
-     .I (clkfbout));
-	
-	wire fpga_mux_clk;
-	ODDR2 ODDR_FPGA_MUX (
-		.Q(fpga_mux_clk),      // Data output (connect directly to top-level port)
-      .C0(clk_mux_out),    // 0 degree clock input
-      .C1(~clk_mux_out),    // 180 degree clock input
-      .CE(1'b1),    // Clock enable input
-      .D0(1'b0),    // Posedge data input
-      .D1(1'b1),    // Negedge data input
-      .R(1'b0),      // Synchronous reset input
-      .S(1'b0)       // Synchronous preset input
-      );
-
-	OBUFDS #(
-      .IOSTANDARD("LVDS_25") // Specify the output I/O standard
-   ) OBUFDS_inst (
-      .O(VHDCI_MUX_CLK_P),     // Diff_p output (connect directly to top-level port) (p type differential o/p)
-      .OB(VHDCI_MUX_CLK_N),   // Diff_n output (connect directly to top-level port) (n type differential o/p)
-      .I(fpga_mux_clk)      // Buffer input (this is the single ended standard)
-   );
-	
-	// PLL reset logic
-	// Based on http://forums.xilinx.com/t5/Spartan-Family-FPGAs/RESET-SIGNALS/m-p/133182#M10198
-	/*
-	reg [25:0] pll_status_counter = 0;
-	always @(posedge clk_100)
-		if (pll_locked)
-			pll_status_counter <= 0;
-		else
-			pll_status_counter <= pll_status_counter + 1'b1;
-			
-	assign pll_rst = (pll_status_counter > (2**26 - 26'd20)); // Reset for 20 cycles
-		*/
-	// The USRP2 has a 125 MHz oscillator connected to clk_to_mac. While the
-	// 88E1111 generates a 125 MHz reference (125CLK), this isn't connected.
-	// We generate this clock from the Atlys' 100 MHz oscillator using the DCM.
-	wire clk_to_mac = clk_125;
-	
-	// USRP2 runs the GEMAC's FIFOs at 100 MHz, though this is buffered through a DCM.
-	wire dsp_clk = clk_125;
-	
-	// USRP2 runs its CPU and the Wishbone bus at 50 MHz system clock, possibly due to
-	// speed limitations in the Spartan-3. Let's try running it at full speed.
-	//wire wb_clk = clk_125;
-	
-	wire clk_flash_io = clk100; // 100MHz
-	
-	wire baud_clk = clk_8;
-	
-	wire adc_clk;
 
 
 	// Hold the FSMs in reset until the PLL has locked
@@ -290,14 +183,7 @@ module soc_top # (
 	// LEDs for debugging
 	// reg [7:0] ledreg;
 	assign leds = {mux_synced, mux_in[6:0]};//{4'b1111,pll_locked, mux_pll_locked, mux_synced, scope_triggered};;
-	/*
-	always @(posedge dsp_clk) begin
-		ledreg[5:0] <= {2'd0, gemac_debug};
-	end
-	
-	always @(mux_synced, scope_triggered) begin
-		ledreg[7:6] = {mux_synced, scope_triggered};
-	end*/
+
 	
 	// Sync a pushbutton to FSM clock to initiate packet
 	wire sw_send_packet, sw_reconfig;
