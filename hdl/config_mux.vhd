@@ -48,7 +48,7 @@ entity config_mux is
 end config_mux;
 
 architecture rtl of config_mux is
-	type state_t is (IDLE, ADDRESS, WR_DATA, RD_DATA);
+	type state_t is (IDLE, ADDR, WR_DATA, RD_DATA);
 	signal state : state_t;
 begin
 	
@@ -69,10 +69,10 @@ begin
 			case (state) is
 				when IDLE =>
 					if rx_empty = '0' then
-						state <= ADDRESS;
+						state <= ADDR;
 					end if;
 				
-				when ADDRESS =>
+				when ADDR =>
 					if rx_empty = '0' then
 						address <= rx_data(15 downto 0);
 						

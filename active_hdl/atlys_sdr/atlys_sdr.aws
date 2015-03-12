@@ -1,0 +1,12 @@
+[Version]
+Version=10.1
+[Designs]
+soc=.\soc\soc.adf
+[Browser]
+sort=order
+mode=none
+[Order]
+order=1
+macro=
+[Expand]
+soc=1

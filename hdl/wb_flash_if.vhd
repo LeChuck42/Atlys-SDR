@@ -41,7 +41,7 @@ architecture rtl of wb_flash_if is
 	signal burst_cnt:       unsigned (3 downto 0);
 	signal flash_init_data: std_logic_vector(59 downto 0);
 	signal flash_init_cs:   std_logic_vector(59 downto 0);
-	signal flash_command:   std_logic_vector(7 downto 0)
+	signal flash_command:   std_logic_vector(7 downto 0);
 	signal data_buf:        std_logic_vector(27 downto 0);
 	signal burst_wrap:      std_logic;
 	signal addr_clipped:    std_logic_vector(23 downto 0);
