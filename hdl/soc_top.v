@@ -45,10 +45,10 @@ module soc_top # (
 
 	input wire [1:0] adc_chb_p,
 	input wire [1:0] adc_chb_n,
-		
+	
 	input wire adc_bit_clk_p,
 	input wire adc_bit_clk_n,
-		
+	
 	input wire adc_frame_sync_p,
 	input wire adc_frame_sync_n,
 	
@@ -69,43 +69,43 @@ module soc_top # (
 	// DDR2
 	output wire [12:0] ddr2_a,
 	output wire [2:0] ddr2_ba,
-	output wire	ddr2_ras_n,
-	output wire	ddr2_cas_n,
-	output wire	ddr2_we_n,
-	output wire	ddr2_rzq,
-	output wire	ddr2_zio,
-	output wire	ddr2_odt,
-	output wire	ddr2_cke,
-	output wire	ddr2_dm,
-	output wire	ddr2_udm,
+	output wire ddr2_ras_n,
+	output wire ddr2_cas_n,
+	output wire ddr2_we_n,
+	output wire ddr2_rzq,
+	output wire ddr2_zio,
+	output wire ddr2_odt,
+	output wire ddr2_cke,
+	output wire ddr2_dm,
+	output wire ddr2_udm,
 	inout wire [15:0] ddr2_dq,
-	inout	wire ddr2_dqs,
-	inout	wire ddr2_dqs_n,
-	inout	wire ddr2_udqs,
-	inout	wire ddr2_udqs_n,
-	output wire	ddr2_ck,
-	output wire	ddr2_ck_n,
+	inout wire ddr2_dqs,
+	inout wire ddr2_dqs_n,
+	inout wire ddr2_udqs,
+	inout wire ddr2_udqs_n,
+	output wire ddr2_ck,
+	output wire ddr2_ck_n,
 
 	// Serial (USB)
 	output wire rs232_tx,
 	input wire rs232_rx,
 	
 	// JTAG
-	output wire	tdo_pad_o,
-	input wire	tms_pad_i,
-	input wire	tck_pad_i,
-	input wire	tdi_pad_i,
+	output wire tdo_pad_o,
+	input wire tms_pad_i,
+	input wire tck_pad_i,
+	input wire tdi_pad_i,
 	
 	// Flash
 	output wire flash_spi_csn,
 	output wire flash_spi_sck,
 	inout wire [3:0] flash_spi_io
-   );
+	);
 
 	wire wb_rst, wb_clk;
 `include "wb_intercon.vh"
 
-   localparam ADC_PACKET_SIZE	= 10'd128;
+   localparam ADC_PACKET_SIZE = 10'd128;
 
 	////////////////////////////////////////////////////////////////////////
 	//
@@ -113,62 +113,77 @@ module soc_top # (
 	//
 	////////////////////////////////////////////////////////////////////////
 
-	wire	dbg_tck;
-	wire	dvi_clk;
-	wire	ddr2_if_clk;
-	wire	ddr2_if_rst;
-	wire	clk100;
-	wire  phy_rst;
+	wire dbg_tck;
+	wire ddr2_if_clk;
+	wire ddr2_if_rst;
+	wire rst_100;
+	wire clk_100;
+	wire phy_rst;
+	wire clk_mux;
+	wire clk_mux_out;
+	wire clk_125;
+	wire rst_125;
+	wire clk_125_GTX_CLK;
+	wire clk_io;
+	wire clk_io_inv;
+	wire pll_lock;
 	
 	clkgen clkgen0 (
 		.sys_clk_pad_i (clk_100_pin),
 		.rst_n_pad_i (btn[0]),
-		.async_rst_o (),
+		.pll_lock_o (pll_lock),
+		
 		.wb_clk_o (wb_clk),
 		.wb_rst_o (wb_rst),
+		
+		.io_clk_o (clk_io),
+		.io_clk_inv_o (clk_io_inv),
+		
 		.tck_pad_i (tck_pad_i),
 		.dbg_tck_o (dbg_tck),
 		.ddr2_if_clk_o (ddr2_if_clk),
 		.ddr2_if_rst_o (ddr2_if_rst),
-		.clk100_o (clk100),
-		.clk_mux_prebufg (clk_mux),
+		.rst100_o (rst_100),
+		.clk100_o (clk_100),
+		.clk500_prebufg_o (clk_mux),
+		.clk250_o(clk_mux_out),
+		.clk125_o(clk_125),
+		.rst125_o(rst_125),
+		.clk125_90_o(clk_125_GTX_CLK)
 		);
-	// System clock
-	//wire clk_100;
-	//IBUFG ibufg_100 (
-	//	.I(clk_100_pin),
-	//	.O(clk_100));
-	// 125 MHz for PHY. 90 degree shifted clock drives PHY's GMII_TX_CLK.
-	wire clk_8, clk_50, clk_125, clk_fwd, clk_125_GTX_CLK, pll_locked;
-
-
-	// Hold the FSMs in reset until the PLL has locked
-	wire dsp_rst;
-	wire all_plls_locked;
-	reset reset (
-		.clk(dsp_clk),
-		.pll_lock(pll_locked),
-		.rst_1(),
-		
-		.clk_2(dsp_clk),
-		.rst_2(dsp_rst),
-	
-		.ext_reset(sw_reconfig));
 
 	//  Drive the GTX_CLK output from a DDR register
-	wire GMII_GTX_CLK_int;
-	
 	ODDR2 ODDR_gmii (
 		.Q(GMII_TX_CLK_pin),      // Data output (connect directly to top-level port)
-      .C0(clk_125_GTX_CLK),    // 0 degree clock input
-      .C1(~clk_125_GTX_CLK),    // 180 degree clock input
-      .CE(1'b1),    // Clock enable input
-      .D0(1'b0),    // Posedge data input
-      .D1(1'b1),    // Negedge data input
-      .R(1'b0),      // Synchronous reset input
-      .S(1'b0)       // Synchronous preset input
-      );
+		.C0(clk_125_GTX_CLK),    // 0 degree clock input
+		.C1(~clk_125_GTX_CLK),    // 180 degree clock input
+		.CE(1'b1),    // Clock enable input
+		.D0(1'b0),    // Posedge data input
+		.D1(1'b1),    // Negedge data input
+		.R(1'b0),      // Synchronous reset input
+		.S(1'b0)       // Synchronous preset input
+		);
 	
+	wire fpga_mux_clk;
+	
+	ODDR2 ODDR_FPGA_MUX (
+	  .Q(fpga_mux_clk),     // Data output (connect directly to top-level port)
+	  .C0(clk_mux_out),     // 0 degree clock input
+	  .C1(~clk_mux_out),    // 180 degree clock input
+	  .CE(1'b1),     // Clock enable input
+	  .D0(1'b0),     // Posedge data input
+	  .D1(1'b1),     // Negedge data input
+	  .R(1'b0),      // Synchronous reset input
+	  .S(1'b0)       // Synchronous preset input
+	  );
+	  
+	OBUFDS #(
+	  .IOSTANDARD("LVDS_25") // Specify the output I/O standard
+   ) OBUFDS_inst (
+	  .O(VHDCI_MUX_CLK_P),     // Diff_p output (connect directly to top-level port) (p type differential o/p)
+	  .OB(VHDCI_MUX_CLK_N),   // Diff_n output (connect directly to top-level port) (n type differential o/p)
+	  .I(fpga_mux_clk)      // Buffer input (this is the single ended standard)
+   );
 	// Register MAC outputs
 	wire GMII_TX_EN, GMII_TX_ER;
 	wire [7:0] GMII_TXD;
@@ -183,12 +198,6 @@ module soc_top # (
 	// LEDs for debugging
 	// reg [7:0] ledreg;
 	assign leds = {mux_synced, mux_in[6:0]};//{4'b1111,pll_locked, mux_pll_locked, mux_synced, scope_triggered};;
-
-	
-	// Sync a pushbutton to FSM clock to initiate packet
-	wire sw_send_packet, sw_reconfig;
-	edge_detect edge_detect_s1 (.async_sig(btn[2]), .clk(dsp_clk), .rise(), .fall(sw_send_packet));
-	edge_detect edge_detect_s2 (.async_sig(btn[1]), .clk(dsp_clk), .rise(), .fall(sw_reconfig));
 
 	/*
 	config_mux config_mux_inst (
@@ -208,47 +217,46 @@ module soc_top # (
 		.dout : out STD_LOGIC_VECTOR (31 downto 0);
 		.din : in STD_LOGIC_VECTOR (31 downto 0));
 	*/
-	// The top module of the USRP2 MAC core
 	localparam dw = 32; // WB data bus width
 	localparam aw = 8; // WB address bus width
-	//wire wb_rst;
-   wire rd2_dst_rdy, wr2_dst_rdy;
+
+	wire rd2_dst_rdy, wr2_dst_rdy;
 	wire wr2_src_rdy, rd2_src_rdy;
-   wire [3:0] 	 wr2_flags;
-	wire [3:0]   rd2_flags;
-   wire [31:0]  rd2_data;
-	wire [31:0]	 wr2_data;
-   wire [dw-1:0] wb_dat_o;
+	wire [3:0]    wr2_flags;
+	wire [3:0]    rd2_flags;
+	wire [31:0]   rd2_data;
+	wire [31:0]   wr2_data;
+	wire [dw-1:0] wb_dat_o;
 	wire [dw-1:0] wb_dat_i;
 	wire [aw-1:0] wb_adr;
 	wire wb_ack;
 	wire wb_stb, wb_cyc, wb_we;
-	wire [79:0] debug_mac;
+	wire [79:0]   debug_mac;
 	
 	simple_gemac_wrapper #(
 		.RXFIFOSIZE(9), .TXFIFOSIZE(6)
-		) simple_gemac_wrapper (
+		) simple_gemac_wrapper_inst (
 		
-		.clk125(clk_to_mac),
-		.reset(wb_rst),
-	  
+		.clk125(clk_125),
+		.reset(rst_125),
+
 		// PHY pins
-      .GMII_GTX_CLK(GMII_GTX_CLK_int), .GMII_TX_EN(GMII_TX_EN),
-      .GMII_TX_ER(GMII_TX_ER), .GMII_TXD(GMII_TXD),
-      .GMII_RX_CLK(GMII_RX_CLK_pin), .GMII_RX_DV(GMII_RX_DV_pin),  
-      .GMII_RX_ER(GMII_RX_ER_pin), .GMII_RXD(GMII_RXD_pin),
+		.GMII_GTX_CLK(clk_125_GTX_CLK), .GMII_TX_EN(GMII_TX_EN),
+		.GMII_TX_ER(GMII_TX_ER), .GMII_TXD(GMII_TXD),
+		.GMII_RX_CLK(GMII_RX_CLK_pin), .GMII_RX_DV(GMII_RX_DV_pin),
+		.GMII_RX_ER(GMII_RX_ER_pin), .GMII_RXD(GMII_RXD_pin),
 		.mdio(MDIO_pin), .mdc(MDC_pin),
 		
 		// I/O buses
-		.sys_clk(dsp_clk),
-      .rx_f36_data({rd2_flags,rd2_data}), .rx_f36_src_rdy(rd2_src_rdy), .rx_f36_dst_rdy(rd2_dst_rdy),
-      .tx_f36_data({wr2_flags,wr2_data}), .tx_f36_src_rdy(wr2_src_rdy), .tx_f36_dst_rdy(wr2_dst_rdy),
+		.sys_clk(clk_100),
+		.rx_f36_data({rd2_flags,rd2_data}), .rx_f36_src_rdy(rd2_src_rdy), .rx_f36_dst_rdy(rd2_dst_rdy),
+		.tx_f36_data({wr2_flags,wr2_data}), .tx_f36_src_rdy(wr2_src_rdy), .tx_f36_dst_rdy(wr2_dst_rdy),
 		
 		// Wishbone signals
-      .wb_clk(wb_clk), .wb_rst(wb_rst), .wb_stb(wb_stb), .wb_cyc(wb_cyc), .wb_ack(wb_ack),
-      .wb_we(wb_we), .wb_adr(wb_adr), .wb_dat_i(wb_dat_o), .wb_dat_o(wb_dat_i),
-      
-      .debug(debug_mac));
+		.wb_clk(wb_clk), .wb_rst(wb_rst), .wb_stb(wb_stb), .wb_cyc(wb_cyc), .wb_ack(wb_ack),
+		.wb_we(wb_we), .wb_adr(wb_adr), .wb_dat_i(wb_dat_o), .wb_dat_o(wb_dat_i),
+	
+		.debug(debug_mac));
 	
 	// After the PLL has locked, configure the MAC and PHY using a state machine
 	wire gemac_ready;
@@ -267,7 +275,7 @@ module soc_top # (
 		.wb_dat_o(wb_dat_o),
 		
 		.phy_reset(PhyResetOut_pin), // Connect to PHY's reset pin
-		.reset(dsp_rst),
+		.reset(rst_100),
 		.debug(gemac_debug),
 		.ready(gemac_ready)); // Signal to rest of the system that negotiation is complete
 
@@ -280,7 +288,7 @@ module soc_top # (
 	assign sec_packet_size_i = 9'd128;
 	// Send out Ethernet packets
 	packet_sender packet_sender (
-		.clk(dsp_clk),
+		.clk(clk_100),
 		.reset(~gemac_ready),
 		.wr_flags_o(wr2_flags),
 		.wr_data_o(wr2_data),
@@ -300,22 +308,22 @@ module soc_top # (
 	wire [31:0] adc_data;
 	wire adc_data_we;
 	adc_sample_fifo adc_sample_fifo_inst (
-	  .rst(~gemac_ready), // input rst
-	  .wr_clk(adc_clk), // input wr_clk
-	  .rd_clk(dsp_clk), // input rd_clk
-	  .din(adc_data), // input [31 : 0] din
-	  .wr_en(adc_data_we), // input wr_en
-	  .rd_en(adc_data_re), // input rd_en
-	  .prog_empty_thresh(ADC_PACKET_SIZE), // input [9 : 0] prog_empty_thresh
-	  .dout(adc_fifo_d), // output [31 : 0] dout
-	  .full(), // output full
-	  .overflow(), // output overflow
-	  .empty(), // output empty
-	  .prog_empty(adc_fifo_ae) // output prog_empty
+		.rst(~gemac_ready), // input rst
+		.wr_clk(clk_100), // input wr_clk
+		.rd_clk(clk_100), // input rd_clk
+		.din(adc_data), // input [31 : 0] din
+		.wr_en(adc_data_we), // input wr_en
+		.rd_en(adc_data_re), // input rd_en
+		.prog_empty_thresh(ADC_PACKET_SIZE), // input [9 : 0] prog_empty_thresh
+		.dout(adc_fifo_d), // output [31 : 0] dout
+		.full(), // output full
+		.overflow(), // output overflow
+		.empty(), // output empty
+		.prog_empty(adc_fifo_ae) // output prog_empty
 	);
 	
 	adc_rx adc_rx (
-		.clk(dsp_clk),
+		.clk(clk_100),
 		.reset(~gemac_ready),
 		
 		.adc_cha_p(adc_cha_p),
@@ -330,7 +338,7 @@ module soc_top # (
 		.frame_sync_p(adc_frame_sync_p),
 		.frame_sync_n(adc_frame_sync_n),
 		
-		.clk_adc(adc_clk),
+		.clk_adc(clk_100),
 		.data_we(adc_data_we),
 		.data(adc_data));
 	
@@ -339,7 +347,7 @@ module soc_top # (
 	wire udp_data_out_en;
 	
 	packet_receiver packet_receiver (
-		.clk(dsp_clk),
+		.clk(clk_100),
 		.reset(~gemac_ready),
 		
 		.rd_flags_i(rd2_flags),
@@ -352,22 +360,22 @@ module soc_top # (
 		.data_out(udp_data_out)
 	);
 	
-	wire	[31:0] or1k_irq;
-	wire	[31:0] or1k_dbg_dat_i;
-	wire	[31:0] or1k_dbg_adr_i;
-	wire	or1k_dbg_we_i;
-	wire	or1k_dbg_stb_i;
-	wire	or1k_dbg_ack_o;
-	wire	[31:0] or1k_dbg_dat_o;
-	wire	or1k_dbg_stall_i;
-	wire	or1k_dbg_ewt_i;
-	wire	[3:0] or1k_dbg_lss_o;
-	wire	[1:0] or1k_dbg_is_o;
-	wire	[10:0] or1k_dbg_wp_o;
-	wire	or1k_dbg_bp_o;
-	wire	or1k_dbg_rst;
-	wire	sig_tick;
-	wire	or1k_rst;
+	wire [31:0] or1k_irq;
+	wire [31:0] or1k_dbg_dat_i;
+	wire [31:0] or1k_dbg_adr_i;
+	wire or1k_dbg_we_i;
+	wire or1k_dbg_stb_i;
+	wire or1k_dbg_ack_o;
+	wire [31:0] or1k_dbg_dat_o;
+	wire or1k_dbg_stall_i;
+	wire or1k_dbg_ewt_i;
+	wire [3:0] or1k_dbg_lss_o;
+	wire [1:0] or1k_dbg_is_o;
+	wire [10:0] or1k_dbg_wp_o;
+	wire or1k_dbg_bp_o;
+	wire or1k_dbg_rst;
+	wire sig_tick;
+	wire or1k_rst;
 	assign or1k_rst = wb_rst | or1k_dbg_rst;
 	
 	mor1kx #(
@@ -430,13 +438,14 @@ module soc_top # (
 		.du_stall_o(or1k_dbg_bp_o)
 	);
 	
+	wire clk_spi_en;
 	wb_flash_if #(.FLASH_ADR_WIDTH(18), .DUMMY_CYCLES(5))
 		flash0 (
-			.CLK(clk_flash_io),
+			.CLK(clk_io),
 			.RESET(wb_rst),
 			.SPI_CSN(flash_spi_csn),
-			.SPI_CLK(flash_spi_sck),
 			.SPI_IO(flash_spi_io),
+			.SPI_CLKEN(clk_spi_en),
 			.WB_RST_I(wb_rst),
 			.WB_CLK_I(wb_clk),
 			.WB_ADR_I(wb_m2s_flash0_adr),
@@ -452,6 +461,11 @@ module soc_top # (
 			.WB_RTY_O(wb_s2m_flash0_rty),
 			.WB_ERR_O(wb_s2m_flash0_err));
 	
+	BUFGCE bufgce_spi_clk (
+		.I (clk_io_inv),
+		.CE (clk_spi_en),
+		.O (flash_spi_sck));
+		
 	wire uart0_irq;
 	
 	wb_uart #(.clk_div_val(27))
@@ -486,14 +500,14 @@ module soc_top # (
 	//
 	////////////////////////////////////////////////////////////////////////
 
-	wire	dbg_if_select;
-	wire	dbg_if_tdo;
-	wire	jtag_tap_tdo;
-	wire	jtag_tap_shift_dr;
-	wire	jtag_tap_pause_dr;
-	wire	jtag_tap_update_dr;
-	wire	jtag_tap_capture_dr;
-	wire  async_reset;
+	wire dbg_if_select;
+	wire dbg_if_tdo;
+	wire jtag_tap_tdo;
+	wire jtag_tap_shift_dr;
+	wire jtag_tap_pause_dr;
+	wire jtag_tap_update_dr;
+	wire jtag_tap_capture_dr;
+	wire async_reset;
 	
 	tap_top jtag_tap0 (
 		.tdo_pad_o (tdo_pad_o),
@@ -709,13 +723,13 @@ module soc_top # (
 	wire scope_armed, scope_triggered;
 	
 	uart_scope uart_scope (
-		.reset(dsp_rst),
+		.reset(rst_100),
 		.rxd(1'b1),
 		.txd(),
-		.baud_clk(baud_clk),
+		.baud_clk(0),
 		
 		.probes(debug_mac),
-		.probe_clk(dsp_clk),
+		.probe_clk(rst_100),
 		.armed(scope_armed),
 		.triggered(scope_triggered)
 	);
@@ -756,7 +770,7 @@ module soc_top # (
 					sync_mon_expect <= !mux_in[7];
 					sync_mon_valid <= 1;
 				end
-			end else	if (mux_in != 8'h01 && mux_in != 8'h81) begin
+			end else if (mux_in != 8'h01 && mux_in != 8'h81) begin
 					sync_pattern <= 8'h01;
 					sync_mon_valid <= 0;
 					if (vhdci_mux_bitslip == 0 && bitslip_sync == 0)
@@ -772,23 +786,23 @@ module soc_top # (
 	
 	
 	FPGA_MUX vhdci_mux
-   (
-     // From the system into the device
-     .DATA_IN_FROM_PINS_P     ({VHDCI_MUX_IN_P}),
-     .DATA_IN_FROM_PINS_N     ({VHDCI_MUX_IN_N}),
-     .DATA_IN_TO_DEVICE       (mux_in),
-     // From the drive out to the system
-     .DATA_OUT_FROM_DEVICE    (mux_out),
-     .DATA_OUT_TO_PINS_P      ({VHDCI_MUX_OUT_P}),
-     .DATA_OUT_TO_PINS_N      ({VHDCI_MUX_OUT_N}),
-	  .CLK_TO_PINS_P           (),
-     .CLK_TO_PINS_N           (),
-     .BITSLIP                 (vhdci_mux_bitslip),
-     .CLK_IN                  (clk_mux),
-     .CLK_DIV_IN              (clk_mux_div),
-	  .LOCKED_IN               (mux_pll_locked),
-	  .LOCKED_OUT              (),
-     .IO_RESET                (dsp_rst));
+	(
+		// From the system into the device
+		.DATA_IN_FROM_PINS_P     ({VHDCI_MUX_IN_P}),
+		.DATA_IN_FROM_PINS_N     ({VHDCI_MUX_IN_N}),
+		.DATA_IN_TO_DEVICE       (mux_in),
+		// From the drive out to the system
+		.DATA_OUT_FROM_DEVICE    (mux_out),
+		.DATA_OUT_TO_PINS_P      ({VHDCI_MUX_OUT_P}),
+		.DATA_OUT_TO_PINS_N      ({VHDCI_MUX_OUT_N}),
+		.CLK_TO_PINS_P           (),
+		.CLK_TO_PINS_N           (),
+		.BITSLIP                 (vhdci_mux_bitslip),
+		.CLK_IN                  (clk_mux),
+		.CLK_DIV_IN              (1'b0),
+		.LOCKED_IN               (pll_lock),
+		.LOCKED_OUT              (),
+		.IO_RESET                (rst_100));
 
 	////////////////////////////////////////////////////////////////////////
 	//

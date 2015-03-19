@@ -2,4 +2,12 @@
 TemplateId=2
 [OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\xilinx_ddr2_wrapper/xilinx_ddr2_if.v|]
 TemplateId=2
+[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\wb_flash_if.vhd|]
+TemplateId=0
+[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\soc_top_tb.v|]
+TemplateId=2
+[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\soc_top.v|]
+TemplateId=2
 ActiveDocument=1
+[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\clkgen.v|]
+TemplateId=2

@@ -354,6 +354,6 @@ xilinxcorelib=
 [SpecTracer]
 WindowVisible=0
 [HierarchyViewer]
-HierarchyInformation= 
+HierarchyInformation=  
 ShowHide=ShowTopLevel
 Selected=

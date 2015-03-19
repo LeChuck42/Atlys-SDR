@@ -8,19 +8,33 @@
 
 `default_nettype none
  
-module clkgen
-       (
+module clkgen (
 	// Main clocks in, depending on board
 	input  sys_clk_pad_i,
 	// Asynchronous, active low reset in
 	input  rst_n_pad_i,
 	// Input reset - through a buffer, asynchronous
-	output async_rst_o,
+	output pll_lock_o,
 
 	// Wishbone clock and reset out
 	output wb_clk_o,
 	output wb_rst_o,
-
+	
+	output io_clk_o,
+	output io_clk_inv_o,
+	
+	output rst100_o,
+	output clk100_o,
+	output clk100_inv_o,
+	
+	output rst125_o,
+	output clk125_o,
+	output clk125_90_o,
+	
+	output clk250_o,
+	
+	output clk500_prebufg_o,
+	
 	// JTAG clock
 	input  tck_pad_i,
 	output dbg_tck_o,
@@ -29,193 +43,223 @@ module clkgen
 	output ddr2_if_clk_o,
 	output ddr2_if_rst_o,
 	
-	
-	output clk100_o,
-	output clk_500_prebufg,
-	
-	output VHDCI_MUX_CLK_P,
-	output VHDCI_MUX_CLK_N,
 
 	output clk_mux_out);
 // First, deal with the asychronous reset
-wire	async_rst_n;
+wire   async_rst_n;
 
 assign async_rst_n = rst_n_pad_i;
-
-// Everyone likes active-high reset signals...
-assign async_rst_o = ~async_rst_n;
 
 assign dbg_tck_o = tck_pad_i;
 
 //
 // Declare synchronous reset wires here
 //
+wire    plls_locked_n;
 
-// An active-low synchronous reset signal (usually a PLL lock signal)
-wire	sync_wb_rst_n;	   
-
-// An active-low synchronous reset from ethernet PLL
-wire	sync_eth_rst_n;
-
-
-wire	sys_clk_pad_ibufg;
+wire    sys_clk_pad_ibufg;
 /* DCM0 wires */
-wire	dcm0_clk0_prebufg, dcm0_clk0;
-wire	dcm0_clk90_prebufg, dcm0_clk90;
-wire	dcm0_clkfx_prebufg, dcm0_clkfx;
-wire	dcm0_clkdv_prebufg, dcm0_clkdv;
-wire	dcm0_locked;
+wire    dcm0_clk0_prebufg, clk_100;
+wire    dcm0_clk180_prebufg, clk_100_inv;
+wire    dcm0_clk2x_prebufg;
+wire    dcm0_clkfx_prebufg, dcm0_clkfx;
+wire    dcm0_locked;
 
-wire	pll0_clkfb;
-wire	pll0_locked;
-wire	pll0_clk1_prebufg, pll0_clk1;
-wire    clk_250_prebufg, clk_250;
-wire    clk_125_prebufg, clk_125;
-wire    clk_125_inv_prebufg, clk_125_inv;
-wire    clk_io_prebufg, clk_io;
-wire    clk_io_inv_prebufg, clk_io_inv;
+wire    dcm1_clk0_prebufg, dcm1_clk0;
+wire    dcm1_clkfx_prebufg, clk_io;
+wire    dcm1_clkfx180_prebufg, clk_io_inv;
+wire    dcm1_clkdv_prebufg, wb_clk;
+wire    dcm1_locked;
+
+wire    pll0_clkfb;
+wire    pll0_locked;
+wire    pll0_clk_500_prebufg;
+wire    pll0_clk_250_prebufg, clk_250;
+wire    pll0_clk_125_prebufg, clk_125;
+wire    pll0_clk_125_90_prebufg, clk_125_90;
 
 
 IBUFG sys_clk_in_ibufg (
-	.I	(sys_clk_pad_i),
-	.O	(sys_clk_pad_ibufg)
+	.I  (sys_clk_pad_i),
+	.O  (sys_clk_pad_ibufg)
 );
 
-
-// DCM providing main system/Wishbone clock
+// DCM providing pll and ddr clock
 DCM_SP #(
 	// Generate 266 MHz from CLKFX
-	.CLKFX_MULTIPLY	(8),
-	.CLKFX_DIVIDE	(3),
+	.CLKFX_MULTIPLY (8),
+	.CLKFX_DIVIDE   (3),
 
-	// Generate 50 MHz from CLKDV
-	.CLKDV_DIVIDE	(2.0)
+	.CLKDV_DIVIDE   (10)
 ) dcm0 (
 	// Outputs
-	.CLK0		(dcm0_clk0_prebufg),
-	.CLK180		(),
-	.CLK270		(),
-	.CLK2X180	(),
-	.CLK2X		(),
-	.CLK90		(dcm0_clk90_prebufg),
-	.CLKDV		(dcm0_clkdv_prebufg),
-	.CLKFX180	(dcm0_clkfx_prebufg),
-	.CLKFX		(),
-	.LOCKED		(dcm0_locked),
+	.CLK0       (dcm0_clk0_prebufg),
+	.CLK90      (),
+	.CLK180     (dcm0_clk180_prebufg),
+	.CLK270     (),
+	.CLK2X180   (),
+	.CLK2X      (dcm0_clk2x_prebufg),
+	.CLKDV      (),
+	.CLKFX180   (),
+	.CLKFX      (dcm0_clkfx_prebufg),
+	.LOCKED     (dcm0_locked),
 	// Inputs
-	.CLKFB		(dcm0_clk0),
-	.CLKIN		(sys_clk_pad_ibufg),
-	.PSEN		(1'b0),
-	.RST		(async_rst_o)
+	.CLKFB      (clk_100),
+	.CLKIN      (sys_clk_pad_ibufg),
+	.PSEN       (1'b0),
+	.RST        (async_rst_o)
 );
 
+BUFG dcm0_clk0_bufg
+	(.O (clk_100),
+	 .I (dcm0_clk0_prebufg));
+
+BUFG dcm0_clk180_bufg
+	(.O (clk_100_inv),
+	 .I (dcm0_clk180_prebufg));
+
+	 
+// DCM providing main system/Wishbone clock
+DCM_SP #(
+	// Generate 80 MHz from CLKFX
+	.CLKFX_MULTIPLY (4),
+	.CLKFX_DIVIDE   (5),
+
+	// Generate 40 MHz from CLKDV
+	.CLKDV_DIVIDE   (2.5)
+) dcm1 (
+	// Outputs
+	.CLK0       (dcm1_clk0_prebufg),
+	.CLK90      (),
+	.CLK180     (),
+	.CLK270     (),
+	.CLK2X180   (),
+	.CLK2X      (),
+	.CLKDV      (dcm1_clkdv_prebufg),
+	.CLKFX180   (dcm1_clkfx180_prebufg),
+	.CLKFX      (dcm1_clkfx_prebufg),
+	.LOCKED     (dcm1_locked),
+	// Inputs
+	.CLKFB      (dcm1_clk0),
+	.CLKIN      (sys_clk_pad_ibufg),
+	.PSEN       (1'b0),
+	.RST        (async_rst_o)
+);
+
+BUFG dcm1_clk0_bufg
+	(.O  (dcm1_clk0),
+	 .I  (dcm1_clk0_prebufg));
+
+BUFG dcm1_clkdv_bufg
+	(.O  (wb_clk),
+	 .I  (dcm1_clkdv_prebufg));
+
+BUFG dcm1_clkfx_bufg
+	(.O  (clk_io),
+	 .I  (dcm1_clkfx_prebufg));
+
+BUFG dcm1_clkfx180_bufg
+	(.O  (clk_io_inv),
+	 .I  (dcm1_clkfx180_prebufg));
+	
 // Daisy chain DCM-PLL to reduce jitter
 PLL_BASE #(
 	.BANDWIDTH             ("OPTIMIZED"),
-    .CLKOUT0_DIVIDE        (2),
-    .CLKOUT0_PHASE         (0.000),
-    .CLKOUT0_DUTY_CYCLE    (0.500),
-    .CLKOUT1_DIVIDE        (4),
-    .CLKOUT1_PHASE         (90.000),
-    .CLKOUT1_DUTY_CYCLE    (0.500),
+	.CLKOUT0_DIVIDE        (2),
+	.CLKOUT0_PHASE         (0.000),
+	.CLKOUT0_DUTY_CYCLE    (0.500),
+	.CLKOUT1_DIVIDE        (4),
+	.CLKOUT1_PHASE         (90.000),
+	.CLKOUT1_DUTY_CYCLE    (0.500),
 	.CLKOUT2_DIVIDE        (8),
-    .CLKOUT2_PHASE         (0.000),
-    .CLKOUT2_DUTY_CYCLE    (0.500),
+	.CLKOUT2_PHASE         (0.000),
+	.CLKOUT2_DUTY_CYCLE    (0.500),
 	.CLKOUT3_DIVIDE        (8),
-    .CLKOUT3_PHASE         (180.000),
-    .CLKOUT3_DUTY_CYCLE    (0.500),
-    .CLKOUT4_DIVIDE        (16),
-    .CLKOUT4_PHASE         (0.000),
-    .CLKOUT4_DUTY_CYCLE    (0.500),
-    .CLKOUT5_DIVIDE        (16),
-    .CLKOUT5_PHASE         (180.000),
-    .CLKOUT5_DUTY_CYCLE    (0.500),
+	.CLKOUT3_PHASE         (90.000),
+	.CLKOUT3_DUTY_CYCLE    (0.500),
+	.CLKOUT4_DIVIDE        (16),
+	.CLKOUT4_PHASE         (0.000),
+	.CLKOUT4_DUTY_CYCLE    (0.500),
+	.CLKOUT5_DIVIDE        (16),
+	.CLKOUT5_PHASE         (180.000),
+	.CLKOUT5_DUTY_CYCLE    (0.500),
 	.CLK_FEEDBACK          ("CLKFBOUT"),
-	.CLKFBOUT_MULT         (10),
-    .CLKFBOUT_PHASE        (0.000),
+	.CLKFBOUT_MULT         (5),
+	.CLKFBOUT_PHASE        (0.000),
 	.COMPENSATION          ("DCM2PLL"),
 	.DIVCLK_DIVIDE         (1),
 	.REF_JITTER            (0.1),
 	.RESET_ON_LOSS_OF_LOCK ("FALSE")
 ) pll0 (
-	.CLKFBOUT	           (pll0_clkfb),
-    .CLKOUT0               (clk_500_prebufg),
-    .CLKOUT1               (clk_250_prebufg),
-	.CLKOUT2               (clk_125_prebufg),
-	.CLKOUT3               (clk_125_inv_prebufg),
-    .CLKOUT4               (clk_io_prebufg),
-    .CLKOUT5               (clk_io_inv_prebufg),
-	.LOCKED		           (pll0_locked),
-	.CLKFBIN	           (pll0_clkfb),
-	.CLKIN		           (dcm0_clk90_prebufg),
-	.RST		           (async_rst_o)
+	.CLKFBOUT              (pll0_clkfb),
+	.CLKOUT0               (pll0_clk_500_prebufg),
+	.CLKOUT1               (pll0_clk_250_prebufg),
+	.CLKOUT2               (pll0_clk_125_prebufg),
+	.CLKOUT3               (pll0_clk_125_90_prebufg),
+	.CLKOUT4               (),
+	.CLKOUT5               (),
+	.LOCKED                (pll0_locked),
+	.CLKFBIN               (pll0_clkfb),
+	.CLKIN                 (dcm0_clk2x_prebufg),
+	.RST                   (async_rst_o)
 );
 
-	BUFG clk_mux_buf
-    (.O (clk_io),
-     .I (clk_io_prebufg));
-	
-	BUFG clk_io_buf
-    (.O (clk_io_inv),
-     .I (clk_io_inv_prebufg)); 
-	 
-	BUFG clkout_buf
-	 (.O (clk_mux_out),
-	  .I (clk_250_prebufg));
 
-	BUFG dcm0_clk0_bufg
-	(.O	(dcm0_clk0),
-	 .I	(dcm0_clk0_prebufg));
-	
-	wire fpga_mux_clk;
-	
-	ODDR2 ODDR_FPGA_MUX (
-	  .Q(fpga_mux_clk),     // Data output (connect directly to top-level port)
-      .C0(clk_io),     // 0 degree clock input
-      .C1(~clk_io),    // 180 degree clock input
-      .CE(1'b1),     // Clock enable input
-      .D0(1'b0),     // Posedge data input
-      .D1(1'b1),     // Negedge data input
-      .R(1'b0),      // Synchronous reset input
-      .S(1'b0)       // Synchronous preset input
-      );
 
-	OBUFDS #(
-      .IOSTANDARD("LVDS_25") // Specify the output I/O standard
-   ) OBUFDS_inst (
-      .O(VHDCI_MUX_CLK_P),     // Diff_p output (connect directly to top-level port) (p type differential o/p)
-      .OB(VHDCI_MUX_CLK_N),   // Diff_n output (connect directly to top-level port) (n type differential o/p)
-      .I(fpga_mux_clk)      // Buffer input (this is the single ended standard)
-   );
+BUFG pll0_clkout1_buf
+	(.O (clk_250),
+	 .I (pll0_clk_250_prebufg));
 
-   
-BUFG pll0_clk1_bufg
-       (// Outputs
-	.O	(dcm0_clkdv),
-	// Inputs
-	.I	(dcm0_clkdv_prebufg));
+BUFG pll0_clkout2_buf
+	(.O (clk_125),
+	 .I (pll0_clk_125_prebufg));
 
-assign wb_clk_o = dcm0_clkdv;
-assign sync_wb_rst_n = pll0_locked && dcm0_locked;
+BUFG pll0_clkout3_buf
+	(.O (clk_125_90),
+	 .I (pll0_clk_125_90_prebufg));
 
-assign ddr2_if_clk_o = dcm0_clkfx_prebufg; // 266MHz
-assign clk100_o = dcm0_clk0; // 100MHz
+assign plls_locked_n = ~pll0_locked || ~dcm0_locked || ~dcm1_locked;
+assign pll_lock_o = pll0_locked;
+assign clk500_prebufg_o = pll0_clk_500_prebufg;
+assign ddr2_if_clk_o    = dcm0_clkfx_prebufg;
+
+assign wb_clk_o      = wb_clk;
+assign io_clk_o      = io_clk;
+assign io_clk_inv_o  = io_clk_inv;
+assign clk100_o      = clk_100;
+assign clk100_inv_o  = clk_100_inv;
+assign clk125_o      = clk_125;
+assign clk250_o      = clk_250;
 
 //
 // Reset generation
 //
 //
 
-// Reset generation for wishbone
-reg [15:0] 	   wb_rst_shr;
-always @(posedge wb_clk_o or posedge async_rst_o)
-	if (async_rst_o)
-		wb_rst_shr <= 16'hffff;
+reg [3:0] wb_rst_shr;
+always @(posedge wb_clk or posedge plls_locked_n)
+	if (plls_locked_n)
+		wb_rst_shr <= 4'hf;
 	else
-		wb_rst_shr <= {wb_rst_shr[14:0], ~(sync_wb_rst_n)};
+		wb_rst_shr <= {wb_rst_shr[2:0], 1'b0};
+assign wb_rst_o = wb_rst_shr[3];
 
-assign wb_rst_o = wb_rst_shr[15];
+reg [3:0] rst_125_shr;
+always @(posedge clk_125 or posedge plls_locked_n)
+	if (plls_locked_n)
+		rst_125_shr <= 4'hf;
+	else
+		rst_125_shr <= {rst_125_shr[2:0], 1'b0};
+assign rst125_o = rst_125_shr[3];
 
-assign ddr2_if_rst_o = async_rst_o;
+reg [3:0] rst_100_shr;
+always @(posedge clk_100 or posedge plls_locked_n)
+	if (plls_locked_n)
+		rst_100_shr <= 4'hf;
+	else
+		rst_100_shr <= {rst_100_shr[2:0], 1'b0};
+assign rst100_o = rst_100_shr[3];
+
+assign ddr2_if_rst_o = plls_locked_n;
 
 endmodule // clkgen
