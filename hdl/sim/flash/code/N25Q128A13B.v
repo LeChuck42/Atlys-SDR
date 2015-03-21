@@ -407,17 +407,12 @@ always @(posedge C) if (logicOn && latchingMode=="D") begin : CP_latchData
 end
 
 
-always @(dummyDimEff_changed)
-   iDummy=dummyDimEff-2;
-
-
 //-----------------
 // Latching dummy
 //-----------------
 
 
 event dummyLatched;
-event dummyDimEff_changed;
 integer dummyDimEff_temp;
 
 
@@ -436,7 +431,7 @@ always @(posedge C) if (logicOn && latchingMode=="Y") begin : CP_latchDummy
      else
        dummyDimEff_temp = 8;
      if (dummyDimEff_temp != dummyDimEff)
-        -> dummyDimEff_changed;
+        iDummy=dummyDimEff_temp-1;
      dummyDimEff = dummyDimEff_temp;
     end
 

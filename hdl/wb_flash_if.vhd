@@ -8,11 +8,10 @@ entity wb_flash_if is
 		DUMMY_CYCLES:    natural := 10);
 	port (
 	    CLK      : in std_logic;
-		CLK_INV  : in std_logic;
 		RESET    : in std_logic;
 		
+		SPI_CLK_EN : out std_logic;
 		SPI_CSN  : out std_logic;
-		SPI_CLK  : out std_logic;
 		SPI_IO   : inout std_logic_vector(3 downto 0);
 		
 		-- Wishbone slave
@@ -39,9 +38,8 @@ architecture rtl of wb_flash_if is
 	signal burst_start:     std_logic_vector(23 downto 0);
 	signal trx_cnt:         unsigned (5 downto 0);
 	signal burst_cnt:       unsigned (3 downto 0);
-	signal flash_init_data: std_logic_vector(59 downto 0);
-	signal flash_init_cs:   std_logic_vector(59 downto 0);
-	signal flash_command:   std_logic_vector(7 downto 0);
+	signal flash_init_data: std_logic_vector(39 downto 0);
+	signal flash_init_cs:   std_logic_vector(39 downto 0);
 	signal data_buf:        std_logic_vector(27 downto 0);
 	signal burst_wrap:      std_logic;
 	signal addr_clipped:    std_logic_vector(23 downto 0);
@@ -64,12 +62,12 @@ begin
 	SPI_IO(1) <= addr_buf(21) when flash_state = ADDRESS else 'Z';
 	SPI_IO(2) <= addr_buf(22) when flash_state = ADDRESS else 'Z';
 	SPI_IO(3) <= addr_buf(23) when flash_state = ADDRESS else 'Z';
-		
+	
 	SPI_CSN <= '1'                               when RESET = '1' else
 	           flash_init_cs(flash_init_cs'LEFT) when flash_state = INIT else
-		       '0'                               when flash_state /= RESTART else '1';
+	           '0'                               when flash_state /= RESTART else '1';
 	
-	SPI_CLK <= CLK_INV when (flash_state /= RESTART and pause = '0') else 'Z'; -- todo: check for fast alternative
+	SPI_CLK_EN <= '1' when flash_state /= RESTART and pause = '0' else '0';
 	
 	burst_wrap_proc: process(burst_start, WB_BTE_I, burst_cnt)
 	variable addr_burst:    unsigned(3 downto 0);
@@ -124,23 +122,23 @@ begin
 	begin
 		if RESET = '1' then
 			flash_state <= INIT;
-			trx_cnt <= to_unsigned(flash_init_data'LENGTH, trx_cnt'LENGTH);
+			trx_cnt <= to_unsigned(flash_init_data'LENGTH - 1, trx_cnt'LENGTH);
 			burst_cnt <= (others => '0');
 			burst_start <= (others => '0');
 			ack_int <= (others => '0');
-			-- INIT COMMANDS:  WREN          WRVCR   DATA               WREN          WRVECR  DATA               QIOR
-			flash_init_data <= x"06" & "0" & x"81" & "11110000" & "0" & x"06" & "0" & x"61" & "01011111" & "0" & x"EB";
-			flash_init_cs   <= x"00" & "1" & x"00" & "00000000" & "1" & x"00" & "1" & x"00" & "00000000" & "1" & x"00";
+			-- INIT COMMANDS:  WREN             WRVCR   DATA                  QIOR
+			flash_init_data <= x"06" & "0000" & x"81" & "11110000" & "0000" & x"EB";
+			flash_init_cs   <= x"00" & "1111" & x"00" & "00000000" & "1111" & x"00";
 			data_buf <= (others => '0');
 			WB_DAT_O <= (others => '0');
 			pause <= '0';
-			sync_state <= '0';
+			sync_state <= '1';
 			addr_buf <= x"000100";
 		elsif rising_edge(CLK) then
 			if start_transfer = '1' then
 				sync_state <= not sync_state;
 			else
-				sync_state <= '0';
+				sync_state <= '1';
 			end if;
 			
 			ack_int <= ack_int(1 downto 0) & '0';

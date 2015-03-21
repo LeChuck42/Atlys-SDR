@@ -121,12 +121,15 @@ module soc_top # (
 	wire phy_rst;
 	wire clk_mux;
 	wire clk_mux_out;
+	wire clk_mux_div;
+	wire rst_mux_div;
 	wire clk_125;
 	wire rst_125;
 	wire clk_125_GTX_CLK;
 	wire clk_io;
 	wire clk_io_inv;
 	wire pll_lock;
+	wire clk_baud;
 	
 	clkgen clkgen0 (
 		.sys_clk_pad_i (clk_100_pin),
@@ -149,7 +152,10 @@ module soc_top # (
 		.clk250_o(clk_mux_out),
 		.clk125_o(clk_125),
 		.rst125_o(rst_125),
-		.clk125_90_o(clk_125_GTX_CLK)
+		.clk125_90_o(clk_125_GTX_CLK),
+		.clk62_5_o(clk_mux_div),
+		.rst62_5_o(rst_mux_div),
+		.clk_baud_o(clk_baud)
 		);
 
 	//  Drive the GTX_CLK output from a DDR register
@@ -187,6 +193,7 @@ module soc_top # (
 	// Register MAC outputs
 	wire GMII_TX_EN, GMII_TX_ER;
 	wire [7:0] GMII_TXD;
+	wire GMII_GTX_CLK_int;
 	
 	always @(posedge GMII_GTX_CLK_int)
 	begin
@@ -241,7 +248,7 @@ module soc_top # (
 		.reset(rst_125),
 
 		// PHY pins
-		.GMII_GTX_CLK(clk_125_GTX_CLK), .GMII_TX_EN(GMII_TX_EN),
+		.GMII_GTX_CLK(GMII_GTX_CLK_int), .GMII_TX_EN(GMII_TX_EN),
 		.GMII_TX_ER(GMII_TX_ER), .GMII_TXD(GMII_TXD),
 		.GMII_RX_CLK(GMII_RX_CLK_pin), .GMII_RX_DV(GMII_RX_DV_pin),
 		.GMII_RX_ER(GMII_RX_ER_pin), .GMII_RXD(GMII_RXD_pin),
@@ -439,13 +446,13 @@ module soc_top # (
 	);
 	
 	wire clk_spi_en;
-	wb_flash_if #(.FLASH_ADR_WIDTH(18), .DUMMY_CYCLES(5))
+	wb_flash_if #(.FLASH_ADR_WIDTH(18), .DUMMY_CYCLES(10))
 		flash0 (
 			.CLK(clk_io),
 			.RESET(wb_rst),
 			.SPI_CSN(flash_spi_csn),
 			.SPI_IO(flash_spi_io),
-			.SPI_CLKEN(clk_spi_en),
+			.SPI_CLK_EN(clk_spi_en),
 			.WB_RST_I(wb_rst),
 			.WB_CLK_I(wb_clk),
 			.WB_ADR_I(wb_m2s_flash0_adr),
@@ -726,7 +733,7 @@ module soc_top # (
 		.reset(rst_100),
 		.rxd(1'b1),
 		.txd(),
-		.baud_clk(0),
+		.baud_clk(clk_baud),
 		
 		.probes(debug_mac),
 		.probe_clk(rst_100),
@@ -748,7 +755,7 @@ module soc_top # (
 	assign mux_out_reg[6:0] = sw[6:0];
 	
 	always @(posedge clk_mux_div) begin
-		if (dsp_rst) begin
+		if (rst_mux_div) begin
 			sync_mon_out <= 0;
 			mux_synced <= 0;
 			vhdci_mux_bitslip <= 0;

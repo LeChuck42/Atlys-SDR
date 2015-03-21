@@ -1,13 +1,11 @@
-[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\coregen/xilinx_ddr2/user_design/sim/ddr2_model_c3.v|]
+[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\sim/flash/code/N25Q128A13B.v|]
 TemplateId=2
-[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\xilinx_ddr2_wrapper/xilinx_ddr2_if.v|]
+ActiveDocument=1
+[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\soc_top_tb.v|]
 TemplateId=2
 [OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\wb_flash_if.vhd|]
 TemplateId=0
-[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\soc_top_tb.v|]
+[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\clkgen.v|]
 TemplateId=2
 [OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\soc_top.v|]
-TemplateId=2
-ActiveDocument=1
-[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\clkgen.v|]
 TemplateId=2

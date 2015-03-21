@@ -212,7 +212,7 @@ module soc_top_tb;
 		mux_counter = 0;
 		btn = 6'b111110;
 		// Wait for global reset to finish
-		#200;
+		#10000;
 		btn = 6'b111111;
 		#1500;
       /*

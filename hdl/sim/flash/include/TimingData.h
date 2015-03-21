@@ -118,9 +118,12 @@
     
     // Startup delays
 //!    parameter time tPUW = 10e6;
-    parameter time tVTR = 100e3;
-    parameter time tDTW = 500e3;
-    parameter time tVTW = 600e3;
+//    parameter time tVTR = 100e3;
+//    parameter time tDTW = 500e3;
+//    parameter time tVTW = 600e3;
+    parameter time tVTR = 1e3;
+    parameter time tDTW = 5e3;
+    parameter time tVTW = 6e3;
 //---------------------------------
 // Alias of timing constants above
 //---------------------------------

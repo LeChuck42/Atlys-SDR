@@ -42,8 +42,8 @@ SimulationAccessNetsPaths=
 SimulationAccessNetsModules=
 
 [LocalVerilogSets]
-EnableSLP=1
-EnableDebug=0
+EnableSLP=0
+EnableDebug=1
 VerilogLanguage=4
 WarningPrnLevel=1
 OptimizationLevel=2
@@ -65,7 +65,7 @@ LibNames=
 PriorityLibNames=
 
 [LocalVhdlSets]
-CompileWithDebug=0
+CompileWithDebug=1
 NetlistCompilation=1
 EnableVHDL93Key=0
 EnableVHDL2002Key=1
@@ -347,13 +347,23 @@ IncludeDir4=.\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim
 .\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim\ddr2_model_c3.v=Verilog Source Code
 .\..\..\..\hdl\xilinx_ddr2_wrapper\xilinx_ddr2_if.v=Verilog Source Code
 
-[Verilog Library]
-unisim=
-xilinxcorelib=
 
 [SpecTracer]
 WindowVisible=0
 [HierarchyViewer]
-HierarchyInformation=  
+HierarchyInformation=wb_flash_if|rtl|0   
 ShowHide=ShowTopLevel
 Selected=
+[Verilog Library]
+unisim=
+xilinxcorelib=
+[CoverageProfiler]
+SelectedTool=None
+[CodeCoverage]
+Enabled=1
+[ExpressionCoverage]
+Enabled=1
+[PathCoverage]
+Enabled=1
+[ToggleCoverage]
+Enabled=0
