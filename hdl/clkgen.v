@@ -10,45 +10,45 @@
  
 module clkgen (
 	// Main clocks in, depending on board
-	input  sys_clk_pad_i,
+	input wire  sys_clk_pad_i,
 	// Asynchronous, active low reset in
-	input  rst_n_pad_i,
+	input wire  rst_n_pad_i,
 	// Input reset - through a buffer, asynchronous
-	output pll_lock_o,
+	output wire pll_lock_o,
 
 	// Wishbone clock and reset out
-	output wb_clk_o,
-	output wb_rst_o,
+	output wire wb_clk_o,
+	output wire wb_rst_o,
 	
-	output io_clk_o,
-	output io_clk_inv_o,
+	output wire io_clk_o,
+	output wire io_clk_inv_o,
 	
-	output rst100_o,
-	output clk100_o,
-	output clk100_inv_o,
+	output wire rst100_o,
+	output wire clk100_o,
+	output wire clk100_inv_o,
 	
-	output rst125_o,
-	output clk125_o,
-	output clk125_90_o,
+	output wire rst125_o,
+	output wire clk125_o,
+	output wire clk125_90_o,
 	
-	output rst62_5_o,
-	output clk62_5_o,
+	output wire rst62_5_o,
+	output wire clk62_5_o,
 	
-	output clk250_o,
+	output wire clk250_o,
 	
-	output clk500_prebufg_o,
+	output wire clk500_prebufg_o,
 	
-	output clk_baud_o,
+	output wire clk_baud_o,
 	// JTAG clock
-	input  tck_pad_i,
-	output dbg_tck_o,
+	input wire  tck_pad_i,
+	output wire dbg_tck_o,
 
 	// Main memory clocks
-	output ddr2_if_clk_o,
-	output ddr2_if_rst_o,
+	output wire ddr2_if_clk_o,
+	output wire ddr2_if_rst_o,
 	
 
-	output clk_mux_out);
+	output wire clk_mux_out);
 // First, deal with the asychronous reset
 wire   async_rst;
 
@@ -198,6 +198,7 @@ PLL_BASE #(
 	.COMPENSATION          ("DCM2PLL"),
 	.DIVCLK_DIVIDE         (1),
 	.REF_JITTER            (0.1),
+	.CLKIN_PERIOD          (10.0),
 	.RESET_ON_LOSS_OF_LOCK ("FALSE")
 ) pll0 (
 	.CLKFBOUT              (pll0_clkfb),

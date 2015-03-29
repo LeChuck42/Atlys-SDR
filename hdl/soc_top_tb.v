@@ -155,7 +155,7 @@ module soc_top_tb;
 		.flash_spi_io(flash_io)
 
 	);
-	pullup flash_sck_pull(flash_sck); 
+	
 	ddr2_model_c3 ddr2_model_c3_inst (
 		.ck(ddr2_ck),
 		.ck_n(ddr2_ck_n),
@@ -174,14 +174,31 @@ module soc_top_tb;
 		.odt(ddr2_odt)
 	);
 
-    N25Qxxx flash0 (
-	.S(flash_csn),
-	.C(flash_sck),
-	.HOLD_DQ3(flash_io[3]),
-	.DQ0(flash_io[0]),
-	.DQ1(flash_io[1]),
-	.Vcc(3300),
-	.Vpp_W_DQ2(flash_io[2]));
+	wire [3:0] delayed_io;
+	wire delayed_csn;
+	wire delayed_sck;
+	assign #3 delayed_csn = flash_csn;
+	assign #1 delayed_sck = flash_sck;
+	
+	genvar i;
+	generate
+	for (i=0; i<4; i=i+1)
+		begin: gen_delay_wire
+			bidir_delay #(.Tab(3), .Tba(3)) bidir_delay_wire (
+				.a(flash_io[i]),
+				.b(delayed_io[i]));
+		end
+	endgenerate
+	
+	defparam soc_top_tb.flash0.memory_file = "flash0_mem.txt";
+	N25Qxxx flash0 (
+		.S(delayed_csn),
+		.C(delayed_sck),
+		.HOLD_DQ3(delayed_io[3]),
+		.DQ0(delayed_io[0]),
+		.DQ1(delayed_io[1]),
+		.Vcc(3300),
+		.Vpp_W_DQ2(delayed_io[2]));
 	
 		   // Loopback
    assign GMII_RX_DV_pin  = GMII_TX_EN_pin;

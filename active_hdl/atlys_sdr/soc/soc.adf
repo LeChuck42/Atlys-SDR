@@ -24,7 +24,7 @@ LANGUAGE=VHDL
 REFRESH_FLOW=1
 FLOWTOOLS=NONE
 FAMILY=Xilinx SPARTAN6
-fileopenfolder=C:\FPGA\atlys_sdr\hdl\xilinx_ddr2_wrapper
+fileopenfolder=C:\FPGA\atlys_sdr\hdl\sim
 NoTimingChecks=0
 NoTchkMsg=0
 EnableXtrace=0
@@ -221,6 +221,7 @@ IncludeDir4=.\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim
 /..\..\..\..\hdl\wb_intercon\wb_mux.v=-1
 /..\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim\ddr2_model_c3.v=-1
 /..\..\..\..\hdl\xilinx_ddr2_wrapper\xilinx_ddr2_if.v=-1
+/..\..\..\..\hdl\sim\bidir_delay.vhd=-1
 
 [Files.Data]
 .\..\..\..\hdl\wb_flash_if.vhd=VHDL Source Code
@@ -346,24 +347,32 @@ IncludeDir4=.\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim
 .\..\..\..\hdl\wb_intercon\wb_mux.v=Verilog Source Code
 .\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim\ddr2_model_c3.v=Verilog Source Code
 .\..\..\..\hdl\xilinx_ddr2_wrapper\xilinx_ddr2_if.v=Verilog Source Code
-
+.\..\..\..\hdl\sim\bidir_delay.vhd=VHDL Source Code
 
 [SpecTracer]
 WindowVisible=0
+
 [HierarchyViewer]
-HierarchyInformation=wb_flash_if|rtl|0   
+HierarchyInformation=
 ShowHide=ShowTopLevel
 Selected=
+
 [Verilog Library]
 unisim=
 xilinxcorelib=
+
 [CoverageProfiler]
 SelectedTool=None
+
 [CodeCoverage]
 Enabled=1
+
 [ExpressionCoverage]
 Enabled=1
+
 [PathCoverage]
 Enabled=1
+
 [ToggleCoverage]
 Enabled=0
+

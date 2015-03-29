@@ -19,24 +19,24 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module adc_rx(
-   input clk,
-	input reset,
+   input wire clk,
+	input wire reset,
 	
-	input [1:0] adc_cha_p,
-	input [1:0] adc_cha_n,
+	input wire [1:0] adc_cha_p,
+	input wire [1:0] adc_cha_n,
 
-	input [1:0] adc_chb_p,
-	input [1:0] adc_chb_n,
+	input wire [1:0] adc_chb_p,
+	input wire [1:0] adc_chb_n,
 	
-	input bit_clk_p,
-	input bit_clk_n,
+	input wire bit_clk_p,
+	input wire bit_clk_n,
 	
-	input frame_sync_p,
-	input frame_sync_n,
+	input wire frame_sync_p,
+	input wire frame_sync_n,
 	
-	output clk_adc,
-	output data_we,
-	output [31:0] data
+	output wire clk_adc,
+	output wire data_we,
+	output wire [31:0] data
     );
 
 	wire [34:0] deserialized_data;

@@ -1,0 +1,7 @@
+#!/bin/sh
+echo "Generating .lst file..."
+or1k-elf-objdump -St $1/$2 > $1/$2.lst
+echo "Generating .bin file..."
+or1k-elf-objcopy -S -O binary --remove-section .bss --remove-section .noinit $1/$2 $1/$2.bin
+echo "Sync VMShare..."
+rsync -a /home/matthias/workspace/ /media/sf_firmware/

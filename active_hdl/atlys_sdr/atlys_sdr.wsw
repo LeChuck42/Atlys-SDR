@@ -1,6 +1,5 @@
 [OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\sim/flash/code/N25Q128A13B.v|]
 TemplateId=2
-ActiveDocument=1
 [OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\soc_top_tb.v|]
 TemplateId=2
 [OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\wb_flash_if.vhd|]
@@ -9,3 +8,8 @@ TemplateId=0
 TemplateId=2
 [OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\soc_top.v|]
 TemplateId=2
+[OPENDOC|Aldec.Hde.HdePlugIn.7|E:/Programme/Active-HDL 10.1/vlib/xilinx_ise/vhdl/unisim/src/primitive/BUFPLL.vhd|]
+TemplateId=0
+[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\..\hdl\coregen/FPGA_MUX.v|]
+TemplateId=2
+ActiveDocument=1

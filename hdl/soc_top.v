@@ -345,7 +345,7 @@ module soc_top # (
 		.frame_sync_p(adc_frame_sync_p),
 		.frame_sync_n(adc_frame_sync_n),
 		
-		.clk_adc(clk_100),
+		.clk_adc(),
 		.data_we(adc_data_we),
 		.data(adc_data));
 	
@@ -467,12 +467,24 @@ module soc_top # (
 			.WB_BTE_I(wb_m2s_flash0_bte),
 			.WB_RTY_O(wb_s2m_flash0_rty),
 			.WB_ERR_O(wb_s2m_flash0_err));
-	
+
+	wire flash_spi_sck_int;
 	BUFGCE bufgce_spi_clk (
 		.I (clk_io_inv),
 		.CE (clk_spi_en),
-		.O (flash_spi_sck));
-		
+		.O (flash_spi_sck_int));
+	
+	ODDR2 ODDR_SPI_FLASH (
+	  .Q(flash_spi_sck),     // Data output (connect directly to top-level port)
+	  .C0(flash_spi_sck_int),     // 0 degree clock input
+	  .C1(~flash_spi_sck_int),    // 180 degree clock input
+	  .CE(1'b1),     // Clock enable input
+	  .D0(1'b1),     // Posedge data input
+	  .D1(1'b0),     // Negedge data input
+	  .R(1'b0),      // Synchronous reset input
+	  .S(1'b0)       // Synchronous preset input
+	  );
+	  
 	wire uart0_irq;
 	
 	wb_uart #(.clk_div_val(27))
@@ -728,7 +740,7 @@ module soc_top # (
 	);
 
 	wire scope_armed, scope_triggered;
-	
+	/*
 	uart_scope uart_scope (
 		.reset(rst_100),
 		.rxd(1'b1),
@@ -740,7 +752,7 @@ module soc_top # (
 		.armed(scope_armed),
 		.triggered(scope_triggered)
 	);
-	
+	*/
 	reg vhdci_mux_bitslip;
 	wire [7:0] mux_in, mux_out;
 	
