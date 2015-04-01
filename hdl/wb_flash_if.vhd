@@ -211,7 +211,7 @@ begin
 									if burst_wrap = '1' then
 										addr_buf <= addr_clipped;
 										flash_state <= RESTART;
-										trx_cnt <= to_unsigned(0,trx_cnt'LENGTH);
+										trx_cnt <= to_unsigned(2,trx_cnt'LENGTH);
 										trx_cnt(0) <= not sync_state;
 									end if;
 								elsif WB_CTI_I = "111" then
@@ -222,7 +222,7 @@ begin
 								addr_buf <= (others => '0');
 								addr_buf(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH downto 2);
 								flash_state <= RESTART;
-								trx_cnt <= to_unsigned(0,trx_cnt'LENGTH);
+								trx_cnt <= to_unsigned(2,trx_cnt'LENGTH);
 								trx_cnt(0) <= sync_state; -- we need one additional clock cycle to stay in sync
 							end if; -- if addr_buf
 						else -- if start_transfer

@@ -97,6 +97,33 @@ IncludeDir2=.\..\..\..\hdl\sim\flash
 IncludeDir3=.\..\..\..\hdl\include
 IncludeDir4=.\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim
 
+[SpecTracer]
+WindowVisible=0
+
+[HierarchyViewer]
+HierarchyInformation=
+ShowHide=ShowTopLevel
+Selected=
+
+[Verilog Library]
+unisim=
+xilinxcorelib=
+
+[CoverageProfiler]
+SelectedTool=None
+
+[CodeCoverage]
+Enabled=1
+
+[ExpressionCoverage]
+Enabled=1
+
+[PathCoverage]
+Enabled=1
+
+[ToggleCoverage]
+Enabled=0
+
 [Files]
 /..\..\..\..\hdl\wb_flash_if.vhd=-1
 /..\..\..\..\hdl\wb_uart.vhd=-1
@@ -348,31 +375,4 @@ IncludeDir4=.\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim
 .\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim\ddr2_model_c3.v=Verilog Source Code
 .\..\..\..\hdl\xilinx_ddr2_wrapper\xilinx_ddr2_if.v=Verilog Source Code
 .\..\..\..\hdl\sim\bidir_delay.vhd=VHDL Source Code
-
-[SpecTracer]
-WindowVisible=0
-
-[HierarchyViewer]
-HierarchyInformation=
-ShowHide=ShowTopLevel
-Selected=
-
-[Verilog Library]
-unisim=
-xilinxcorelib=
-
-[CoverageProfiler]
-SelectedTool=None
-
-[CodeCoverage]
-Enabled=1
-
-[ExpressionCoverage]
-Enabled=1
-
-[PathCoverage]
-Enabled=1
-
-[ToggleCoverage]
-Enabled=0
 

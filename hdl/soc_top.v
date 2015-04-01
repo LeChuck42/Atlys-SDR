@@ -393,14 +393,14 @@ module soc_top # (
 		.OPTION_ICACHE_SET_WIDTH(8),
 		.OPTION_ICACHE_WAYS(4),
 		.OPTION_ICACHE_LIMIT_WIDTH(32),
-		.FEATURE_IMMU("ENABLED"),
+		.FEATURE_IMMU("DISABLED"),
 		.OPTION_IMMU_SET_WIDTH(7),
 		.FEATURE_DATACACHE("ENABLED"),
 		.OPTION_DCACHE_BLOCK_WIDTH(5),
 		.OPTION_DCACHE_SET_WIDTH(8),
 		.OPTION_DCACHE_WAYS(4),
 		.OPTION_DCACHE_LIMIT_WIDTH(31),
-		.FEATURE_DMMU("ENABLED"),
+		.FEATURE_DMMU("DISABLED"),
 		.OPTION_DMMU_SET_WIDTH(7),
 		.OPTION_PIC_TRIGGER("LATCHED_LEVEL"),
 		.IBUS_WB_TYPE("B3_REGISTERED_FEEDBACK"),
@@ -442,7 +442,9 @@ module soc_top # (
 		.du_dat_o(or1k_dbg_dat_o),
 		.du_ack_o(or1k_dbg_ack_o),
 		.du_stall_i(or1k_dbg_stall_i),
-		.du_stall_o(or1k_dbg_bp_o)
+		.du_stall_o(or1k_dbg_bp_o),
+		.snoop_en_i(1'b0),
+		.snoop_adr_i(0)
 	);
 	
 	wire clk_spi_en;
