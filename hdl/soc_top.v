@@ -119,10 +119,10 @@ module soc_top # (
 	wire rst_100;
 	wire clk_100;
 	wire phy_rst;
-	wire clk_mux;
-	wire clk_mux_out;
-	wire clk_mux_div;
-	wire rst_mux_div;
+	//wire clk_mux;
+	//wire clk_mux_out;
+	//wire clk_mux_div;
+	//wire rst_mux_div;
 	wire clk_125;
 	wire rst_125;
 	wire clk_125_GTX_CLK;
@@ -148,13 +148,13 @@ module soc_top # (
 		.ddr2_if_rst_o (ddr2_if_rst),
 		.rst100_o (rst_100),
 		.clk100_o (clk_100),
-		.clk500_prebufg_o (clk_mux),
-		.clk250_o(clk_mux_out),
+		.clk500_prebufg_o (),
+		.clk250_o(),
 		.clk125_o(clk_125),
 		.rst125_o(rst_125),
 		.clk125_90_o(clk_125_GTX_CLK),
-		.clk62_5_o(clk_mux_div),
-		.rst62_5_o(rst_mux_div),
+		.clk62_5_o(),
+		.rst62_5_o(),
 		.clk_baud_o(clk_baud)
 		);
 
@@ -170,26 +170,6 @@ module soc_top # (
 		.S(1'b0)       // Synchronous preset input
 		);
 	
-	wire fpga_mux_clk;
-	
-	ODDR2 ODDR_FPGA_MUX (
-	  .Q(fpga_mux_clk),     // Data output (connect directly to top-level port)
-	  .C0(clk_mux_out),     // 0 degree clock input
-	  .C1(~clk_mux_out),    // 180 degree clock input
-	  .CE(1'b1),     // Clock enable input
-	  .D0(1'b0),     // Posedge data input
-	  .D1(1'b1),     // Negedge data input
-	  .R(1'b0),      // Synchronous reset input
-	  .S(1'b0)       // Synchronous preset input
-	  );
-	  
-	OBUFDS #(
-	  .IOSTANDARD("LVDS_25") // Specify the output I/O standard
-   ) OBUFDS_inst (
-	  .O(VHDCI_MUX_CLK_P),     // Diff_p output (connect directly to top-level port) (p type differential o/p)
-	  .OB(VHDCI_MUX_CLK_N),   // Diff_n output (connect directly to top-level port) (n type differential o/p)
-	  .I(fpga_mux_clk)      // Buffer input (this is the single ended standard)
-   );
 	// Register MAC outputs
 	wire GMII_TX_EN, GMII_TX_ER;
 	wire [7:0] GMII_TXD;
@@ -204,7 +184,7 @@ module soc_top # (
 	
 	// LEDs for debugging
 	// reg [7:0] ledreg;
-	assign leds = {mux_synced, mux_in[6:0]};//{4'b1111,pll_locked, mux_pll_locked, mux_synced, scope_triggered};;
+	//assign leds = {mux_synced, mux_in[6:0]};//{4'b1111,pll_locked, mux_pll_locked, mux_synced, scope_triggered};;
 
 	/*
 	config_mux config_mux_inst (
@@ -755,75 +735,21 @@ module soc_top # (
 		.triggered(scope_triggered)
 	);
 	*/
-	reg vhdci_mux_bitslip;
-	wire [7:0] mux_in, mux_out;
+vhdci_mux vhdci_mux_inst (
+	.clk_in(clk_100),
+	.rst_in(rst_100),
 	
-	wire [7:0] mux_out_reg;
-	reg mux_synced;
-	reg [7:0] sync_pattern;
-	reg sync_mon_expect, sync_mon_valid, sync_mon_out;
-	reg bitslip_sync;
+	.mux_data_in(7'b0110101),
+	.mux_data_out(leds[6:0]),
 	
-	assign mux_out = (mux_synced) ? mux_out_reg : sync_pattern;
-	assign mux_out_reg[7] = sync_mon_out;
-	assign mux_out_reg[6:0] = sw[6:0];
+	.mux_synced(leds[7]),
 	
-	always @(posedge clk_mux_div) begin
-		if (rst_mux_div) begin
-			sync_mon_out <= 0;
-			mux_synced <= 0;
-			vhdci_mux_bitslip <= 0;
-			sync_mon_valid <= 0;
-			sync_mon_expect <= 0;
-			bitslip_sync <= 0;
-		end else begin
-			sync_mon_out <= !sync_mon_out; // output sync bit to detect loss of link on other side
-			vhdci_mux_bitslip <= 0;
-			if (mux_synced == 1) begin
-				if (sync_mon_valid == 1) begin
-					if (sync_mon_expect == mux_in[7]) begin
-						sync_mon_expect <= !mux_in[7];
-					end else begin
-						sync_mon_valid <= 0;
-						mux_synced <= 0;
-					end
-				end else if (mux_in != 8'h81) begin
-					sync_mon_expect <= !mux_in[7];
-					sync_mon_valid <= 1;
-				end
-			end else if (mux_in != 8'h01 && mux_in != 8'h81) begin
-					sync_pattern <= 8'h01;
-					sync_mon_valid <= 0;
-					if (vhdci_mux_bitslip == 0 && bitslip_sync == 0)
-						vhdci_mux_bitslip <= 1;
-				end else begin
-					if (mux_in == 8'h81 && sync_pattern == 8'h81)
-						mux_synced <= 1;
-					sync_pattern <= 8'h81;
-				end
-			end
-			bitslip_sync <= vhdci_mux_bitslip;
-		end
-	
-	
-	FPGA_MUX vhdci_mux
-	(
-		// From the system into the device
-		.DATA_IN_FROM_PINS_P     ({VHDCI_MUX_IN_P}),
-		.DATA_IN_FROM_PINS_N     ({VHDCI_MUX_IN_N}),
-		.DATA_IN_TO_DEVICE       (mux_in),
-		// From the drive out to the system
-		.DATA_OUT_FROM_DEVICE    (mux_out),
-		.DATA_OUT_TO_PINS_P      ({VHDCI_MUX_OUT_P}),
-		.DATA_OUT_TO_PINS_N      ({VHDCI_MUX_OUT_N}),
-		.CLK_TO_PINS_P           (),
-		.CLK_TO_PINS_N           (),
-		.BITSLIP                 (vhdci_mux_bitslip),
-		.CLK_IN                  (clk_mux),
-		.CLK_DIV_IN              (1'b0),
-		.LOCKED_IN               (pll_lock),
-		.LOCKED_OUT              (),
-		.IO_RESET                (rst_100));
+	.VHDCI_MUX_IN_P(VHDCI_MUX_IN_P),
+	.VHDCI_MUX_IN_N(VHDCI_MUX_IN_N),
+	.VHDCI_MUX_OUT_P(VHDCI_MUX_OUT_P),
+	.VHDCI_MUX_OUT_N(VHDCI_MUX_OUT_N),
+	.VHDCI_MUX_CLK_P(VHDCI_MUX_CLK_P),
+	.VHDCI_MUX_CLK_N(VHDCI_MUX_CLK_N));
 
 	////////////////////////////////////////////////////////////////////////
 	//

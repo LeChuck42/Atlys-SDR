@@ -122,3 +122,4 @@ i<>.\..\..\..\hdl\wb_intercon\wb_mux.v
 i<>.\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim\ddr2_model_c3.v
 i<>.\..\..\..\hdl\xilinx_ddr2_wrapper\xilinx_ddr2_if.v
 i<>.\..\..\..\hdl\sim\bidir_delay.vhd
+i<>.\..\..\..\hdl\vhdci_mux.v
