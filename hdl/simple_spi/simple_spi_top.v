@@ -87,7 +87,7 @@ module simple_spi #(
 
   // SPI port
   output reg        sck_o,         // serial clock output
-  output [SS_WIDTH-1:0] ss_o,      // slave select (active low)
+  output wire [SS_WIDTH-1:0] ss_o,      // slave select (active low)
   output wire       mosi_o,        // MasterOut SlaveIN
   input  wire       miso_i         // MasterIn SlaveOut
 );

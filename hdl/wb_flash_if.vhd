@@ -4,8 +4,9 @@ use ieee.numeric_std.all;
 
 entity wb_flash_if is
 	generic (
-		FLASH_ADR_WIDTH: natural := 22;
-		DUMMY_CYCLES:    natural := 10);
+		FLASH_ADR_WIDTH: natural := 24;
+		DUMMY_CYCLES:    natural := 10;
+		INITIAL_PREREAD: std_logic_vector(23 downto 0) := x"000100");
 	port (
 	    CLK      : in std_logic;
 		RESET    : in std_logic;
@@ -53,7 +54,7 @@ begin
 	WB_ERR_O  <= '1' when WB_WE_I = '1' and WB_CYC_I = '1' and WB_STB_I = '1' else '0'; -- read only
 	
 	WB_ACK_O <= '1' when start_transfer = '1' and (ack_int(2) = '1' or 
-		(pause = '1' and addr_buf(FLASH_ADR_WIDTH downto 2) = WB_ADR_I(FLASH_ADR_WIDTH downto 2))) else '0';
+		(pause = '1' and addr_buf(FLASH_ADR_WIDTH-1 downto 2) = WB_ADR_I(FLASH_ADR_WIDTH-1 downto 2))) else '0';
 	
 	SPI_IO(0) <= flash_init_data(flash_init_data'LEFT) when flash_state = INIT else
 	             addr_buf(20)                          when flash_state = ADDRESS else
@@ -133,7 +134,7 @@ begin
 			WB_DAT_O <= (others => '0');
 			pause <= '0';
 			sync_state <= '1';
-			addr_buf <= x"000100";
+			addr_buf <= INITIAL_PREREAD;
 		elsif rising_edge(CLK) then
 			if start_transfer = '1' then
 				sync_state <= not sync_state;
@@ -177,7 +178,7 @@ begin
 					if trx_cnt = to_unsigned(0,trx_cnt'LENGTH) then
 						flash_state <= READ_DATA;
 						trx_cnt <= to_unsigned(7,trx_cnt'LENGTH);
-						burst_start(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH downto 2);
+						burst_start(FLASH_ADR_WIDTH-1 downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH-1 downto 2);
 					else
 						trx_cnt <= trx_cnt - 1;
 					end if;
@@ -189,9 +190,9 @@ begin
 						end if;
 						if start_transfer = '1' then
 							if burst_cnt = 0 then
-								burst_start(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH downto 2);
+								burst_start(FLASH_ADR_WIDTH-1 downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH-1 downto 2);
 							end if;
-							if pause = '0' or ( pause = '1' and addr_buf(FLASH_ADR_WIDTH downto 2) = WB_ADR_I(FLASH_ADR_WIDTH downto 2)) then
+							if addr_buf(FLASH_ADR_WIDTH-1 downto 2) = WB_ADR_I(FLASH_ADR_WIDTH-1 downto 2) then
 								--data_buf <= data_buf(23 downto 0) & SPI_IO;
 								trx_cnt <= to_unsigned(7,trx_cnt'LENGTH);
 								--synchronize ack signal
@@ -220,14 +221,14 @@ begin
 							else -- if addr_buf
 								-- we (pre)read the wrong address -> restart with correct one
 								addr_buf <= (others => '0');
-								addr_buf(FLASH_ADR_WIDTH downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH downto 2);
+								addr_buf(FLASH_ADR_WIDTH-1 downto 2) <= WB_ADR_I(FLASH_ADR_WIDTH-1 downto 2);
 								flash_state <= RESTART;
 								trx_cnt <= to_unsigned(2,trx_cnt'LENGTH);
 								trx_cnt(0) <= sync_state; -- we need one additional clock cycle to stay in sync
 							end if; -- if addr_buf
 						else -- if start_transfer
 							-- pre read finished, pause until next request
-							burst_start(FLASH_ADR_WIDTH downto 2) <= addr_buf(FLASH_ADR_WIDTH downto 2);
+							burst_start(FLASH_ADR_WIDTH-1 downto 2) <= addr_buf(FLASH_ADR_WIDTH-1 downto 2);
 							pause <= '1';
 						end if;
 					elsif pause = '0' then -- if trx_cnt

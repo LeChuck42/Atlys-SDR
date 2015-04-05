@@ -128,13 +128,11 @@ module soc_top # (
 	wire clk_125_GTX_CLK;
 	wire clk_io;
 	wire clk_io_inv;
-	wire pll_lock;
 	wire clk_baud;
 	
 	clkgen clkgen0 (
 		.sys_clk_pad_i (clk_100_pin),
 		.rst_n_pad_i (btn[0]),
-		.pll_lock_o (pll_lock),
 		
 		.wb_clk_o (wb_clk),
 		.wb_rst_o (wb_rst),
@@ -148,13 +146,9 @@ module soc_top # (
 		.ddr2_if_rst_o (ddr2_if_rst),
 		.rst100_o (rst_100),
 		.clk100_o (clk_100),
-		.clk500_prebufg_o (),
-		.clk250_o(),
 		.clk125_o(clk_125),
 		.rst125_o(rst_125),
 		.clk125_90_o(clk_125_GTX_CLK),
-		.clk62_5_o(),
-		.rst62_5_o(),
 		.clk_baud_o(clk_baud)
 		);
 
@@ -428,7 +422,10 @@ module soc_top # (
 	);
 	
 	wire clk_spi_en;
-	wb_flash_if #(.FLASH_ADR_WIDTH(18), .DUMMY_CYCLES(10))
+	wb_flash_if #(
+			.FLASH_ADR_WIDTH(24),
+			.DUMMY_CYCLES(10),
+			.INITIAL_PREREAD(24'h800100))
 		flash0 (
 			.CLK(clk_io),
 			.RESET(wb_rst),
@@ -437,7 +434,7 @@ module soc_top # (
 			.SPI_CLK_EN(clk_spi_en),
 			.WB_RST_I(wb_rst),
 			.WB_CLK_I(wb_clk),
-			.WB_ADR_I(wb_m2s_flash0_adr),
+			.WB_ADR_I({9'b000000001, wb_m2s_flash0_adr[22:0]}), // map flash accesses into upper 8MiB
 			.WB_DAT_I(wb_m2s_flash0_dat),
 			.WB_DAT_O(wb_s2m_flash0_dat),
 			.WB_WE_I(wb_m2s_flash0_we),
@@ -739,8 +736,8 @@ vhdci_mux vhdci_mux_inst (
 	.clk_in(clk_100),
 	.rst_in(rst_100),
 	
-	.mux_data_in(7'b0110101),
-	.mux_data_out(leds[6:0]),
+	.mux_data_in({spi0_sck, spi0_mosi, spi0_ss, 2'b00}),
+	.mux_data_out({spi0_miso, leds[5:0]}),
 	
 	.mux_synced(leds[7]),
 	
