@@ -4932,7 +4932,8 @@ module TimingCheck (S, C, D, Q, W, H);
     begin
 
         delta = $time - C_high;
-        check("tCHDX", delta, tCHDX);
+        if (N25Qxxx.latchingMode != "N")
+            check("tCHDX", delta, tCHDX);
 
         if (isValid(D)) D_valid = $time;
 

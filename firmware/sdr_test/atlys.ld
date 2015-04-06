@@ -5,9 +5,7 @@ OUTPUT_ARCH(or1k)
 
 MEMORY
 {
-	VECTOR (rx) : ORIGIN = 0x00000000, LENGTH = 0x2000
-	CONFIG (r)  : ORIGIN = 0x00002000, LENGTH = 0x1e000
-	FLASH  (rx) : ORIGIN = 0x00020000, LENGTH = 8064K
+	FLASH  (rx) : ORIGIN = 0x00000000, LENGTH = 8M
 	DDR    (wx) : ORIGIN = 0x20000000, LENGTH = 128M
 }
 
@@ -18,7 +16,7 @@ SECTIONS
 {
   /* Read-only sections, merged into text segment: */
   PROVIDE (__executable_start = SEGMENT_START("text-segment", 0x0000)); . = SEGMENT_START("text-segment", 0x0000);
-  .vectors   : { KEEP (*(.vectors)) } >VECTOR
+  .vectors   : { KEEP (*(.vectors)) } >FLASH
   .note.gnu.build-id : { *(.note.gnu.build-id) } >FLASH
   .hash           : { *(.hash) } >FLASH
   .gnu.hash       : { *(.gnu.hash) } >FLASH
@@ -58,7 +56,7 @@ SECTIONS
   .config :
   {
   	KEEP (*(.config))
-  } >CONFIG
+  } >FLASH
   
   .init :
   {

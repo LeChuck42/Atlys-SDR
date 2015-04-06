@@ -13,6 +13,6 @@ with open(application_path, "rb") as f:
 	app_image = f.read()
 	
 with open(output_path, "w") as out:
-	out.write("@000000\n")
+	out.write("@800000\n")
 	for b in app_image:
 		out.write(format(b, '02x') + '\n')

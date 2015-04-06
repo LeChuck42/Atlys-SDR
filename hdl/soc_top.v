@@ -717,7 +717,30 @@ module soc_top # (
 		// Inputs
 		.miso_i		(spi0_miso)
 	);
-
+	
+	wire [31:0] gpio_in;
+	wire [31:0] gpio_out;
+	//wire [31:0] gpio_dir;
+	
+	gpio gpio0 (
+		.wb_clk   (wb_clk),
+		.wb_rst   (wb_rst),
+		.wb_adr_i (wb_m2s_gpio0_adr[2:0]),
+		.wb_dat_i (wb_m2s_gpio0_dat),
+		.wb_we_i  (wb_m2s_gpio0_we),
+		.wb_cyc_i (wb_m2s_gpio0_cyc),
+		.wb_stb_i (wb_m2s_gpio0_stb),
+		.wb_cti_i (wb_m2s_gpio0_cti),
+		.wb_bte_i (wb_m2s_gpio0_bte),
+		.wb_sel_i (wb_m2s_gpio0_sel),
+		.wb_dat_o (wb_s2m_gpio0_dat),
+		.wb_ack_o (wb_s2m_gpio0_ack),
+		.wb_err_o (wb_s2m_gpio0_err),
+		.wb_rty_o (wb_s2m_gpio0_rty),
+		.gpio_i   (gpio_in),
+		.gpio_o   (gpio_out),
+		.gpio_dir_o ());
+		
 	wire scope_armed, scope_triggered;
 	/*
 	uart_scope uart_scope (
@@ -732,12 +755,16 @@ module soc_top # (
 		.triggered(scope_triggered)
 	);
 	*/
+	assign leds[6:0] = gpio_out[22:16];
+	assign gpio_in[31:14] = 0;
+	assign gpio_in[7:0] = sw;
+	
 vhdci_mux vhdci_mux_inst (
 	.clk_in(clk_100),
 	.rst_in(rst_100),
 	
 	.mux_data_in({spi0_sck, spi0_mosi, spi0_ss, 2'b00}),
-	.mux_data_out({spi0_miso, leds[5:0]}),
+	.mux_data_out({spi0_miso, gpio_in[13:8]}),
 	
 	.mux_synced(leds[7]),
 	

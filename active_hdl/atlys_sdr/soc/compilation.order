@@ -5,12 +5,10 @@
 .\..\..\..\hdl\adc_rx.v
 .\..\..\..\hdl\clkgen.v
 .\..\..\..\hdl\config_reg.vhd
-.\..\..\..\hdl\edge_detect.v
 .\..\..\..\hdl\gemac_configure.v
 .\..\..\..\hdl\ip_header_checksum.v
 .\..\..\..\hdl\packet_receiver.v
 .\..\..\..\hdl\packet_sender.v
-.\..\..\..\hdl\reset.v
 .\..\..\..\hdl\rx_sim.vhd
 .\..\..\..\hdl\scope.vhd
 .\..\..\..\hdl\soc_top.v
@@ -123,3 +121,4 @@
 .\..\..\..\hdl\xilinx_ddr2_wrapper\xilinx_ddr2_if.v
 .\..\..\..\hdl\sim\bidir_delay.vhd
 .\..\..\..\hdl\vhdci_mux.v
+.\..\..\..\hdl\gpio.v

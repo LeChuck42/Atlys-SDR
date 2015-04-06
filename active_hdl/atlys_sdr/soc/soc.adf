@@ -101,7 +101,7 @@ IncludeDir4=.\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim
 WindowVisible=0
 
 [HierarchyViewer]
-HierarchyInformation=
+HierarchyInformation=wb_flash_if|rtl|0  
 ShowHide=ShowTopLevel
 Selected=
 
@@ -132,12 +132,10 @@ Enabled=0
 /..\..\..\..\hdl\adc_rx.v=-1
 /..\..\..\..\hdl\clkgen.v=-1
 /..\..\..\..\hdl\config_reg.vhd=-1
-/..\..\..\..\hdl\edge_detect.v=-1
 /..\..\..\..\hdl\gemac_configure.v=-1
 /..\..\..\..\hdl\ip_header_checksum.v=-1
 /..\..\..\..\hdl\packet_receiver.v=-1
 /..\..\..\..\hdl\packet_sender.v=-1
-/..\..\..\..\hdl\reset.v=-1
 /..\..\..\..\hdl\rx_sim.vhd=-1
 /..\..\..\..\hdl\scope.vhd=-1
 /..\..\..\..\hdl\soc_top.v=-1
@@ -250,6 +248,7 @@ Enabled=0
 /..\..\..\..\hdl\xilinx_ddr2_wrapper\xilinx_ddr2_if.v=-1
 /..\..\..\..\hdl\sim\bidir_delay.vhd=-1
 /..\..\..\..\hdl\vhdci_mux.v=-1
+/..\..\..\..\hdl\gpio.v=-1
 
 [Files.Data]
 .\..\..\..\hdl\wb_flash_if.vhd=VHDL Source Code
@@ -259,12 +258,10 @@ Enabled=0
 .\..\..\..\hdl\adc_rx.v=Verilog Source Code
 .\..\..\..\hdl\clkgen.v=Verilog Source Code
 .\..\..\..\hdl\config_reg.vhd=VHDL Source Code
-.\..\..\..\hdl\edge_detect.v=Verilog Source Code
 .\..\..\..\hdl\gemac_configure.v=Verilog Source Code
 .\..\..\..\hdl\ip_header_checksum.v=Verilog Source Code
 .\..\..\..\hdl\packet_receiver.v=Verilog Source Code
 .\..\..\..\hdl\packet_sender.v=Verilog Source Code
-.\..\..\..\hdl\reset.v=Verilog Source Code
 .\..\..\..\hdl\rx_sim.vhd=VHDL Source Code
 .\..\..\..\hdl\scope.vhd=VHDL Source Code
 .\..\..\..\hdl\soc_top.v=Verilog Source Code
@@ -377,4 +374,5 @@ Enabled=0
 .\..\..\..\hdl\xilinx_ddr2_wrapper\xilinx_ddr2_if.v=Verilog Source Code
 .\..\..\..\hdl\sim\bidir_delay.vhd=VHDL Source Code
 .\..\..\..\hdl\vhdci_mux.v=Verilog Source Code
+.\..\..\..\hdl\gpio.v=Verilog Source Code
 
