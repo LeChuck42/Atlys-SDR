@@ -90,9 +90,9 @@ module adc_interface
 
   // Set up the clock for use in the serdes
   BUFIO2 #(
-      .DIVIDE_BYPASS (1'b0),
-      .I_INVERT      (1'b0),
-      .USE_DOUBLER   (1'b1),
+      .DIVIDE_BYPASS ("FALSE"),
+      .I_INVERT      ("FALSE"),
+      .USE_DOUBLER   ("TRUE"),
       .DIVIDE        (7))
    bufio2_inst
      (.DIVCLK       (clk_div),
@@ -103,9 +103,9 @@ module adc_interface
 
   // also generated the inverted clock
   BUFIO2
-    #(.DIVIDE_BYPASS (1'b0),
-      .I_INVERT      (1'b1),
-      .USE_DOUBLER   (1'b0),
+    #(.DIVIDE_BYPASS ("FALSE"),
+      .I_INVERT      ("TRUE"),
+      .USE_DOUBLER   ("FALSE"),
       .DIVIDE        (7))
    bufio2_inv_inst
      (.DIVCLK        (),

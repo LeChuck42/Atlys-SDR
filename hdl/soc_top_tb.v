@@ -89,6 +89,7 @@ module soc_top_tb;
 	// Bidirs
 	wire MDIO_pin;
 
+	glbl glbl ();
 	// Instantiate the Unit Under Test (UUT)
 	soc_top #(
 	.SIMULATION("TRUE")

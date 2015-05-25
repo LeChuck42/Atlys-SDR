@@ -1,4 +1,4 @@
-.\..\..\..\hdl\wb_flash_if.vhd
+.\..\..\..\hdl\wb_flash_loader.vhd
 .\..\..\..\hdl\wb_uart.vhd
 .\..\..\..\hdl\uart_tx.vhd
 .\..\..\..\hdl\uart_rx.vhd

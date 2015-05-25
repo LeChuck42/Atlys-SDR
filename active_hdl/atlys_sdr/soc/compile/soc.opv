@@ -1,1 +1,1 @@
- -erf "c:\FPGA\atlys_sdr\active_hdl\atlys_sdr\soc\compile\soc.erf" -work soc -lc c:/FPGA/atlys_sdr/active_hdl/atlys_sdr/library.cfg -fl c:/FPGA/atlys_sdr/active_hdl/atlys_sdr/soc/projlib.cfg -o c:/FPGA/atlys_sdr/active_hdl/atlys_sdr/soc/compile -sve   -dbg -l unisim -l xilinxcorelib
+ -erf "c:\FPGA\atlys_sdr\active_hdl\atlys_sdr\soc\compile\soc.erf" -work soc -lc c:/FPGA/atlys_sdr/active_hdl/atlys_sdr/library.cfg -fl c:/FPGA/atlys_sdr/active_hdl/atlys_sdr/soc/projlib.cfg -o c:/FPGA/atlys_sdr/active_hdl/atlys_sdr/soc/compile -sve   -O2 -l xilinxcorelib_ver -l unisims_ver

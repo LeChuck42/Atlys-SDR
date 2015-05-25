@@ -280,8 +280,8 @@ INST "GMII_TXD_pin<7>" TNM = GMII_TX;
 INST "GMII_TX_EN_pin" TNM = GMII_TX;
 INST "GMII_TX_ER_pin" TNM = GMII_TX;
 #Created by Constraints Editor (xc6slx45-csg324-3) - 2013/10/02
-TIMESPEC TS_SYNC_TO_BAUD = FROM "clk_125_tx_clkout0" TO "clk_125_tx_clkout2" TIG;
-TIMESPEC TS_SYNC_TO_TX = FROM "clk_125_tx_clkout2" TO "clk_125_tx_clkout0" TIG;
+#TIMESPEC TS_SYNC_TO_BAUD = FROM "clk_125_tx_clkout0" TO "clk_125_tx_clkout2" TIG;
+#TIMESPEC TS_SYNC_TO_TX = FROM "clk_125_tx_clkout2" TO "clk_125_tx_clkout0" TIG;
 # DDR2 Constraints
 #NET "xilinx_ddr2_0/xilinx_ddr2_if0/ddr2_mig/memc?_wrapper_inst/mcb_ui_top_inst/mcb_raw_wrapper_inst/selfrefresh_mcb_mode" TIG;
 #NET "xilinx_ddr2_0/xilinx_ddr2_if0/ddr2_mig/c?_pll_lock" TIG;
@@ -289,3 +289,35 @@ TIMESPEC TS_SYNC_TO_TX = FROM "clk_125_tx_clkout2" TO "clk_125_tx_clkout0" TIG;
 NET "xilinx_ddr2_0/xilinx_ddr2/memc?_wrapper_inst/mcb_ui_top_inst/mcb_raw_wrapper_inst/gen_term_calib.mcb_soft_calibration_top_inst/mcb_soft_calibration_inst/DONE_SOFTANDHARD_CAL" TIG;
 #NET "xilinx_ddr2_0/xilinx_ddr2_if0/ddr2_mig/memc3_infrastructure_inst/sys_clk_ibufg" TNM_NET = "SYS_CLK3";
 #TIMESPEC "TS_SYS_CLK3" = PERIOD "SYS_CLK3" 3.75 ns HIGH 50 %;
+
+NET "flash_spi_csn" LOC = V3;
+NET "flash_spi_sck" LOC = R15;
+NET "flash_spi_io[3]" LOC = V14;
+NET "flash_spi_io[0]" LOC = T13;
+NET "flash_spi_io[1]" LOC = R13;
+NET "flash_spi_io[2]" LOC = T14;
+NET "tck_pad_i" LOC = T9;
+NET "tdi_pad_i" LOC = V9;
+NET "tdo_pad_o" LOC = R3;
+NET "tms_pad_i" LOC = T3;
+
+NET "tck_pad_i" TNM_NET = "tck_pad_i";
+TIMESPEC TS_tck_pad_i = PERIOD "tck_pad_i" 5 MHz HIGH 50 %;
+
+NET "adc_bit_clk_p" TNM_NET = "adc_bit_clk_p";
+TIMESPEC TS_adc_bit_clk_p = PERIOD "adc_bit_clk_p" 437.5 MHz HIGH 50 %;
+
+INST "flash_spi_io[0]" TNM = "FLASH_IN";
+INST "flash_spi_io[1]" TNM = "FLASH_IN";
+INST "flash_spi_io[2]" TNM = "FLASH_IN";
+INST "flash_spi_io[3]" TNM = "FLASH_IN";
+TIMEGRP "FLASH_IN" OFFSET = IN 4 ns VALID 8 ns BEFORE "clk_100_pin" RISING;
+INST "flash_spi_io[0]" TNM = "FLASH_OUT";
+INST "flash_spi_io[1]" TNM = "FLASH_OUT";
+INST "flash_spi_io[2]" TNM = "FLASH_OUT";
+INST "flash_spi_io[3]" TNM = "FLASH_OUT";
+INST "flash_spi_csn" TNM = "FLASH_OUT";
+INST "flash_spi_sck" TNM = "FLASH_OUT";
+TIMEGRP "FLASH_OUT" OFFSET = OUT 6.25 ns AFTER "clk_100_pin" REFERENCE_PIN "flash_spi_sck";
+#TIMESPEC TS_WB_TO_IO = FROM "clkgen0_dcm1_clkdv_prebufg" TO "clkgen0_dcm1_clkfx_prebufg" TS_clkgen0_dcm1_clkdv_prebufg * 2;
+#TIMESPEC TS_IO_TO_WB = FROM "clkgen0_dcm1_clkfx_prebufg" TO "clkgen0_dcm1_clkdv_prebufg" TS_clkgen0_dcm1_clkfx_prebufg * 2;

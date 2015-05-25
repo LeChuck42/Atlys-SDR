@@ -12,7 +12,6 @@ i<>.\..\..\..\hdl\soc_top_tb.v
 i<>.\..\..\..\hdl\uart_rx.vhd
 i<>.\..\..\..\hdl\uart_scope.vhd
 i<>.\..\..\..\hdl\uart_tx.vhd
-i<>.\..\..\..\hdl\wb_flash_if.vhd
 i<>.\..\..\..\hdl\wb_uart.vhd
 i<>.\..\..\..\hdl\adv_debug_sys\adbg_crc32.v
 i<>.\..\..\..\hdl\adv_debug_sys\adbg_defines.v
@@ -122,3 +121,4 @@ i<>.\..\..\..\hdl\xilinx_ddr2_wrapper\xilinx_ddr2_if.v
 i<>.\..\..\..\hdl\sim\bidir_delay.vhd
 i<>.\..\..\..\hdl\vhdci_mux.v
 i<>.\..\..\..\hdl\gpio.v
+i<>.\..\..\..\hdl\wb_flash_loader.vhd

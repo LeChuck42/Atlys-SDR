@@ -5,8 +5,8 @@ OUTPUT_ARCH(or1k)
 
 MEMORY
 {
-	FLASH  (rx) : ORIGIN = 0x00000000, LENGTH = 8M
-	DDR    (wx) : ORIGIN = 0x20000000, LENGTH = 128M
+	FLASH  (wx) : ORIGIN = 0x00000000, LENGTH = 0x0080000
+	DDR    (wx) : ORIGIN = 0x00080000, LENGTH = 0x7F80000
 }
 
 ENTRY(_start)
@@ -105,32 +105,32 @@ SECTIONS
   . = ALIGN(4);
   __data_load = .;
   /* Exception handling  */
-  .eh_frame       : ONLY_IF_RW { __data_start = DEFINED(__data_start) ? __data_start : .; KEEP (*(.eh_frame)) } > DDR AT > FLASH
-  .gcc_except_table   : ONLY_IF_RW { __data_start = DEFINED(__data_start) ? __data_start : .; *(.gcc_except_table .gcc_except_table.*) } > DDR AT > FLASH
-  .exception_ranges   : ONLY_IF_RW { __data_start = DEFINED(__data_start) ? __data_start : .; *(.exception_ranges .exception_ranges*) } > DDR AT > FLASH
+  .eh_frame       : ONLY_IF_RW { __data_start = DEFINED(__data_start) ? __data_start : .; KEEP (*(.eh_frame)) } > FLASH
+  .gcc_except_table   : ONLY_IF_RW { __data_start = DEFINED(__data_start) ? __data_start : .; *(.gcc_except_table .gcc_except_table.*) } > FLASH
+  .exception_ranges   : ONLY_IF_RW { __data_start = DEFINED(__data_start) ? __data_start : .; *(.exception_ranges .exception_ranges*) } > FLASH
   /* Thread Local Storage sections  */
-  .tdata	  : { __data_start = DEFINED(__data_start) ? __data_start : .; *(.tdata .tdata.* .gnu.linkonce.td.*) } > DDR AT > FLASH
-  .tbss		  : { *(.tbss .tbss.* .gnu.linkonce.tb.*) *(.tcommon) } > DDR AT > FLASH
+  .tdata	  : { __data_start = DEFINED(__data_start) ? __data_start : .; *(.tdata .tdata.* .gnu.linkonce.td.*) } > FLASH
+  .tbss		  : { *(.tbss .tbss.* .gnu.linkonce.tb.*) *(.tcommon) } > FLASH
   .preinit_array     :
   {
     PROVIDE_HIDDEN (__preinit_array_start = .);
     KEEP (*(.preinit_array))
     PROVIDE_HIDDEN (__preinit_array_end = .);
-  } > DDR AT > FLASH
+  } > FLASH
   .init_array     :
   {
     PROVIDE_HIDDEN (__init_array_start = .);
     KEEP (*(SORT(.init_array.*)))
     KEEP (*(.init_array ))
     PROVIDE_HIDDEN (__init_array_end = .);
-  } > DDR AT > FLASH
+  } > FLASH
   .fini_array     :
   {
     PROVIDE_HIDDEN (__fini_array_start = .);
     KEEP (*(SORT(.fini_array.*)))
     KEEP (*(.fini_array ))
     PROVIDE_HIDDEN (__fini_array_end = .);
-  } > DDR AT > FLASH
+  } > FLASH
   .ctors          :
   {
     /* gcc uses crtbegin.o to find the start of
@@ -151,7 +151,7 @@ SECTIONS
     KEEP (*(EXCLUDE_FILE (*crtend.o *crtend?.o ) .ctors))
     KEEP (*(SORT(.ctors.*)))
     KEEP (*(.ctors))
-  } > DDR AT > FLASH
+  } > FLASH
   .dtors          :
   {
     KEEP (*crtbegin.o(.dtors))
@@ -159,30 +159,30 @@ SECTIONS
     KEEP (*(EXCLUDE_FILE (*crtend.o *crtend?.o ) .dtors))
     KEEP (*(SORT(.dtors.*)))
     KEEP (*(.dtors))
-  } > DDR AT > FLASH
-  .jcr            : { KEEP (*(.jcr)) } > DDR AT > FLASH
-  .data.rel.ro : { *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*) *(.data.rel.ro .data.rel.ro.* .gnu.linkonce.d.rel.ro.*) } > DDR AT > FLASH
-  .dynamic        : { *(.dynamic) } > DDR AT > FLASH
+  } > FLASH
+  .jcr            : { KEEP (*(.jcr)) } > FLASH
+  .data.rel.ro : { *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*) *(.data.rel.ro .data.rel.ro.* .gnu.linkonce.d.rel.ro.*) } > FLASH
+  .dynamic        : { *(.dynamic) } > FLASH
   /*. = DATA_SEGMENT_RELRO_END (0, .);*/
   .data           :
   {
     *(.data .data.* .gnu.linkonce.d.*)
     SORT(CONSTRUCTORS)
-  } > DDR AT > FLASH 
-  .data1          : { *(.data1) }> DDR AT > FLASH 
-  .got            : { *(.got.plt) *(.igot.plt) *(.got) *(.igot) }> DDR AT > FLASH 
+  } > FLASH 
+  .data1          : { *(.data1) }> FLASH 
+  .got            : { *(.got.plt) *(.igot.plt) *(.got) *(.igot) }> FLASH 
   /* We want the small data sections together, so single-instruction offsets
      can access them all, and initialized data all before uninitialized, so
      we can shorten the on-disk segment size.  */
   .sdata          :
   {
     *(.sdata .sdata.* .gnu.linkonce.s.*)
-  }> DDR AT > FLASH 
+  }> FLASH 
   /* programmer is executed from RAM */
   .programmer     :
   {
   	*(.programmer)
-  }> DDR AT > FLASH
+  }> FLASH
   _edata = .; PROVIDE (edata = .);
   . = ALIGN(32 / 8);
   .noinit         :

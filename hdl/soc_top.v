@@ -357,7 +357,8 @@ module soc_top # (
 	wire or1k_dbg_rst;
 	wire sig_tick;
 	wire or1k_rst;
-	assign or1k_rst = wb_rst | or1k_dbg_rst;
+	wire flash_done;
+	assign or1k_rst = wb_rst | or1k_dbg_rst | ~flash_done;
 	
 	mor1kx #(
 		.FEATURE_DEBUGUNIT("ENABLED"),
@@ -421,48 +422,48 @@ module soc_top # (
 		.snoop_adr_i(0)
 	);
 	
-	wire clk_spi_en;
-	wb_flash_if #(
-			.FLASH_ADR_WIDTH(24),
-			.DUMMY_CYCLES(10),
-			.INITIAL_PREREAD(24'h800100))
+	//wire flash_spi_sck_int;
+	wb_flash_loader #(
+			.DUMMY_CYCLES(8),
+			.READ_OFFSET(24'h800000),
+			.WRITE_OFFSET(32'h00000000),
+			.SIZE(19))
 		flash0 (
-			.CLK(clk_io),
+			.CLK(wb_clk),
 			.RESET(wb_rst),
 			.SPI_CSN(flash_spi_csn),
 			.SPI_IO(flash_spi_io),
-			.SPI_CLK_EN(clk_spi_en),
-			.WB_RST_I(wb_rst),
-			.WB_CLK_I(wb_clk),
-			.WB_ADR_I({9'b000000001, wb_m2s_flash0_adr[22:0]}), // map flash accesses into upper 8MiB
-			.WB_DAT_I(wb_m2s_flash0_dat),
-			.WB_DAT_O(wb_s2m_flash0_dat),
-			.WB_WE_I(wb_m2s_flash0_we),
-			.WB_SEL_I(wb_m2s_flash0_sel),
-			.WB_STB_I(wb_m2s_flash0_stb),
-			.WB_ACK_O(wb_s2m_flash0_ack),
-			.WB_CYC_I(wb_m2s_flash0_cyc),
-			.WB_CTI_I(wb_m2s_flash0_cti),
-			.WB_BTE_I(wb_m2s_flash0_bte),
-			.WB_RTY_O(wb_s2m_flash0_rty),
-			.WB_ERR_O(wb_s2m_flash0_err));
+			.SPI_CLK(flash_spi_sck),
+			.DONE(flash_done),
+			.WB_ADR_O(wb_m2s_flash0_adr),
+			.WB_DAT_O(wb_m2s_flash0_dat),
+			.WB_DAT_I(wb_s2m_flash0_dat),
+			.WB_WE_O (wb_m2s_flash0_we),
+			.WB_SEL_O(wb_m2s_flash0_sel),
+			.WB_STB_O(wb_m2s_flash0_stb),
+			.WB_ACK_I(wb_s2m_flash0_ack),
+			.WB_CYC_O(wb_m2s_flash0_cyc),
+			.WB_CTI_O(wb_m2s_flash0_cti),
+			.WB_BTE_O(wb_m2s_flash0_bte),
+			.WB_RTY_I(wb_s2m_flash0_rty),
+			.WB_ERR_I(wb_s2m_flash0_err));
 
-	wire flash_spi_sck_int;
-	BUFGCE bufgce_spi_clk (
-		.I (clk_io_inv),
-		.CE (clk_spi_en),
-		.O (flash_spi_sck_int));
+
+	//BUFGCE bufgce_spi_clk (
+	//	.I (clk_io_inv),
+	//	.CE (clk_spi_en),
+	//	.O (flash_spi_sck_int));
 	
-	ODDR2 ODDR_SPI_FLASH (
-	  .Q(flash_spi_sck),     // Data output (connect directly to top-level port)
-	  .C0(flash_spi_sck_int),     // 0 degree clock input
-	  .C1(~flash_spi_sck_int),    // 180 degree clock input
-	  .CE(1'b1),     // Clock enable input
-	  .D0(1'b1),     // Posedge data input
-	  .D1(1'b0),     // Negedge data input
-	  .R(1'b0),      // Synchronous reset input
-	  .S(1'b0)       // Synchronous preset input
-	  );
+	//ODDR2 ODDR_SPI_FLASH (
+	//  .Q(flash_spi_sck),     // Data output (connect directly to top-level port)
+	//  .C0(flash_spi_sck_int),     // 0 degree clock input
+	//  .C1(~flash_spi_sck_int),    // 180 degree clock input
+	//  .CE(1'b1),     // Clock enable input
+	//  .D0(1'b1),     // Posedge data input
+	//  .D1(1'b0),     // Negedge data input
+	//  .R(1'b0),      // Synchronous reset input
+	//  .S(1'b0)       // Synchronous preset input
+	//  );
 	  
 	wire uart0_irq;
 	
@@ -583,16 +584,16 @@ module soc_top # (
 	)
 	xilinx_ddr2_0 (
 	// R/W
-	.wb0_adr_i (0),
-	.wb0_bte_i (0),
-	.wb0_cti_i (0),
-	.wb0_cyc_i (0),
-	.wb0_dat_i (0),
-	.wb0_sel_i (0),
-	.wb0_stb_i (0),
-	.wb0_we_i  (0),
-	.wb0_ack_o (),
-	.wb0_dat_o (),
+	.wb0_adr_i (wb_m2s_ddr2_debug_adr),
+	.wb0_bte_i (wb_m2s_ddr2_debug_bte),
+	.wb0_cti_i (wb_m2s_ddr2_debug_cti),
+	.wb0_cyc_i (wb_m2s_ddr2_debug_cyc),
+	.wb0_dat_i (wb_m2s_ddr2_debug_dat),
+	.wb0_sel_i (wb_m2s_ddr2_debug_sel),
+	.wb0_stb_i (wb_m2s_ddr2_debug_stb),
+	.wb0_we_i  (wb_m2s_ddr2_debug_we),
+	.wb0_ack_o (wb_s2m_ddr2_debug_ack),
+	.wb0_dat_o (wb_s2m_ddr2_debug_dat),
 	// R/W
 	.wb1_adr_i (wb_m2s_ddr2_dbus_adr),
 	.wb1_bte_i (wb_m2s_ddr2_dbus_bte),
@@ -601,7 +602,7 @@ module soc_top # (
 	.wb1_dat_i (wb_m2s_ddr2_dbus_dat),
 	.wb1_sel_i (wb_m2s_ddr2_dbus_sel),
 	.wb1_stb_i (wb_m2s_ddr2_dbus_stb),
-	.wb1_we_i (wb_m2s_ddr2_dbus_we),
+	.wb1_we_i  (wb_m2s_ddr2_dbus_we),
 	.wb1_ack_o (wb_s2m_ddr2_dbus_ack),
 	.wb1_dat_o (wb_s2m_ddr2_dbus_dat),
 	// RO
@@ -612,20 +613,20 @@ module soc_top # (
 	.wb2_dat_i (wb_m2s_ddr2_ibus_dat),
 	.wb2_sel_i (wb_m2s_ddr2_ibus_sel),
 	.wb2_stb_i (wb_m2s_ddr2_ibus_stb),
-	.wb2_we_i (wb_m2s_ddr2_ibus_we),
+	.wb2_we_i  (wb_m2s_ddr2_ibus_we),
 	.wb2_ack_o (wb_s2m_ddr2_ibus_ack),
 	.wb2_dat_o (wb_s2m_ddr2_ibus_dat),
 	// WO
-	.wb3_adr_i (0),
-	.wb3_bte_i (0),
-	.wb3_cti_i (0),
-	.wb3_cyc_i (0),
-	.wb3_dat_i (0),
-	.wb3_sel_i (0),
-	.wb3_stb_i (0),
-	.wb3_we_i (0),
-	.wb3_ack_o (),
-	.wb3_dat_o (),
+	.wb3_adr_i (wb_m2s_ddr2_loader_adr),
+	.wb3_bte_i (wb_m2s_ddr2_loader_bte),
+	.wb3_cti_i (wb_m2s_ddr2_loader_cti),
+	.wb3_cyc_i (wb_m2s_ddr2_loader_cyc),
+	.wb3_dat_i (wb_m2s_ddr2_loader_dat),
+	.wb3_sel_i (wb_m2s_ddr2_loader_sel),
+	.wb3_stb_i (wb_m2s_ddr2_loader_stb),
+	.wb3_we_i  (wb_m2s_ddr2_loader_we),
+	.wb3_ack_o (wb_s2m_ddr2_loader_ack),
+	.wb3_dat_o (wb_s2m_ddr2_loader_dat),
 	// RO
 	.wb4_adr_i (0),
 	.wb4_bte_i (0),
