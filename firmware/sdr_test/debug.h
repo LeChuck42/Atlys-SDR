@@ -19,6 +19,7 @@
 // Log levels
 #define LOG_MAIN		LOG_DEBUG
 #define LOG_TIMER		LOG_DEBUG
+#define LOG_SPI			LOG_DEBUG
 
 #define LOG_WARNING_LED_LEVEL	LOG_WARN // Messages of equal or higher severity cause the error LED to flash
 

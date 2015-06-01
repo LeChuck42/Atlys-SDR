@@ -190,9 +190,9 @@ SECTIONS
   	*(.noinit)
   }> DDR
   . = ALIGN(32 / 8);
-  __bss_start = .;
   .sbss           :
   {
+  	__bss_start = .;
     *(.dynsbss)
     *(.sbss .sbss.* .gnu.linkonce.sb.*)
     *(.scommon)

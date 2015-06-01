@@ -52,8 +52,49 @@
 #define ATLYS_GPIO_LED5			(1<<21)
 #define ATLYS_GPIO_LED6			(1<<22)
 
+
+#define ATLYS_SPI_SPCR_PTR		(((         unsigned char*)(ATLYS_SPI_BASE)) + 0 ) // Serial Peripheral Control Register
+#define ATLYS_SPI_SPSR_PTR		(((volatile unsigned char*)(ATLYS_SPI_BASE)) + 1 ) // Serial Peripheral Status Register
+#define ATLYS_SPI_DATA_PTR		(((volatile unsigned char*)(ATLYS_SPI_BASE)) + 2 ) // Serial Peripheral Data Register
+#define ATLYS_SPI_SPER_PTR		(((         unsigned char*)(ATLYS_SPI_BASE)) + 3 ) // Serial Peripheral Extension Register
+#define ATLYS_SPI_SS_PTR		(((         unsigned char*)(ATLYS_SPI_BASE)) + 4 ) // Serial Peripheral Slave Select
+
+#define SPI_SPCR_SPIE			(1<<7) // Interrupt enable bit
+#define SPI_SPCR_SPE			(1<<6) // System enable bit
+#define SPI_SPCR_DWOM			(1<<5) // Port D Wired-OR Mode Bit
+#define SPI_SPCR_MSTR			(1<<4) // Master Mode select bit
+#define SPI_SPCR_CPOL			(1<<3) // Clock Polarity bit
+#define SPI_SPCR_CPHA			(1<<2) // Clock Phase bit
+#define SPI_SPCR_SPR1			(1<<1) // Clock rate select bit 1
+#define SPI_SPCR_SPR0			(1<<0) // Clock rate select bit 0
+
+#define SPI_SPSR_SPIF			(1<<7) // Interrupt Flag
+#define SPI_SPSR_WCOL			(1<<6) // Write Collision (FIFO overrun)
+#define SPI_SPSR_WFFULL			(1<<3) // Write FIFO full
+#define SPI_SPSR_WFEMPTY		(1<<2) // Write FIFO empty
+#define SPI_SPSR_RFFULL			(1<<1) // Read FIFO full
+#define SPI_SPSR_RFEMPTY		(1<<0) // Read FIFO empty
+
+#define SPI_SPER_ICNT1			(1<<7) // interrupt on transfer count bit 1
+#define SPI_SPER_ICNT0			(1<<6) // interrupt on transfer count bit 0
+#define SPI_SPER_SPRE1			(1<<1) // extended clock rate select bit 1
+#define SPI_SPER_SPRE0			(1<<0) // extended clock rate select bit 0
+
+#define SPI_SLAVE_OE			(1<<0)
+#define SPI_SLAVE_CLK			(1<<1)
+#define SPI_SLAVE_DAC			(1<<2)
+#define SPI_SLAVE_ADC			(1<<3)
+#define SPI_SLAVE_FPGA			(1<<4)
+
+
+// Interrupt lines ******************************************************************
+#define ATLYS_INTERRUPT_UART	2
+#define ATLYS_INTERRUPT_SPI		6
+
 // Helper macros ********************************************************************
 #define ATLYS_ENTER_CRITICAL(interrupt, timer) interrupt = or1k_interrupts_disable(); timer = or1k_timer_disable()
 #define ATLYS_EXIT_CRITICAL(interrupt, timer) or1k_interrupts_restore(interrupt); or1k_timer_restore(timer)
+
+
 
 #endif /* ATLYS_H_ */

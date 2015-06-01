@@ -11,7 +11,7 @@
 #define MAX_SWI 4
 
 /* defined in or1k-support */
-extern unsigned long or1k_timer_ticks;
+extern volatile unsigned long or1k_timer_ticks;
 
 #define TIMER_GetTicks()	or1k_timer_ticks
 
