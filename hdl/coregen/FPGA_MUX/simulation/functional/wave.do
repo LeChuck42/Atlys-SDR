@@ -61,6 +61,11 @@ add wave -noupdate -format Literal /FPGA_MUX_tb/dut/io_inst/iserdes_q
 add wave -noupdate -format Literal /FPGA_MUX_tb/dut/DATA_IN_TO_DEVICE
 add wave -noupdate -format Logic   /FPGA_MUX_tb/dut/BITSLIP
 add wave -noupdate -format Logic   /FPGA_MUX_tb/dut/IO_RESET
+add wave -noupdate -format Logic   /FPGA_MUX_tb/dut/DELAY_BUSY
+add wave -noupdate -format Logic   /FPGA_MUX_tb/dut/DELAY_CLK
+add wave -noupdate -format Logic   /FPGA_MUX_tb/dut/DELAY_DATA_INC
+add wave -noupdate -format Logic   /FPGA_MUX_tb/dut/DELAY_DATA_CE
+add wave -noupdate -format Logic   /FPGA_MUX_tb/dut/DELAY_DATA_CAL
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {370825 ps} 0}
 configure wave -namecolwidth 230

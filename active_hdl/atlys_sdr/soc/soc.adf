@@ -24,7 +24,7 @@ LANGUAGE=VHDL
 REFRESH_FLOW=1
 FLOWTOOLS=NONE
 FAMILY=Xilinx SPARTAN6
-fileopenfolder=C:\FPGA\atlys_sdr\hdl
+fileopenfolder=C:\FPGA\AtlysAFE\coregen
 NoTimingChecks=0
 NoTchkMsg=0
 EnableXtrace=0
@@ -48,7 +48,7 @@ VitalGlitches=0
 
 [LocalVerilogSets]
 EnableSLP=0
-EnableDebug=0
+EnableDebug=1
 VerilogLanguage=4
 WarningPrnLevel=1
 OptimizationLevel=2
@@ -106,7 +106,7 @@ IncludeDir4=.\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim
 WindowVisible=0
 
 [HierarchyViewer]
-HierarchyInformation=wb_flash_if|rtl|0
+HierarchyInformation=
 ShowHide=ShowTopLevel
 Selected=
 
@@ -125,14 +125,45 @@ Enabled=1
 [ToggleCoverage]
 Enabled=0
 
+[LoadVHPI]
+Count=0
+
+[DesignStructure]
+Drawing=.\src
+WaveformASDBAWC=.\src
+ExternalFile=.\src
+Macro=.\src
+WaveformASDB=.\src
+TclScript=.\src
+Waveform=.\src
+EDIFSchematic=.\src
+SDF=.\src
+Text=.\src
+WaveformASDBC=.\src
+SystemVerilogSourceCode=.\src
+VerilogSourceCode=.\src
+VHDLSourceCode=.\src
+BlockDiagram=.\src
+StateDiagram=.\src
+EDIFNetlist=.\src
+SymbolSheet=.\src
+PslSourceCode=.\src
+MemFile=.\src
+ListFile=.\src
+OvaSourceCode=.\src
+HTMLDocument=.\src
+adc=.\src
+PerlScript=.\src
+Cpp=.\src
+ActiveCADTestVectors=.\src
+GenerateToCustomFolder=0
+
 [Verilog Library]
 xilinxcorelib_ver=
 unisims_ver=
 
-[LoadVHPI]
-Count=0
-
 [Files.Data]
+.\..\..\..\hdl\wb_flash_loader.vhd=VHDL Source Code
 .\..\..\..\hdl\wb_uart.vhd=VHDL Source Code
 .\..\..\..\hdl\uart_tx.vhd=VHDL Source Code
 .\..\..\..\hdl\uart_rx.vhd=VHDL Source Code
@@ -256,7 +287,11 @@ Count=0
 .\..\..\..\hdl\sim\bidir_delay.vhd=VHDL Source Code
 .\..\..\..\hdl\vhdci_mux.v=Verilog Source Code
 .\..\..\..\hdl\gpio.v=Verilog Source Code
-.\..\..\..\hdl\wb_flash_loader.vhd=VHDL Source Code
+.\..\..\..\..\AtlysAFE\hdl\main.vhd=VHDL Source Code
+.\..\..\..\..\AtlysAFE\coregen\pll_main.vhd=VHDL Source Code
+.\..\..\..\..\AtlysAFE\coregen\pll_mux.vhd=VHDL Source Code
+.\..\..\..\..\AtlysAFE\coregen\rx_mux.vhd=VHDL Source Code
+.\..\..\..\..\AtlysAFE\coregen\tx_mux.vhd=VHDL Source Code
 
 [Files]
 /..\..\..\..\hdl\wb_flash_loader.vhd=-1
@@ -383,4 +418,9 @@ Count=0
 /..\..\..\..\hdl\sim\bidir_delay.vhd=-1
 /..\..\..\..\hdl\vhdci_mux.v=-1
 /..\..\..\..\hdl\gpio.v=-1
+/..\..\..\..\..\AtlysAFE\coregen\pll_main.vhd=-1
+/..\..\..\..\..\AtlysAFE\coregen\pll_mux.vhd=-1
+/..\..\..\..\..\AtlysAFE\coregen\rx_mux.vhd=-1
+/..\..\..\..\..\AtlysAFE\coregen\tx_mux.vhd=-1
+/..\..\..\..\..\AtlysAFE\hdl\main.vhd=-1
 

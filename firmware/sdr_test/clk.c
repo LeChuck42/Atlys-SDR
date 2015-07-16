@@ -29,12 +29,34 @@ static const unsigned char BitReverseTable256[] =
   0x0F, 0x8F, 0x4F, 0xCF, 0x2F, 0xAF, 0x6F, 0xEF, 0x1F, 0x9F, 0x5F, 0xDF, 0x3F, 0xBF, 0x7F, 0xFF
 };
 
+static const unsigned int dwClkConfig[9] =
+{
+		//0x8102032,
+		//0x6914032,
+		//0xEB14030,
+		//0xEB2C030,
+		//0xEB3C031,
+		//0x30000AE,
+		//0x24CE0B6,
+		//0xBD90FB7,
+		0x8102032,
+		0x6914032,
+		0xEB14030,
+		0xEB2C030,
+		0xEB3C031,
+		0x300C0AE,
+		0x24DE2F6,
+		0xBDA3FBE,
+		0x0000180
+};
+
+
 static void CLK_SpiWrite32(unsigned int dwData, unsigned int dwAddr)
 {
 	unsigned char ucByte;
 
 	// CLK IC receives data LSB first
-	ucByte = dwData<<4 | (dwAddr & 0x0F);
+	ucByte = (dwData<<4) | (dwAddr & 0x0F);
 	SPI_Write(BitReverseTable256[ucByte],0);
 	ucByte = dwData>>4;
 	SPI_Write(BitReverseTable256[ucByte],0);
@@ -85,4 +107,17 @@ unsigned int CLK_ReadRegister(unsigned int dwRegAddr)
 	dwResponse = CLK_SpiRead32();
 	SPI_ChipSelect(SPI_TARGET_NONE);
 	return dwResponse;
+}
+
+void CLK_WriteConfig()
+{
+	unsigned int dwReg;
+	// write configuration data
+	for (dwReg = 0; dwReg <= 7; dwReg++)
+	{
+		SPI_ChipSelect(SPI_TARGET_CLK);
+		CLK_SpiWrite32(dwClkConfig[dwReg], dwReg);
+		SPI_ChipSelect(SPI_TARGET_NONE);
+	}
+
 }

@@ -26,6 +26,7 @@ module soc_top_tb;
 
 	// Inputs
 	reg clk_100_pin;
+	reg clk_10_pin;
 	reg MII_TX_CLK_pin;
 	wire [7:0] GMII_RXD_pin;
 	wire GMII_RX_DV_pin;
@@ -211,12 +212,13 @@ module soc_top_tb;
 	assign adc_bit_clk_n = ~adc_bit_clk_p;
 	assign adc_cha_n = ~adc_cha_p;
 	assign adc_chb_n = ~adc_chb_p;
-	
+	reg mux_clk_en;
 	reg [7:0] mux_data;
 	reg [2:0] mux_counter;
 	initial begin
 		// Initialize Inputs
 		clk_100_pin = 0;
+		clk_10_pin = 0;
 		MII_TX_CLK_pin = 0;
 		GMII_RX_ER_pin = 0;
 		GMII_RX_CLK_pin = 0;
@@ -224,6 +226,7 @@ module soc_top_tb;
 		adc_chb_p = 0;
 		adc_bit_clk_p = 0;
 		adc_frame_sync_p = 0;
+		mux_clk_en = 1;
 		sw = 0;
 		rs232_rx = 1;
 		mux_data = 8'h01;
@@ -232,6 +235,24 @@ module soc_top_tb;
 		// Wait for global reset to finish
 		#10000;
 		btn = 6'b111111;
+		/*#500;
+		mux_clk_en = 0;
+		#1000;
+		mux_clk_en = 1;*/
+		#20000;
+		btn = 6'b111110;
+		#1234;
+		btn = 6'b111111;
+		#20000;
+		btn = 6'b111110;
+		#2345;
+		btn = 6'b111111;
+		#20000;
+		btn = 6'b111110;
+		#123;
+		btn = 6'b111111;
+		#20000;
+		btn = 6'b111110;
 		#1500;
       /*
 		rs232_send(8'h52); // set rising trigger
@@ -271,66 +292,42 @@ module soc_top_tb;
 		#4;
 		GMII_RX_CLK_pin <= ~GMII_RX_CLK_pin;
 	end
-	/*
-	always @VHDCI_MUX_CLK_P begin
-		#1;
-		VHDCI_MUX_IN_P <= mux_data[mux_counter];
-		mux_counter <= mux_counter + 1;
-	end
+	reg mux_clk;
+	reg rx_delayed, tx_delayed;
+	wire rx_internal;
 	
-	reg [2:0] rx_mux_counter;
-	reg sim_rx_synced;
-	reg [7:0] rx_mux_data, rx_mux_buf;
-	wire sim_rx_clk = !rx_mux_counter[2];
-	
-	reg bitslip, bitslip_buf, bitslip_sync;
-	
-	always @VHDCI_MUX_CLK_P begin
-		bitslip_buf <= bitslip;
-		if ((rx_mux_counter == 0 && (bitslip == 0 || bitslip_buf == 1)) || rx_mux_counter != 0) begin
-			#1;
-			rx_mux_counter <= rx_mux_counter + 1;
-			rx_mux_buf[rx_mux_counter] <= VHDCI_MUX_OUT_P;
-		end
-	end
-	integer i;
-	always @(posedge sim_rx_synced) begin
-		mux_data <= 8'h81;
-		#1000;
-		for (i=0; i<10; i=i+1) begin
-			mux_data <= 0;
-			#16;
-			mux_data <= 8'h80;
-			#16;
-		end
-		mux_data <= 0;
-		#500;
-		mux_data <= 8'h01;
-	end
-		
-	always @(posedge sim_rx_clk) begin
-		bitslip_sync <= bitslip;
-		rx_mux_data = rx_mux_buf;
-		if (!bitslip && !bitslip_sync && !sim_rx_synced) begin
-			if (rx_mux_data == 8'h01 || rx_mux_data == 8'h81)
-				sim_rx_synced <= 1;
-			else begin
-				sim_rx_synced <= 0;
-				bitslip <= 1;
-			end
-		end else begin
-			bitslip <= 0;
-		end
-	end*/
+	always @(VHDCI_MUX_CLK_P or mux_clk_en)
+		if (mux_clk_en)
+			mux_clk <= #0.8 VHDCI_MUX_CLK_P;
+		else
+			mux_clk <= 1'b0;
 			
-	rx_sim rx_sim_inst (
-		.MUXCLK(VHDCI_MUX_CLK_P),
-		.MUXIN(VHDCI_MUX_OUT_P),
-		.MUXOUT(VHDCI_MUX_IN_P));
+	always @(rx_internal)
+		rx_delayed <= #0.8 rx_internal;
+		
+	always @(VHDCI_MUX_OUT_P)
+		tx_delayed <= #0.9 VHDCI_MUX_OUT_P;
+		
+	assign VHDCI_MUX_IN_P = rx_delayed;
+	main rx_sim_inst (
+		.CLK_FPGA(1'b0),
+		.MUX_CLK(mux_clk),
+		.MUX1(1'b0),
+		.MUX2(tx_delayed),
+		.MUX3(rx_internal),
+		.FPGA_PGOOD(1'b1),
+		.DAC_ALARM(1'b0)
+		
+		);
 		
 	always begin
 		#5;
 		clk_100_pin = ~clk_100_pin;
+	end
+	
+	always begin
+		#50;
+		clk_10_pin = ~clk_10_pin;
 	end
 	
 endmodule

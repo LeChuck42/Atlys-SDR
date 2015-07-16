@@ -150,7 +150,8 @@ module ddr2_model_c3 (
     `define MAX_SIZE   (1<<(BA_BITS+ROW_BITS+COL_BITS-BL_BITS))
     `define MEM_SIZE   (1<<MEM_BITS)
     `define MAX_PIPE   2*(AL_MAX + CL_MAX)
-
+	`define MAX_MEM
+	
     // Declare Ports
     input   ck;
     input   ck_n;
@@ -1034,6 +1035,7 @@ module ddr2_model_c3 (
                                 $display ("%m: at time %t WARNING: 200 us is required before CKE goes active.", $time);
 //                          if (cmd_chk + 200000000 > $time)
 //                              $display("%m: at time %t WARNING: NOP or DESELECT is required for 200 us before CKE is brought high", $time);
+							$readmemh("data.hex", memory);
                             init_step = init_step + 1;
                         end
                         1 : if (dll_en)        init_step = init_step + 1;

@@ -52,7 +52,7 @@
 
 `timescale 1ps/1ps
 
-(* CORE_GENERATION_INFO = "FPGA_MUX,selectio_wiz_v4_1,{component_name=FPGA_MUX,bus_dir=SEPARATE,bus_sig_type=DIFF,bus_io_std=LVDS_25,use_serialization=true,use_phase_detector=false,serialization_factor=8,enable_bitslip=true,enable_train=false,system_data_width=1,bus_in_delay=NONE,bus_out_delay=NONE,clk_sig_type=SINGLE,clk_io_std=LVCMOS18,clk_buf=BUFPLL,active_edge=RISING,clk_delay=NONE,v6_bus_in_delay=NONE,v6_bus_out_delay=NONE,v6_clk_buf=BUFIO,v6_active_edge=NOT_APP,v6_ddr_alignment=SAME_EDGE_PIPELINED,v6_oddr_alignment=SAME_EDGE,ddr_alignment=C0,v6_interface_type=NETWORKING,interface_type=NETWORKING,v6_bus_in_tap=0,v6_bus_out_tap=0,v6_clk_io_std=LVCMOS18,v6_clk_sig_type=DIFF}" *)
+(* CORE_GENERATION_INFO = "FPGA_MUX,selectio_wiz_v4_1,{component_name=FPGA_MUX,bus_dir=SEPARATE,bus_sig_type=DIFF,bus_io_std=LVDS_25,use_serialization=true,use_phase_detector=false,serialization_factor=8,enable_bitslip=true,enable_train=false,system_data_width=1,bus_in_delay=VARIABLE,bus_out_delay=NONE,clk_sig_type=SINGLE,clk_io_std=LVCMOS18,clk_buf=BUFPLL,active_edge=RISING,clk_delay=NONE,v6_bus_in_delay=NONE,v6_bus_out_delay=NONE,v6_clk_buf=BUFIO,v6_active_edge=NOT_APP,v6_ddr_alignment=SAME_EDGE_PIPELINED,v6_oddr_alignment=SAME_EDGE,ddr_alignment=C0,v6_interface_type=NETWORKING,interface_type=NETWORKING,v6_bus_in_tap=0,v6_bus_out_tap=0,v6_clk_io_std=LVCMOS18,v6_clk_sig_type=DIFF}" *)
 
 module FPGA_MUX
    // width of the data for the system
@@ -70,6 +70,11 @@ module FPGA_MUX
   output [sys_w-1:0] DATA_OUT_TO_PINS_N,
   output  CLK_TO_PINS_P,
   output  CLK_TO_PINS_N,
+  output             DELAY_BUSY,
+  input              DELAY_CLK,
+  input              DELAY_DATA_CAL,
+  input              DELAY_DATA_CE,                     // Enable signal for delay
+  input              DELAY_DATA_INC,                    // Delay increment (high), decrement (low) signal
   input              BITSLIP,
   input              CLK_IN,        // Fast clock input from PLL/MMCM
   input              CLK_DIV_IN,    // Slow clock input from PLL/MMCM
@@ -90,6 +95,8 @@ module FPGA_MUX
   wire   [sys_w-1:0] data_out_to_pins_int;
   // Between the delay and serdes
   wire   [sys_w-1:0] data_out_to_pins_predelay;
+  wire   [sys_w-1:0] delay_data_busy;
+  assign             DELAY_BUSY = |delay_data_busy;
   // Array to use intermediately from the serdes to the internal
   //  devices. bus "0" is the leftmost bus
   wire [sys_w-1:0]  iserdes_q[0:7];   // fills in starting with 0
@@ -126,11 +133,42 @@ module FPGA_MUX
         .IB         (DATA_IN_FROM_PINS_N  [pin_count]),
         .O          (data_in_from_pins_int[pin_count]));
 
-    // Pass through the delay
+    // Instantiate the delay primitive
     ////-------------------------------
-   assign data_in_from_pins_delay[pin_count] = data_in_from_pins_int[pin_count];
-   assign data_out_to_pins_int[pin_count]    = data_out_to_pins_predelay[pin_count];
  
+    IODELAY2
+     #(.DATA_RATE                  ("SDR"),
+       .IDELAY_VALUE               (0),
+       .IDELAY_TYPE                ("VARIABLE_FROM_ZERO"),
+       .COUNTER_WRAPAROUND         ("WRAPAROUND"),
+       .DELAY_SRC                  ("IDATAIN"),
+       .SERDES_MODE                ("NONE"),
+       .SIM_TAPDELAY_VALUE         (75))
+     indelay2_bus
+      (
+       // required datapath
+       .IDATAIN                (data_in_from_pins_int  [pin_count]),
+       .DATAOUT                (data_in_from_pins_delay[pin_count]),
+       .T                      (1'b1),
+       // inactive data connections
+       .DATAOUT2               (),
+       .DOUT                   (),
+       .ODATAIN                (1'b0),
+       .TOUT                   (),
+       // connect up the clocks
+       .IOCLK0                 (clk_in_int_buf),       // High speed clock for calibration for SDR/DDR
+       .IOCLK1                 (1'b0),                 // High speed clock for calibration for DDR
+       .CLK                    (DELAY_CLK),
+       .CAL                    (DELAY_DATA_CAL),
+       .INC                    (DELAY_DATA_INC),
+       .CE                     (DELAY_DATA_CE),
+       .BUSY                   (delay_data_busy[pin_count]),
+       .RST                    (IO_RESET));
+
+
+// No delay element instantiated for output
+   assign data_out_to_pins_int     [pin_count] = data_out_to_pins_predelay[pin_count];
+
      // Instantiate the serdes primitive
      ////------------------------------
      // local wire only for use in this generate loop

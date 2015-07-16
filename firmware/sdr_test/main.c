@@ -40,17 +40,23 @@ int main()
 	init();
 	TIMER_AddHandler(blink, 0, 500, 1);
 	dwPollTimer = TIMER_GetTicks();
-	regnr = 0;
+	regnr = 0xFFFFFFFF;
 	while (1)
 	{
 		if (TIMER_GetDelta(dwPollTimer) > 100)
 		{
 			if (SPI_GetMutex())
 			{
+				if (regnr == 0xFFFFFFFF)
+					CLK_WriteConfig();
+				else
+					CLK_ReadRegister(regnr);
 				dwPollTimer = TIMER_GetTicks();
-				CLK_ReadRegister(regnr);
 				SPI_ReleaseMutex();
-				regnr = (regnr + 1) & 0xF;
+				if (regnr >= 8)
+					regnr = 0;
+				else
+					regnr = regnr + 1;
 			}
 		}
 	}

@@ -7,7 +7,8 @@ entity wb_flash_loader is
 		DUMMY_CYCLES:    natural := 8;
 		READ_OFFSET:     std_logic_vector(23 downto 0) := x"800000";
 		WRITE_OFFSET:    std_logic_vector(31 downto 0) := x"00000000";
-		SIZE:            natural := 20); -- copy 1 MiB
+		SIZE:            natural := 20;
+		SIMULATION:      string := "FALSE" ); -- copy 1 MiB
 	port (
 		CLK      : in std_logic;
 		RESET    : in std_logic;
@@ -65,7 +66,11 @@ begin
 	flash_fsm: process(CLK, RESET)
 	begin
 		if RESET = '1' then
-			flash_state <= COMMAND;
+			if SIMULATION = "FALSE" then
+				flash_state <= COMMAND;
+			else
+				flash_state <= FINISHED;
+			end if;
 			word_cnt <= to_unsigned(0, word_cnt'LENGTH);
 			trx_cnt <= to_unsigned(0, trx_cnt'LENGTH);
 			cmd_buf  <= x"6B" & READ_OFFSET; -- QOFR + 3 ADDR BYTES

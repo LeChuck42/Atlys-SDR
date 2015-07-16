@@ -65,6 +65,11 @@
     .CLK_TO_PINS_P(CLK_TO_PINS_P), //Output pins
     .CLK_TO_PINS_N(CLK_TO_PINS_N), //Output pins
 
+    .DELAY_BUSY(DELAY_BUSY), //Output pins
+    .DELAY_CLK(DELAY_CLK), //Input pins
+    .DELAY_DATA_CAL(DELAY_DATA_CAL), //Input pins
+    .DELAY_DATA_CE(DELAY_DATA_CE),                     // Enable signal for delay 
+    .DELAY_DATA_INC(DELAY_DATA_INC),                    // Delay increment (high), decrement (low) signal
     .BITSLIP(BITSLIP), //Input pin
     .CLK_IN(CLK_IN),        // Fast clock input from PLL/MMCM
     .CLK_DIV_IN(CLK_DIV_IN),    // Slow clock input from PLL/MMCM

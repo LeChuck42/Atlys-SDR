@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Tue Nov 11 19:01:43 2014
+# Date: Thu Jul 09 19:29:05 2015
 #
 ##############################################################
 #
@@ -41,14 +41,14 @@ SELECT SelectIO_Interface_Wizard xilinx.com:ip:selectio_wiz:4.1
 # BEGIN Parameters
 CSET active_edge=RISING
 CSET bus_dir=SEPARATE
-CSET bus_in_delay=NONE
+CSET bus_in_delay=VARIABLE
 CSET bus_in_tap=0
 CSET bus_io_std=LVDS_25
 CSET bus_out_delay=NONE
 CSET bus_out_tap=0
 CSET bus_sig_type=DIFF
-CSET bus_tap_reset=NOT_APP
-CSET bus_tap_wrap=NOT_APP
+CSET bus_tap_reset=FROM_ZERO
+CSET bus_tap_wrap=WRAPAROUND
 CSET clk_buf=BUFPLL
 CSET clk_delay=NONE
 CSET clk_fwd=true
@@ -85,4 +85,4 @@ CSET v6_oddr_alignment=SAME_EDGE
 MISC pkg_timestamp=2012-03-26T12:54:40Z
 # END Extra information
 GENERATE
-# CRC: efcd71f9
+# CRC: e9247a2f

@@ -122,3 +122,8 @@ i<>.\..\..\..\hdl\sim\bidir_delay.vhd
 i<>.\..\..\..\hdl\vhdci_mux.v
 i<>.\..\..\..\hdl\gpio.v
 i<>.\..\..\..\hdl\wb_flash_loader.vhd
+i<>.\..\..\..\..\AtlysAFE\hdl\main.vhd
+i<>.\..\..\..\..\AtlysAFE\coregen\pll_main.vhd
+i<>.\..\..\..\..\AtlysAFE\coregen\pll_mux.vhd
+i<>.\..\..\..\..\AtlysAFE\coregen\rx_mux.vhd
+i<>.\..\..\..\..\AtlysAFE\coregen\tx_mux.vhd

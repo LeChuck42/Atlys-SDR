@@ -104,6 +104,13 @@ module FPGA_MUX_exdes
    wire                   locked_out;
    (* KEEP = "TRUE" *) wire        clk_div_in_int;
    wire                   clk_div_in;
+   wire                   delay_busy;
+   wire                   delay_clk       = clk_div_in;
+   reg                    delay_data_cal  = 0;
+   reg                    delay_data_ce   = 0;
+   reg                    delay_data_inc  = 0;
+   reg                    delay_tap_in    = 5'b00000;
+   reg                    delay_reset     = 0;
 
    reg rst_sync;
    reg rst_sync_int;
@@ -425,6 +432,11 @@ end
      .DATA_OUT_TO_PINS_N      (DATA_OUT_TO_PINS_N),
      .CLK_TO_PINS_P       (CLK_TO_PINS_P),
      .CLK_TO_PINS_N       (CLK_TO_PINS_N),
+     .DELAY_BUSY              (delay_busy),
+     .DELAY_CLK               (delay_clk),
+     .DELAY_DATA_CAL          (1'b0),
+     .DELAY_DATA_CE           (1'b0),
+     .DELAY_DATA_INC          (1'b0),
      .BITSLIP                 (bitslip),
      .CLK_IN                  (clk_in_pll1),
      .CLK_DIV_IN              (clk_div_in),

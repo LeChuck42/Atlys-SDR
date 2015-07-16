@@ -14,5 +14,6 @@
 #define CLK_SPI_ADDR_UNLOCK		0xF
 
 unsigned int CLK_ReadRegister(unsigned int dwRegAddr);
+void CLK_WriteConfig();
 
 #endif /* CLK_H_ */

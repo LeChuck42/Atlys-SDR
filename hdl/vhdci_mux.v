@@ -82,8 +82,8 @@ module vhdci_mux (
 		.OB(VHDCI_MUX_CLK_N),   // Diff_n output (connect directly to top-level port) (n type differential o/p)
 		.I(fpga_mux_clk)      // Buffer input (this is the single ended standard)
 	);
+	reg [2:0] delay_sync_state;
 	
-
 	reg vhdci_mux_bitslip;
 	wire [7:0] mux_in, mux_out;
 	assign mux_data_out = mux_in[6:0];
@@ -94,14 +94,16 @@ module vhdci_mux (
 	
 	assign mux_out = (mux_synced) ? {sync_mon_out, mux_data_in} : sync_pattern;
 	
-	always @(posedge clk_mux_div or posedge rst_in)
-		if (rst_in) begin
+	wire reset_sync = rst_in | (!mux_pll_locked);
+	always @(posedge clk_mux_div or posedge reset_sync)
+		if (reset_sync) begin
 			sync_mon_out <= 0;
 			mux_synced <= 0;
 			vhdci_mux_bitslip <= 0;
 			sync_mon_valid <= 0;
 			sync_mon_expect <= 0;
 			bitslip_sync <= 0;
+			sync_pattern <= 8'h00;
 		end else begin
 			sync_mon_out <= !sync_mon_out; // output sync bit to detect loss of link on other side
 			vhdci_mux_bitslip <= 0;
@@ -119,19 +121,87 @@ module vhdci_mux (
 					sync_mon_valid <= 1;
 				end
 			end else if (mux_in != 8'h01 && mux_in != 8'h81) begin
-				if (vhdci_mux_bitslip == 0 && bitslip_sync == 0)
-					vhdci_mux_bitslip <= 1;
-				sync_pattern <= 8'h01;
+				if (delay_sync_state == 3'b101) begin
+					if (vhdci_mux_bitslip == 0 && bitslip_sync == 0)
+						vhdci_mux_bitslip <= 1;
+					sync_pattern <= 8'h01;
+				end
 				sync_mon_valid <= 0;
 			end else begin
-				if (mux_in == 8'h81 && sync_pattern == 8'h81)
+				if (mux_in == 8'h81 && sync_pattern == 8'h81 && vhdci_mux_bitslip == 0 && bitslip_sync == 0)
 					mux_synced <= 1;
 				sync_pattern <= 8'h81;
 				sync_mon_valid <= 0;
 			end
 		end
 	
-	
+	wire delay_busy;
+	reg  delay_cal;
+	reg  delay_ce;
+	reg  delay_inc;
+	reg [7:0] mux_in_buf;
+	reg  io_reset;
+	reg [4:0] delay_half_shift;
+	always @(posedge clk_mux_div or posedge reset_sync)
+		if (reset_sync) begin
+			delay_cal <= 0;
+			delay_inc <= 1;
+			delay_ce <= 0;
+			io_reset <= 1;
+			delay_sync_state <= 3'b000;
+			delay_half_shift <= 20;
+		end else begin
+			case (delay_sync_state)
+				3'b000 : begin	// start calibration
+						io_reset <= 0;
+						delay_cal <= 1;
+						delay_sync_state <= 3'b001;
+					end
+				3'b001 : begin	// wait for calibration
+						if (delay_cal == 0 && delay_busy == 0) begin
+							delay_sync_state <= 3'b011;
+							io_reset <= 1;
+						end
+						delay_cal <= 0;
+					end
+				3'b011 : begin	// wait for rx data and store reference
+						io_reset <= 0;
+						if (mux_in != 8'h00) begin
+							mux_in_buf <= mux_in;
+							delay_sync_state <= 3'b010;
+						end
+					end
+				3'b010 : begin	// increment delay
+						delay_ce <= 1;
+						delay_sync_state <= 3'b110;
+					end
+				3'b110 : begin	// wait for delay
+						if (delay_ce == 0 && delay_busy == 0) begin
+							if (mux_in != mux_in_buf) begin
+								delay_sync_state <= 3'b111;
+							end else begin
+								delay_sync_state <= 3'b010;
+							end
+						end
+						delay_ce <= 0;
+					end
+				3'b111 : begin // edge found, shift to mid
+						if (delay_ce == 0 && delay_busy == 0) begin
+							if (delay_half_shift == 0) begin
+								delay_sync_state <= 3'b101;
+							end else begin
+								delay_ce <= 1;
+								delay_half_shift <= delay_half_shift - 1;
+							end
+						end else begin
+							delay_ce <= 0;
+						end
+					end
+				3'b101 : begin // ready
+					delay_sync_state <= 3'b101;
+					end
+			endcase
+		end
 	FPGA_MUX vhdci_mux
 	(
 		// From the system into the device
@@ -144,12 +214,17 @@ module vhdci_mux (
 		.DATA_OUT_TO_PINS_N      ({VHDCI_MUX_OUT_N}),
 		.CLK_TO_PINS_P           (),
 		.CLK_TO_PINS_N           (),
+		.DELAY_BUSY              (delay_busy), //Output pins
+		.DELAY_CLK               (clk_mux_div), //Input pins
+		.DELAY_DATA_CAL          (delay_cal), //Input pins
+		.DELAY_DATA_CE           (delay_ce),                     // Enable signal for delay 
+		.DELAY_DATA_INC          (delay_inc),                    // Delay increment (high), decrement (low) signal
 		.BITSLIP                 (vhdci_mux_bitslip),
 		.CLK_RESET               (1'b0),
 		.CLK_IN                  (clk_mux),
 		.CLK_DIV_IN              (clk_mux_div),
 		.LOCKED_IN               (mux_pll_locked),
 		.LOCKED_OUT              (),
-		.IO_RESET                (rst_in));
+		.IO_RESET                (io_reset));
 
 endmodule

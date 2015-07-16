@@ -427,7 +427,8 @@ module soc_top # (
 			.DUMMY_CYCLES(8),
 			.READ_OFFSET(24'h800000),
 			.WRITE_OFFSET(32'h00000000),
-			.SIZE(19))
+			.SIZE(19),
+			.SIMULATION(SIMULATION))
 		flash0 (
 			.CLK(wb_clk),
 			.RESET(wb_rst),
@@ -684,7 +685,7 @@ module soc_top # (
 	// Wires
 	//
 	wire 			spi0_irq;
-	wire [2:0]	spi0_ss;
+	wire [4:0]	spi0_ss;
 	wire 			spi0_mosi;
 	wire 			spi0_miso;
 	wire 			spi0_sck;
@@ -696,7 +697,7 @@ module soc_top # (
 //	assign  spi0_hold_n_o = 1;
 //	assign  spi0_w_n_o = 1;
 
-	simple_spi #(.SS_WIDTH(3))
+	simple_spi #(.SS_WIDTH(5))
 	spi0(
 		// Wishbone slave interface
 		.clk_i	(wb_clk),
@@ -764,7 +765,7 @@ vhdci_mux vhdci_mux_inst (
 	.clk_in(clk_100),
 	.rst_in(rst_100),
 	
-	.mux_data_in({spi0_sck, spi0_mosi, spi0_ss, 2'b00}),
+	.mux_data_in({spi0_sck, spi0_mosi, spi0_ss[4], spi0_ss[3], spi0_ss[2], spi0_ss[1], spi0_ss[0]}),
 	.mux_data_out({spi0_miso, gpio_in[13:8]}),
 	
 	.mux_synced(leds[7]),
