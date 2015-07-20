@@ -50,6 +50,9 @@ static const unsigned int dwClkConfig[9] =
 		0x0000180
 };
 
+static void CLK_SpiWrite32(unsigned int dwData, unsigned int dwAddr);
+static unsigned int CLK_SpiRead32();
+
 
 static void CLK_SpiWrite32(unsigned int dwData, unsigned int dwAddr)
 {
@@ -109,15 +112,36 @@ unsigned int CLK_ReadRegister(unsigned int dwRegAddr)
 	return dwResponse;
 }
 
+
 void CLK_WriteConfig()
 {
 	unsigned int dwReg;
-	// write configuration data
-	for (dwReg = 0; dwReg <= 7; dwReg++)
-	{
-		SPI_ChipSelect(SPI_TARGET_CLK);
-		CLK_SpiWrite32(dwClkConfig[dwReg], dwReg);
-		SPI_ChipSelect(SPI_TARGET_NONE);
-	}
+	unsigned int dwNeedToWrite = 0;
 
+	if (SPI_GetMutex())
+	{
+		for (dwReg=0; dwReg <= 7; dwReg++)
+		{
+			if (CLK_ReadRegister(dwReg) != dwClkConfig[dwReg])
+				dwNeedToWrite = 1;
+		}
+
+		if (dwNeedToWrite)
+		{
+			// write configuration data
+			for (dwReg = 0; dwReg <= 7; dwReg++)
+			{
+				SPI_ChipSelect(SPI_TARGET_CLK);
+				CLK_SpiWrite32(dwClkConfig[dwReg], dwReg);
+				SPI_ChipSelect(SPI_TARGET_NONE);
+			}
+/*
+			SPI_ChipSelect(SPI_TARGET_CLK);
+			CLK_SpiWrite32(0x000001,0xF); // send unlock command
+			SPI_ChipSelect(SPI_TARGET_NONE);*/
+		}
+
+		SPI_ReleaseMutex();
+	}
 }
+

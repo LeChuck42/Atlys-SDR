@@ -35,29 +35,12 @@ static void init()
 
 int main()
 {
-	unsigned int dwPollTimer;
-	unsigned int regnr;
 	init();
 	TIMER_AddHandler(blink, 0, 500, 1);
-	dwPollTimer = TIMER_GetTicks();
-	regnr = 0xFFFFFFFF;
+	CLK_WriteConfig();
+
 	while (1)
 	{
-		if (TIMER_GetDelta(dwPollTimer) > 100)
-		{
-			if (SPI_GetMutex())
-			{
-				if (regnr == 0xFFFFFFFF)
-					CLK_WriteConfig();
-				else
-					CLK_ReadRegister(regnr);
-				dwPollTimer = TIMER_GetTicks();
-				SPI_ReleaseMutex();
-				if (regnr >= 8)
-					regnr = 0;
-				else
-					regnr = regnr + 1;
-			}
-		}
+
 	}
 }

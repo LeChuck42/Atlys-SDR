@@ -91,15 +91,18 @@ module soc_top # (
 	input wire rs232_rx,
 	
 	// JTAG
+	/*
 	output wire tdo_pad_o,
 	input wire tms_pad_i,
 	input wire tck_pad_i,
 	input wire tdi_pad_i,
-	
+	*/
 	// Flash
 	output wire flash_spi_csn,
 	output wire flash_spi_sck,
-	inout wire [3:0] flash_spi_io
+	inout wire [3:0] flash_spi_io,
+	
+	output wire [7:0] pmod
 	);
 
 	wire wb_rst, wb_clk;
@@ -112,6 +115,11 @@ module soc_top # (
 	// Clock and reset generation module
 	//
 	////////////////////////////////////////////////////////////////////////
+
+	wire tdo_pad_o;
+	wire tms_pad_i;
+	wire tck_pad_i;
+	wire tdi_pad_i;
 
 	wire dbg_tck;
 	wire ddr2_if_clk;
@@ -775,7 +783,8 @@ vhdci_mux vhdci_mux_inst (
 	.VHDCI_MUX_OUT_P(VHDCI_MUX_OUT_P),
 	.VHDCI_MUX_OUT_N(VHDCI_MUX_OUT_N),
 	.VHDCI_MUX_CLK_P(VHDCI_MUX_CLK_P),
-	.VHDCI_MUX_CLK_N(VHDCI_MUX_CLK_N));
+	.VHDCI_MUX_CLK_N(VHDCI_MUX_CLK_N),
+	.debug(pmod));
 
 	////////////////////////////////////////////////////////////////////////
 	//

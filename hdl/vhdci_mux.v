@@ -14,7 +14,8 @@ module vhdci_mux (
 	output wire VHDCI_MUX_OUT_P,
 	output wire VHDCI_MUX_OUT_N,
 	output wire VHDCI_MUX_CLK_P,
-	output wire VHDCI_MUX_CLK_N);
+	output wire VHDCI_MUX_CLK_N,
+	output wire [7:0] debug);
 	
 	wire clk_mux, clk_mux_out, clk_250_int, clk_mux_div, clk_mux_div_int, mux_pll_locked, clkfbout, clkfbout_buf;
 	PLL_BASE
@@ -120,18 +121,19 @@ module vhdci_mux (
 					sync_mon_expect <= !mux_in[7];
 					sync_mon_valid <= 1;
 				end
-			end else if (mux_in != 8'h01 && mux_in != 8'h81) begin
-				if (delay_sync_state == 3'b101) begin
-					if (vhdci_mux_bitslip == 0 && bitslip_sync == 0)
-						vhdci_mux_bitslip <= 1;
-					sync_pattern <= 8'h01;
-				end
-				sync_mon_valid <= 0;
 			end else begin
-				if (mux_in == 8'h81 && sync_pattern == 8'h81 && vhdci_mux_bitslip == 0 && bitslip_sync == 0)
-					mux_synced <= 1;
-				sync_pattern <= 8'h81;
 				sync_mon_valid <= 0;
+				if (delay_sync_state == 3'b101) begin
+					if (mux_in != 8'h01 && mux_in != 8'h81) begin
+						if (vhdci_mux_bitslip == 0 && bitslip_sync == 0)
+							vhdci_mux_bitslip <= 1;
+						sync_pattern <= 8'h01;
+					end else begin
+						if (mux_in == 8'h81 && sync_pattern == 8'h81 && vhdci_mux_bitslip == 0 && bitslip_sync == 0)
+							mux_synced <= 1;
+						sync_pattern <= 8'h81;
+					end
+				end
 			end
 		end
 	
@@ -149,7 +151,7 @@ module vhdci_mux (
 			delay_ce <= 0;
 			io_reset <= 1;
 			delay_sync_state <= 3'b000;
-			delay_half_shift <= 20;
+			delay_half_shift <= 15;
 		end else begin
 			case (delay_sync_state)
 				3'b000 : begin	// start calibration
@@ -202,6 +204,16 @@ module vhdci_mux (
 					end
 			endcase
 		end
+		
+	assign debug[7] = delay_cal;
+	assign debug[6] = delay_ce;
+	assign debug[5] = (delay_sync_state == 3'b101)?1'b1:1'b0;
+	assign debug[4] = sync_mon_valid;
+	assign debug[3] = sync_mon_expect;
+	assign debug[2] = bitslip_sync;
+	assign debug[1] = vhdci_mux_bitslip;
+	assign debug[0] = mux_synced;
+	
 	FPGA_MUX vhdci_mux
 	(
 		// From the system into the device
