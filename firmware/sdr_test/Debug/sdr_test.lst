@@ -1889,8 +1889,8 @@ int main()
     2bd8:	07 ff fe f8 	l.jal 27b8 <CLK_WriteConfig>
     2bdc:	15 00 00 00 	l.nop 0x0
 
-	ADC_SetFormat(ADC_FORMAT_BINARY, ADC_PATTERN_NORMAL);
-    2be0:	9c 60 00 01 	l.addi r3,r0,1
+	ADC_SetFormat(ADC_FORMAT_TWOS_COMP, ADC_PATTERN_NORMAL);
+    2be0:	9c 60 00 00 	l.addi r3,r0,0
     2be4:	9c 80 00 00 	l.addi r4,r0,0
     2be8:	07 ff fe 26 	l.jal 2480 <ADC_SetFormat>
     2bec:	15 00 00 00 	l.nop 0x0

@@ -41,7 +41,7 @@ int main()
 	TIMER_AddHandler(blink, 0, 500, 1);
 	CLK_WriteConfig();
 
-	ADC_SetFormat(ADC_FORMAT_BINARY, ADC_PATTERN_NORMAL);
+	ADC_SetFormat(ADC_FORMAT_TWOS_COMP, ADC_PATTERN_NORMAL);
 	while (1)
 	{
 

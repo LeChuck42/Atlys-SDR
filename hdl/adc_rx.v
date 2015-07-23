@@ -52,36 +52,36 @@ module adc_rx(
 	wire [6:0] frame_sync;
 	
 	assign data_a = {
-		deserialized_data[0],
-		deserialized_data[5],
-		deserialized_data[10],
-		deserialized_data[15],
-		deserialized_data[20],
-		deserialized_data[25],
-		deserialized_data[30],
 		deserialized_data[1],
 		deserialized_data[6],
 		deserialized_data[11],
 		deserialized_data[16],
 		deserialized_data[21],
 		deserialized_data[26],
-		deserialized_data[31] };
+		deserialized_data[31],
+		deserialized_data[0],
+		deserialized_data[5],
+		deserialized_data[10],
+		deserialized_data[15],
+		deserialized_data[20],
+		deserialized_data[25],
+		deserialized_data[30] };
 		
 	assign data_b = {
-		deserialized_data[2],
-		deserialized_data[7],
-		deserialized_data[12],
-		deserialized_data[17],
-		deserialized_data[22],
-		deserialized_data[27],
-		deserialized_data[32],
 		deserialized_data[3],
 		deserialized_data[8],
 		deserialized_data[13],
 		deserialized_data[18],
 		deserialized_data[23],
 		deserialized_data[28],
-		deserialized_data[33] };
+		deserialized_data[33],
+		deserialized_data[2],
+		deserialized_data[7],
+		deserialized_data[12],
+		deserialized_data[17],
+		deserialized_data[22],
+		deserialized_data[27],
+		deserialized_data[32] };
 		
 	assign frame_sync = {
 		deserialized_data[4],
@@ -91,9 +91,9 @@ module adc_rx(
 		deserialized_data[24],
 		deserialized_data[29],
 		deserialized_data[34] };
-	
-	assign data[15:0] = {2'h0,data_a};
-	assign data[31:16] = {2'h0,data_b};
+	// sign extension
+	assign data[15:0]  = {data_a[13],data_a[13],data_a};
+	assign data[31:16] = {data_b[13],data_b[13],data_b};
   adc_interface adc_if
    (
   // From the system into the device
