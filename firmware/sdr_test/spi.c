@@ -14,8 +14,8 @@
 
 static void(*SPI_pCallback)() = 0;
 
-volatile unsigned int dwFinished;
-volatile unsigned int dwMutex;
+volatile uint32_t dwFinished;
+volatile uint32_t dwMutex;
 
 void SPI_Interrupt(uint32_t dwData);
 void SPI_DefaultCallback();
@@ -32,7 +32,7 @@ void SPI_Init()
 	SPI_Reset();
 }
 
-void SPI_ChipSelect(unsigned char ucTarget)
+void SPI_ChipSelect(uint8_t ucTarget)
 {
 	DEBUG_Print(LOG_DEBUG, LOG_SPI, "Selecting SPI Target ");
 	switch (ucTarget)
@@ -72,7 +72,7 @@ void SPI_ChipSelect(unsigned char ucTarget)
 	}
 }
 
-void SPI_Write(unsigned char ucData, void(*pCallback)() )
+void SPI_Write(uint8_t ucData, void(*pCallback)() )
 {
 	*ATLYS_SPI_DATA_PTR = ucData;
 	if (pCallback)
@@ -91,9 +91,9 @@ void SPI_WaitBusy()
 	while (!dwFinished);
 }
 
-int SPI_Read(unsigned char *ucData)
+int SPI_Read(uint8_t *ucData)
 {
-	unsigned char ucRxBuf;
+	uint8_t ucRxBuf;
 	if (! (*ATLYS_SPI_SPCR_PTR & SPI_SPCR_SPE))
 	{
 		DEBUG_Print(LOG_INFO, LOG_SPI, "SPI_Read while SPI disabled\n");
@@ -114,9 +114,9 @@ int SPI_Read(unsigned char *ucData)
 	return 0;
 }
 
-void SPI_SetInterruptCount(unsigned int dwCnt)
+void SPI_SetInterruptCount(uint32_t dwCnt)
 {
-	unsigned char ucTemp = *ATLYS_SPI_SPER_PTR;
+	uint8_t ucTemp = *ATLYS_SPI_SPER_PTR;
 
 	switch (dwCnt)
 	{
@@ -140,7 +140,7 @@ void SPI_SetInterruptCount(unsigned int dwCnt)
 	SPI_Reset();
 }
 
-void SPI_SetMode(unsigned int dwMode)
+void SPI_SetMode(uint32_t dwMode)
 {
 	if (dwMode & 0x01)
 		*ATLYS_SPI_SPCR_PTR |= SPI_SPCR_CPHA;
@@ -167,14 +167,14 @@ void SPI_DefaultCallback()
 
 static void SPI_Reset()
 {
-	*((volatile unsigned char*)ATLYS_SPI_SPCR_PTR) &= ~SPI_SPCR_SPE;
-	*((volatile unsigned char*)ATLYS_SPI_SPCR_PTR) |= SPI_SPCR_SPE;
+	*((volatile uint8_t*)ATLYS_SPI_SPCR_PTR) &= ~SPI_SPCR_SPE;
+	*((volatile uint8_t*)ATLYS_SPI_SPCR_PTR) |= SPI_SPCR_SPE;
 }
 
 int SPI_GetMutex()
 {
-	unsigned int dwTimer, dwInterrupt;
-	unsigned int dwMutex=0;
+	uint32_t dwTimer, dwInterrupt;
+	uint32_t dwMutex=0;
 	ATLYS_ENTER_CRITICAL(dwInterrupt, dwTimer);
 	if (dwMutex == 0)
 	{

@@ -5,11 +5,12 @@
  *      Author: matthias
  */
 
+#include <stdint.h>
 #include "clk.h"
 #include "spi.h"
 
 
-static const unsigned char BitReverseTable256[] =
+static const uint8_t BitReverseTable256[] =
 {
   0x00, 0x80, 0x40, 0xC0, 0x20, 0xA0, 0x60, 0xE0, 0x10, 0x90, 0x50, 0xD0, 0x30, 0xB0, 0x70, 0xF0,
   0x08, 0x88, 0x48, 0xC8, 0x28, 0xA8, 0x68, 0xE8, 0x18, 0x98, 0x58, 0xD8, 0x38, 0xB8, 0x78, 0xF8,
@@ -29,7 +30,7 @@ static const unsigned char BitReverseTable256[] =
   0x0F, 0x8F, 0x4F, 0xCF, 0x2F, 0xAF, 0x6F, 0xEF, 0x1F, 0x9F, 0x5F, 0xDF, 0x3F, 0xBF, 0x7F, 0xFF
 };
 
-static const unsigned int dwClkConfig[9] =
+static const uint32_t dwClkConfig[9] =
 {
 		//0x8102032,
 		//0x6914032,
@@ -41,7 +42,7 @@ static const unsigned int dwClkConfig[9] =
 		//0xBD90FB7,
 		0x8102032,
 		0x6914032,
-		0xEB14030,
+		0xEB1E030,
 		0xEB2C030,
 		0xEB3C031,
 		0x300C0AE,
@@ -50,13 +51,13 @@ static const unsigned int dwClkConfig[9] =
 		0x0000180
 };
 
-static void CLK_SpiWrite32(unsigned int dwData, unsigned int dwAddr);
-static unsigned int CLK_SpiRead32();
+static void CLK_SpiWrite32(uint32_t dwData, uint32_t dwAddr);
+static uint32_t CLK_SpiRead32();
 
 
-static void CLK_SpiWrite32(unsigned int dwData, unsigned int dwAddr)
+static void CLK_SpiWrite32(uint32_t dwData, uint32_t dwAddr)
 {
-	unsigned char ucByte;
+	uint8_t ucByte;
 
 	// CLK IC receives data LSB first
 	ucByte = (dwData<<4) | (dwAddr & 0x0F);
@@ -70,10 +71,10 @@ static void CLK_SpiWrite32(unsigned int dwData, unsigned int dwAddr)
 	SPI_WaitBusy();
 }
 
-static unsigned int CLK_SpiRead32()
+static uint32_t CLK_SpiRead32()
 {
-	unsigned char ucByte;
-	unsigned int dwResponse;
+	uint8_t ucByte;
+	uint32_t dwResponse;
 	// CLK IC sends data LSB first
 	SPI_Write(0,0);
 	SPI_Write(0,0);
@@ -85,17 +86,17 @@ static unsigned int CLK_SpiRead32()
 	SPI_Read(&ucByte);
 	dwResponse = BitReverseTable256[ucByte];
 	SPI_Read(&ucByte);
-	dwResponse |= ((unsigned int) BitReverseTable256[ucByte]) << 8;
+	dwResponse |= ((uint32_t) BitReverseTable256[ucByte]) << 8;
 	SPI_Read(&ucByte);
-	dwResponse |= ((unsigned int) BitReverseTable256[ucByte]) << 16;
+	dwResponse |= ((uint32_t) BitReverseTable256[ucByte]) << 16;
 	SPI_Read(&ucByte);
-	dwResponse |= ((unsigned int) BitReverseTable256[ucByte]) << 24;
+	dwResponse |= ((uint32_t) BitReverseTable256[ucByte]) << 24;
 	return dwResponse;
 }
 
-unsigned int CLK_ReadRegister(unsigned int dwRegAddr)
+uint32_t CLK_ReadRegister(uint32_t dwRegAddr)
 {
-	unsigned int dwResponse;
+	uint32_t dwResponse;
 	//while (SPI_Busy());
 
 	SPI_SetMode(0);
@@ -115,8 +116,8 @@ unsigned int CLK_ReadRegister(unsigned int dwRegAddr)
 
 void CLK_WriteConfig()
 {
-	unsigned int dwReg;
-	unsigned int dwNeedToWrite = 0;
+	uint32_t dwReg;
+	uint32_t dwNeedToWrite = 0;
 
 	if (SPI_GetMutex())
 	{

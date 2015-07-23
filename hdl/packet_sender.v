@@ -39,7 +39,7 @@ module packet_sender(
 	 
 	localparam IP_IDENTIFICATION = 16'haabb;
 	localparam IP_FRAG = 13'd0;
-
+	
 	parameter SRC_PORT = 16'h1234;
 	parameter DST_PORT = 16'h1234;
 	parameter SRC_MAC = 48'h0037_ffff_3737;
@@ -49,7 +49,8 @@ module packet_sender(
 	
 	// Generate valid IP header checksums
 	wire [15:0] header_checksum;
-	reg [31:0] header_checksum_input;
+	reg [15:0] header_checksum_buf;
+	wire [31:0] header_checksum_input;
 	reg enab_checksum;
 	reg header_checksum_reset;
 	ip_header_checksum ip_header_checksum ( .clk(clk), .checksum(header_checksum), .header(header_checksum_input), .enab(enab_checksum), .reset(header_checksum_reset));
@@ -57,30 +58,32 @@ module packet_sender(
 
 	// Packet generation FSM
 	(* fsm_encoding = "user" *) 
-	reg [3:0] state = 0;
+	reg [14:0] state;
 	reg pri_data_source;
 	
 	// Calculate packet lengths
 	wire [15:0] packet_length_udp, packet_length_ip;
-	
+	reg [8:0] packet_size_count;
 	assign packet_length_udp = {5'b00000, packet_size_count[8:0], 2'b00} + 4'b1010;
 	assign packet_length_ip = {5'b00000, packet_size_count[8:0], 2'b00} + 5'b11110; // IP header adds 20 bytes to UDP packet
-			
-	reg [8:0] packet_size_count = 0;
+
+	reg [319:0] header;
+	assign header_checksum_input = header[239:208];
 	
-	wire [31:0] header_1, header_2, header_3, header_4, header_5;
-	
-	assign header_1 = {16'h4500, packet_length_ip};
-	assign header_2 = {IP_IDENTIFICATION[15:0], 3'b000, IP_FRAG[12:0]}; // IP identification, fragment;
-	assign header_3 = {16'h4011, 16'h0000}; // TTL, protocol, checksum
-	assign header_4 = SRC_IP;
-	assign header_5 = DST_IP;
-	
-	reg pri_fifo_req_latch, sec_fifo_req_latch;
+	reg pri_fifo_req_latch;
 	
 	always @(posedge clk) begin
 		if (reset) begin
-			state <= 0;
+			header_checksum_buf <= 0;
+		end else begin
+			if (enab_checksum)
+				header_checksum_buf <= header_checksum;
+		end
+	end
+	
+	always @(posedge clk) begin
+		if (reset) begin
+			state <= 15'h0001;
 			wr_flags_o <= 0;
 			wr_src_rdy_o <= 0;
 			header_checksum_reset <= 1;
@@ -88,12 +91,21 @@ module packet_sender(
 			enab_checksum <= 0;
 			pri_data_source <= 0;
 			pri_fifo_req_latch <= 0;
-			sec_fifo_req_latch <= 0;
 			pri_fifo_rd <= 0;
 			sec_fifo_rd <= 0;
+			header <= {
+				DST_MAC,	// 48
+				SRC_MAC,	// 96
+				16'h0800, 16'h4500,	// 128 ethernet / IP
+				packet_length_ip, IP_IDENTIFICATION[15:0],	// 160
+				3'b000, IP_FRAG[12:0], 16'h4011, // 192
+				16'h0000, // 208 checksum
+				SRC_IP,	// 240
+				DST_IP,	// 272
+				SRC_PORT, DST_PORT,	// 304
+				packet_length_udp }; // 320
 		end else begin
 			// default values for state machine
-			enab_checksum <= 0;
 			pri_fifo_rd <= 0;
 			sec_fifo_rd <= 0;
 			
@@ -101,12 +113,15 @@ module packet_sender(
 			if (pri_fifo_req == 1)
 				pri_fifo_req_latch <= 1;
 			
-			if (sec_fifo_req == 1)
-				sec_fifo_req_latch <= 1;
+			if (wr_dst_rdy_i)
+				wr_flags_o <= 4'b0000; // clear mac flags
 				
+			enab_checksum <= 0;
+			
 			case(state)
 			
-			0: if (pri_fifo_req | sec_fifo_req | pri_fifo_req_latch | sec_fifo_req_latch) begin
+			15'h0001:
+				if (pri_fifo_req | sec_fifo_req | pri_fifo_req_latch ) begin
 					// Wait until we're told to send a packet
 					// Calculate packet header
 					
@@ -117,69 +132,82 @@ module packet_sender(
 					end else begin
 						pri_data_source <= 0;
 						packet_size_count <= sec_packet_size_i;
-						sec_fifo_req_latch <= 0;
 					end
-					
-					start_packet();
-					transmit_header(DST_MAC[47:16]);
+					header_checksum_reset <= 1;
+					next_state();
 				end
-				
-			1: begin
+			15'h0002:
+				begin
+					header <= {
+						DST_MAC,	// 48
+						SRC_MAC,	// 96
+						16'h0800, 16'h4500,	// 128 ethernet / IP
+						packet_length_ip, IP_IDENTIFICATION[15:0],	// 160
+						3'b000, IP_FRAG[12:0], 16'h4011, // 192
+						16'h0000, // 208 checksum
+						SRC_IP,	// 240
+						DST_IP,	// 272
+						SRC_PORT, DST_PORT,	// 304
+						packet_length_udp }; // 320
+					header_checksum_reset <= 1;
+					next_state();
+				end
+			15'h0004:
+				begin
+					// start transmission
+					if (wr_dst_rdy_i) begin
+						wr_src_rdy_o <= 1;
+						wr_flags_o <= 4'b0001; // Start of frame
+					end
+					transmit_header();	//1
 					header_checksum_reset <= 0;
-					header_checksum_input <= header_1;
-					wr_flags_o <= 4'b0000; // clear mac flags
-					transmit_header_cs({DST_MAC[15:0], SRC_MAC[47:32]});
 				end
-			2: begin
-					header_checksum_input <= header_2;
-					transmit_header_cs(SRC_MAC[31:0]);
+			15'h0008:
+				begin
+					transmit_header(); //2
+					header_checksum_reset <= 0;
 				end
-			3: begin
-					header_checksum_input <= header_3;
-					transmit_header_cs({16'h0800, header_1[31:16]}); // First 8 bits: hwtype ethernet (4), protocol type ipv4 (1),  header length (1) (*4), dsc (2)
-				end
-			4: begin
-					header_checksum_input <= header_4;
-					transmit_header_cs({header_1[15:0], header_2[31:16]});
-				end
-			5: begin
-					header_checksum_input <= header_5;
-					transmit_header_cs({header_2[15:0], header_3[31:16]});
-				end	
-			6: transmit_header({header_checksum, header_4[31:16]}); // Inject the calculated header checksum here
-			7: transmit_header({header_4[15:0], header_5[31:16]});
-			8: transmit_header({header_5[15:0], SRC_PORT});
-			9: transmit_header({DST_PORT, packet_length_udp});
-			10: if (wr_dst_rdy_i) begin
+			15'h0010:	transmit_header(); //3
+			15'h0020:	transmit_header(); //4
+			15'h0040:	transmit_header(); //5
+			15'h0080:	transmit_header(); //6
+			15'h0100:	transmit_checksum(); //7
+			15'h0200:	transmit_header(); //8
+			15'h0400:	transmit_header(); //9
+			15'h0800:	transmit_header(); //10
+			
+			15'h1000:
+				if (wr_dst_rdy_i) begin
 					wr_data_o <= 32'h0000_4142;  // UDP checksum (4), start of data payload: (4) "AB"
-					state <= state + 1'b1;
+					next_state();
 					if (pri_data_source)
 						pri_fifo_rd <= 1;
 					else
 						sec_fifo_rd <= 1;
 				 end
 			// Start sending the rest of the payload
-			11:
+			15'h2000:
 				if (wr_dst_rdy_i) begin
-					if (pri_data_source)
+					if (pri_data_source) begin
 						wr_data_o <= pri_fifo_d;
-					else
+						pri_fifo_rd <= 1;
+					end else begin
 						wr_data_o <= sec_fifo_d;
+						sec_fifo_rd <= 1;
+					end
 						
 					packet_size_count <= packet_size_count - 1'b1;
 					if (packet_size_count == 0) begin // switch controls packet size
-						state <= state + 1'b1;
+						next_state();
 						wr_flags_o <= 4'b0010; // 4 bytes, EOF
 					end
 				end
 			
 			// Wait until we're sure the last word has been received.
-			12:
+			15'h4000:
 				if (wr_dst_rdy_i) begin
 					wr_src_rdy_o <= 0;
-					wr_flags_o <= 0;
-					header_checksum_reset <= 1;
-					state <= 0;
+					next_state();
 				end
 				
 			endcase
@@ -190,31 +218,34 @@ module packet_sender(
 		
 	// Tasks
 	
-	task start_packet;
-	begin
-		wr_src_rdy_o <= 1;	
-		wr_flags_o <= 4'b0001; // Start of frame
-	end
-	endtask
-	
-	task transmit_header_cs;
-		input [31:0] header;
+	task transmit_checksum;
 	begin
 		if (wr_dst_rdy_i) begin
-			wr_data_o <= header;
-			state <= state + 1'b1;
-			enab_checksum <= 1;
+			if (enab_checksum)
+				wr_data_o <= {header_checksum, header[303:288]};
+			else
+				wr_data_o <= {header_checksum_buf, header[303:288]};
+			header <= {header[287:0], header[319:288]};
+			next_state();
+			header_checksum_reset <= 1;
 		end
 	end
 	endtask
 	
 	task transmit_header;
-		input [31:0] header;
 	begin
 		if (wr_dst_rdy_i) begin
-			wr_data_o <= header;
-			state <= state + 1'b1;
+			wr_data_o <= header[319:288];
+			header <= {header[287:0], header[319:288]};
+			next_state();
+			enab_checksum <= 1;
 		end
+	end
+	endtask
+	
+	task next_state;
+	begin
+		state <= {state[13:0],state[14]};
 	end
 	endtask
 	

@@ -102,13 +102,13 @@ module soc_top # (
 	output wire flash_spi_sck,
 	inout wire [3:0] flash_spi_io,
 	
-	output wire [7:0] pmod
+	output reg [7:0] pmod
 	);
 
 	wire wb_rst, wb_clk;
 `include "wb_intercon.vh"
 
-   localparam ADC_PACKET_SIZE = 10'd128;
+   localparam ADC_PACKET_SIZE = 256;
 
 	////////////////////////////////////////////////////////////////////////
 	//
@@ -182,6 +182,7 @@ module soc_top # (
 		GMII_TX_EN_pin <= GMII_TX_EN;
 		GMII_TX_ER_pin <= GMII_TX_ER;
 		GMII_TXD_pin <= GMII_TXD;
+		pmod <= GMII_TXD;
 	end
 	
 	// LEDs for debugging
@@ -273,8 +274,8 @@ module soc_top # (
 
 	wire [8:0] pri_packet_size_i, sec_packet_size_i;
 	wire pri_fifo_req, pri_fifo_rd;
-	assign pri_packet_size_i = 9'd128;
-	assign sec_packet_size_i = 9'd128;
+	assign pri_packet_size_i = 9'd256;
+	assign sec_packet_size_i = ADC_PACKET_SIZE;
 	// Send out Ethernet packets
 	packet_sender packet_sender (
 		.clk(clk_100),
@@ -284,30 +285,35 @@ module soc_top # (
 		.wr_dst_rdy_i(wr2_dst_rdy),
 		.wr_src_rdy_o(wr2_src_rdy),
 		// primary interface: Configuration Data
-		.pri_fifo_d,
-		.pri_packet_size_i,
-		.pri_fifo_req,
-		.pri_fifo_rd,
+		.pri_fifo_d(0),
+		.pri_packet_size_i(pri_packet_size_i),
+		.pri_fifo_req(0),
+		.pri_fifo_rd(),
 		// secondary interface: ADC Data
 		.sec_fifo_d(adc_fifo_d),
-		.sec_packet_size_i(ADC_PACKET_SIZE),
+		.sec_packet_size_i(sec_packet_size_i),
 		.sec_fifo_req(~adc_fifo_ae),
 		.sec_fifo_rd(adc_data_re));
 	
 	wire [31:0] adc_data;
+	wire clk_adc;
 	wire adc_data_we;
+	wire adc_fifo_full;
+	wire adc_fifo_overflow;
+	wire adc_fifo_empty;
+	
 	adc_sample_fifo adc_sample_fifo_inst (
 		.rst(~gemac_ready), // input rst
-		.wr_clk(clk_100), // input wr_clk
+		.wr_clk(clk_adc), // input wr_clk
 		.rd_clk(clk_100), // input rd_clk
 		.din(adc_data), // input [31 : 0] din
 		.wr_en(adc_data_we), // input wr_en
 		.rd_en(adc_data_re), // input rd_en
 		.prog_empty_thresh(ADC_PACKET_SIZE), // input [9 : 0] prog_empty_thresh
 		.dout(adc_fifo_d), // output [31 : 0] dout
-		.full(), // output full
-		.overflow(), // output overflow
-		.empty(), // output empty
+		.full(adc_fifo_full), // output full
+		.overflow(adc_fifo_overflow), // output overflow
+		.empty(adc_fifo_empty), // output empty
 		.prog_empty(adc_fifo_ae) // output prog_empty
 	);
 	
@@ -327,9 +333,12 @@ module soc_top # (
 		.frame_sync_p(adc_frame_sync_p),
 		.frame_sync_n(adc_frame_sync_n),
 		
-		.clk_adc(),
+		.clk_adc(clk_adc),
 		.data_we(adc_data_we),
-		.data(adc_data));
+		.data(adc_data),
+		.debug());
+	
+	//assign pmod = {adc_data_we, adc_data_re, adc_fifo_full, adc_fifo_overflow, adc_fifo_empty, adc_fifo_ae, gemac_ready, udp_data_out_en};
 	
 	// Receive Ethernet packets
 	wire [31:0] udp_data_out;
@@ -784,7 +793,7 @@ vhdci_mux vhdci_mux_inst (
 	.VHDCI_MUX_OUT_N(VHDCI_MUX_OUT_N),
 	.VHDCI_MUX_CLK_P(VHDCI_MUX_CLK_P),
 	.VHDCI_MUX_CLK_N(VHDCI_MUX_CLK_N),
-	.debug(pmod));
+	.debug());
 
 	////////////////////////////////////////////////////////////////////////
 	//

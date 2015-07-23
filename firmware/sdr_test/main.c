@@ -5,9 +5,11 @@
  *      Author: matthias
  */
 
+#include <stdint.h>
 #include "atlys.h"
 #include "timer.h"
 #include "spi.h"
+#include "adc.h"
 #include "clk.h"
 #include <or1k-support.h>
 
@@ -39,6 +41,7 @@ int main()
 	TIMER_AddHandler(blink, 0, 500, 1);
 	CLK_WriteConfig();
 
+	ADC_SetFormat(ADC_FORMAT_BINARY, ADC_PATTERN_NORMAL);
 	while (1)
 	{
 

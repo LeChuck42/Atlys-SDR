@@ -146,12 +146,12 @@ module soc_top_tb;
 		.ddr2_udqs_n(ddr2_udqs_n),
 		.ddr2_ck(ddr2_ck),
 		.ddr2_ck_n(ddr2_ck_n),
-		
+		/*
 		.tdo_pad_o(),
 		.tms_pad_i(),
 		.tck_pad_i(),
 		.tdi_pad_i(),
-		
+		*/
 		.flash_spi_csn(flash_csn),
 		.flash_spi_sck(flash_sck),
 		.flash_spi_io(flash_io)
