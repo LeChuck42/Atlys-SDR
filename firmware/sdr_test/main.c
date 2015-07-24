@@ -11,6 +11,7 @@
 #include "spi.h"
 #include "adc.h"
 #include "clk.h"
+#include "fpga.h"
 #include <or1k-support.h>
 
 unsigned int dwTest;
@@ -42,6 +43,11 @@ int main()
 	CLK_WriteConfig();
 
 	ADC_SetFormat(ADC_FORMAT_TWOS_COMP, ADC_PATTERN_NORMAL);
+	FPGA_SetBits(
+			FPGA_REG_LED1 |
+			FPGA_REG_CLKOUT_TYPE0 |
+			FPGA_REG_ADC_AMPA_ENAB |
+			FPGA_REG_ADC_AMPB_ENAB);
 	while (1)
 	{
 
