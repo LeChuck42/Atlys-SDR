@@ -1,4 +1,4 @@
-VCCAUX = "3.3";
+VCCAUX  = 3.3;
 
 #NET "ltc_out_n<1>" LOC = "V7" |IOSTANDARD = LVDS_25 ; # 1A-
 #NET "ltc_out_n<1>" LOC = "V7" |IOSTANDARD = LVDS_25 ; # 1A-
@@ -27,92 +27,172 @@ VCCAUX = "3.3";
 #NET "ltc_fr_n"  LOC = "T10" |IOSTANDARD = LVDS_25 ; # 21
 #NET "ltc_fr_p"  LOC = "R10" |IOSTANDARD = LVDS_25 ; # 22
 #
-NET "sw<0>" LOC = "A10";
-NET "sw<1>" LOC = "D14";
-NET "sw<2>" LOC = "C14";
-NET "sw<3>" LOC = "P15";
-NET "sw<4>" LOC = "P12";
-NET "sw<5>" LOC = "R5";
-NET "sw<6>" LOC = "T5";
-NET "sw<7>" LOC = "E4" | IOSTANDARD = LVCMOS18;
+NET "sw[0]" LOC = A10;
+NET "sw[1]" LOC = D14;
+NET "sw[2]" LOC = C14;
+NET "sw[3]" LOC = P15;
+NET "sw[4]" LOC = P12;
+NET "sw[5]" LOC = R5;
+NET "sw[6]" LOC = T5;
+NET "sw[7]" LOC = E4;
+NET "sw[7]" IOSTANDARD = LVCMOS18;
 
 
-NET "clk_100_pin"  LOC = "L15"; 
-NET "leds[0]"  LOC = "U18" |IOSTANDARD=LVCMOS25;
-NET "leds[1]"  LOC = "M14" |IOSTANDARD=LVCMOS25;
-NET "leds[2]"  LOC = "N14" |IOSTANDARD=LVCMOS25;
-NET "leds[3]"  LOC = "L14" |IOSTANDARD=LVCMOS25;
-NET "leds[4]"  LOC = "M13" |IOSTANDARD=LVCMOS25;
-NET "leds[5]"  LOC = "D4" |IOSTANDARD=LVCMOS25;
-NET "leds[6]"  LOC = "P16" |IOSTANDARD=LVCMOS25;
-NET "leds[7]"  LOC = "N12" |IOSTANDARD=LVCMOS25;
+NET "clk_100_pin" LOC = L15;
+NET "leds[0]" LOC = U18;
+NET "leds[0]" IOSTANDARD = LVCMOS25;
+NET "leds[1]" LOC = M14;
+NET "leds[1]" IOSTANDARD = LVCMOS25;
+NET "leds[2]" LOC = N14;
+NET "leds[2]" IOSTANDARD = LVCMOS25;
+NET "leds[3]" LOC = L14;
+NET "leds[3]" IOSTANDARD = LVCMOS25;
+NET "leds[4]" LOC = M13;
+NET "leds[4]" IOSTANDARD = LVCMOS25;
+NET "leds[5]" LOC = D4;
+NET "leds[5]" IOSTANDARD = LVCMOS25;
+NET "leds[6]" LOC = P16;
+NET "leds[6]" IOSTANDARD = LVCMOS25;
+NET "leds[7]" LOC = N12;
+NET "leds[7]" IOSTANDARD = LVCMOS25;
 
- NET "adc_chb_p<1>"  LOC = "U16" |DIFF_TERM = "TRUE"; # Bank = 2,  Pin name = IO_L2P_CMPCLK,        	Sch name = EXP-IO1_P
- NET "adc_chb_p<0>"  LOC = "U15" |DIFF_TERM = "TRUE"; # Bank = 2,  Pin name = *IO_L5P,        		Sch name = EXP-IO2_P
- NET "adc_frame_sync_p"  LOC = "U13" |DIFF_TERM = "TRUE"; # Bank = 2,  Pin name = IO_L14P_D11,        	Sch name = EXP-IO3_P
- NET "VHDCI_MUX_IN_P"  LOC = "M11"; # Bank = 2,  Pin name = *IO_L15P,        		Sch name = EXP-IO4_P
- NET "adc_cha_p<1>"  LOC = "R11" |DIFF_TERM = "TRUE"; # Bank = 2,  Pin name = IO_L16P,        		Sch name = EXP-IO5_P
- NET "adc_cha_p<0>"  LOC = "T12" |DIFF_TERM = "TRUE"; # Bank = 2,  Pin name = *IO_L19P,        		Sch name = EXP-IO6_P
- NET "VHDCI_MUX_CLK_P"  LOC = "N10"; # Bank = 2,  Pin name = *IO_L20P,        		Sch name = EXP-IO7_P
-# NET "VHDCIIO1<7>"  LOC = "M10"; # Bank = 2,  Pin name = *IO_L22P,        		Sch name = EXP-IO8_P
- NET "VHDCI_MUX_OUT_P"  LOC = "U11"; # Bank = 2,  Pin name = IO_L23P,        		Sch name = EXP-IO9_P
- NET "adc_bit_clk_p"  LOC = "R10" |DIFF_TERM = "TRUE"; # Bank = 2,  Pin name = IO_L29P_GCLK3,        	Sch name = EXP-IO10_P
-# NET "" LOC = "U10"; # Bank = 2,  Pin name = IO_L30P_GCLK1_D13,      Sch name = EXP-IO11_P
-# NET "VHDCIIO1<11>" LOC = "R8";  # Bank = 2,  Pin name = IO_L31P_GCLK31_D14,     Sch name = EXP-IO12_P
-# NET "VHDCIIO1<12>" LOC = "M8";  # Bank = 2,  Pin name = *IO_L40P,        		Sch name = EXP-IO13_P
-# NET "VHDCIIO1<13>" LOC = "U8";  # Bank = 2,  Pin name = IO_L41P,        		Sch name = EXP-IO14_P
-# NET "VHDCIIO1<14>" LOC = "U7";  # Bank = 2,  Pin name = IO_L43P,        		Sch name = EXP-IO15_P
-# NET "VHDCIIO1<15>" LOC = "N7";  # Bank = 2,  Pin name = *IO_L44P,        		Sch name = EXP-IO16_P
-# NET "VHDCIIO1<16>" LOC = "T6";  # Bank = 2,  Pin name = IO_L45P,        		Sch name = EXP-IO17_P
-# NET "VHDCIIO1<17>" LOC = "R7";  # Bank = 2,  Pin name = IO_L46P,        		Sch name = EXP-IO18_P
-# NET "VHDCIIO1<18>" LOC = "N6";  # Bank = 2,  Pin name = *IO_L47P,        		Sch name = EXP-IO19_P
-# NET "VHDCIIO1<19>" LOC = "U5";  # Bank = 2,  Pin name = IO_49P_D3,        		Sch name = EXP-IO20_P
+# Bank = 2,  Pin name = IO_L2P_CMPCLK,        	Sch name = EXP-IO1_P
+NET "adc_chb_p[1]" LOC = U16;
+NET "adc_chb_p[1]" DIFF_TERM = "TRUE";
+# Bank = 2,  Pin name = *IO_L5P,        		Sch name = EXP-IO2_P
+NET "adc_chb_p[0]" LOC = U15;
+NET "adc_chb_p[0]" DIFF_TERM = "TRUE";
+# Bank = 2,  Pin name = IO_L14P_D11,        	Sch name = EXP-IO3_P
+NET "adc_frame_sync_p" LOC = U13;
+NET "adc_frame_sync_p" DIFF_TERM = "TRUE";
+# Bank = 2,  Pin name = *IO_L15P,        		Sch name = EXP-IO4_P
+NET "VHDCI_MUX_IN_P" LOC = M11;
+# Bank = 2,  Pin name = IO_L16P,        		Sch name = EXP-IO5_P
+NET "adc_cha_p[1]" LOC = R11;
+NET "adc_cha_p[1]" DIFF_TERM = "TRUE";
+# Bank = 2,  Pin name = *IO_L19P,        		Sch name = EXP-IO6_P
+NET "adc_cha_p[0]" LOC = T12;
+NET "adc_cha_p[0]" DIFF_TERM = "TRUE";
+# Bank = 2,  Pin name = *IO_L20P,        		Sch name = EXP-IO7_P
+NET "VHDCI_MUX_CLK_P" LOC = N10;
+# Bank = 2,  Pin name = *IO_L22P,        		Sch name = EXP-IO8_P
+NET "DAC_DATA_P[0]" LOC = M10;
+# Bank = 2,  Pin name = IO_L23P,        		Sch name = EXP-IO9_P
+NET "VHDCI_MUX_OUT_P" LOC = U11;
+# Bank = 2,  Pin name = IO_L29P_GCLK3,        	Sch name = EXP-IO10_P
+NET "adc_bit_clk_p" LOC = R10;
+NET "adc_bit_clk_p" DIFF_TERM = "TRUE";
+# Bank = 2,  Pin name = IO_L30P_GCLK1_D13,      Sch name = EXP-IO11_P
+NET "DAC_CLK_REF_P" LOC = U10;
+# Bank = 2,  Pin name = IO_L31P_GCLK31_D14,     Sch name = EXP-IO12_P
+NET "DAC_DATA_P[1]" LOC = R8;
+# Bank = 2,  Pin name = *IO_L40P,        		Sch name = EXP-IO13_P
+NET "DAC_DATA_P[2]" LOC = M8;
+# Bank = 2,  Pin name = IO_L41P,        		Sch name = EXP-IO14_P
+NET "DAC_DATA_P[3]" LOC = U8;
+# Bank = 2,  Pin name = IO_L43P,        		Sch name = EXP-IO15_P
+NET "DAC_DATACLK_P" LOC = U7;
+# Bank = 2,  Pin name = *IO_L44P,        		Sch name = EXP-IO16_P
+NET "DAC_FRAME_P" LOC = N7;
+# Bank = 2,  Pin name = IO_L45P,        		Sch name = EXP-IO17_P
+NET "DAC_DATA_P[4]" LOC = T6;
+# Bank = 2,  Pin name = IO_L46P,        		Sch name = EXP-IO18_P
+NET "DAC_DATA_P[5]" LOC = R7;
+# Bank = 2,  Pin name = *IO_L47P,        		Sch name = EXP-IO19_P
+NET "DAC_DATA_P[6]" LOC = N6;
+# Bank = 2,  Pin name = IO_49P_D3,        		Sch name = EXP-IO20_P
+NET "DAC_DATA_P[7]" LOC = U5;
 
- NET "adc_chb_n<1>"  LOC = "V16" |DIFF_TERM = "TRUE"; # Bank = 2,  Pin name = IO_L2N_CMPMOSI,        	Sch name = EXP-IO1_N
- NET "adc_chb_n<0>"  LOC = "V15" |DIFF_TERM = "TRUE"; # Bank = 2,  Pin name = *IO_L5N,        		Sch name = EXP-IO2_N
- NET "adc_frame_sync_n"  LOC = "V13" |DIFF_TERM = "TRUE"; # Bank = 2,  Pin name = IO_L14N_D12,        	Sch name = EXP-IO3_N
- NET "VHDCI_MUX_IN_N"  LOC = "N11"; # Bank = 2,  Pin name = *IO_L15N,        		Sch name = EXP-IO4_N
- NET "adc_cha_n<1>"  LOC = "T11" |DIFF_TERM = "TRUE"; # Bank = 2,  Pin name = IO_L16N_VREF,        	Sch name = EXP-IO5_N
- NET "adc_cha_n<0>"  LOC = "V12" |DIFF_TERM = "TRUE"; # Bank = 2,  Pin name = *IO_L19N,        		Sch name = EXP-IO6_N
- NET "VHDCI_MUX_CLK_N"  LOC = "P11"; # Bank = 2,  Pin name = *IO_L20N,        		Sch name = EXP-IO7_N
-# NET "VHDCIIO2<7>"  LOC = "N9";  # Bank = 2,  Pin name = *IO_L22N,        		Sch name = EXP-IO8_N
- NET "VHDCI_MUX_OUT_N"  LOC = "V11"; # Bank = 2,  Pin name = IO_L23N,        		Sch name = EXP-IO9_N
- NET "adc_bit_clk_n"  LOC = "T10" |DIFF_TERM = "TRUE"; # Bank = 2,  Pin name = IO_L29N_GCLK2,          Sch name = EXP-IO10_N
-# NET "VHDCIIO2<10>" LOC = "V10"; # Bank = 2,  Pin name = IO_L30N_GCLK0_USERCCLK, Sch name = EXP-IO11_N
-# NET "VHDCIIO2<11>" LOC = "T8";  # Bank = 2,  Pin name = IO_L31N_GCLK30_D15,     Sch name = EXP-IO12_N
-# NET "VHDCIIO2<12>" LOC = "N8";  # Bank = 2,  Pin name = *IO_L40N,        		Sch name = EXP-IO13_N
-# NET "VHDCIIO2<13>" LOC = "V8";  # Bank = 2,  Pin name = IO_L41N_VREF,        	Sch name = EXP-IO14_N
-# NET "VHDCIIO2<14>" LOC = "V7";  # Bank = 2,  Pin name = IO_L43N,        		Sch name = EXP-IO15_N
-# NET "VHDCIIO2<15>" LOC = "P8";  # Bank = 2,  Pin name = *IO_L44N,        		Sch name = EXP-IO16_N
-# NET "VHDCIIO2<16>" LOC = "V6";  # Bank = 2,  Pin name = IO_L45N,        		Sch name = EXP-IO17_N
-# NET "VHDCIIO2<17>" LOC = "T7";  # Bank = 2,  Pin name = IO_L46N,        		Sch name = EXP-IO18_N
-# NET "VHDCIIO2<18>" LOC = "P7";  # Bank = 2,  Pin name = *IO_L47N,        		Sch name = EXP-IO19_N
-# NET "VHDCIIO2<19>" LOC = "V5";  # Bank = 2,  Pin name = IO_49N_D4,        		Sch name = EXP-IO20_N 
+# Bank = 2,  Pin name = IO_L2N_CMPMOSI,        	Sch name = EXP-IO1_N
+NET "adc_chb_n[1]" LOC = V16;
+NET "adc_chb_n[1]" DIFF_TERM = "TRUE";
+# Bank = 2,  Pin name = *IO_L5N,        		Sch name = EXP-IO2_N
+NET "adc_chb_n[0]" LOC = V15;
+NET "adc_chb_n[0]" DIFF_TERM = "TRUE";
+# Bank = 2,  Pin name = IO_L14N_D12,        	Sch name = EXP-IO3_N
+NET "adc_frame_sync_n" LOC = V13;
+NET "adc_frame_sync_n" DIFF_TERM = "TRUE";
+# Bank = 2,  Pin name = *IO_L15N,        		Sch name = EXP-IO4_N
+NET "VHDCI_MUX_IN_N" LOC = N11;
+# Bank = 2,  Pin name = IO_L16N_VREF,        	Sch name = EXP-IO5_N
+NET "adc_cha_n[1]" LOC = T11;
+NET "adc_cha_n[1]" DIFF_TERM = "TRUE";
+# Bank = 2,  Pin name = *IO_L19N,        		Sch name = EXP-IO6_N
+NET "adc_cha_n[0]" LOC = V12;
+NET "adc_cha_n[0]" DIFF_TERM = "TRUE";
+# Bank = 2,  Pin name = *IO_L20N,        		Sch name = EXP-IO7_N
+NET "VHDCI_MUX_CLK_N" LOC = P11;
+# Bank = 2,  Pin name = *IO_L22N,        		Sch name = EXP-IO8_N
+NET "DAC_DATA_N[0]" LOC = N9;
+# Bank = 2,  Pin name = IO_L23N,        		Sch name = EXP-IO9_N
+NET "VHDCI_MUX_OUT_N" LOC = V11;
+# Bank = 2,  Pin name = IO_L29N_GCLK2,          Sch name = EXP-IO10_N
+NET "adc_bit_clk_n" LOC = T10;
+NET "adc_bit_clk_n" DIFF_TERM = "TRUE";
+# Bank = 2,  Pin name = IO_L30N_GCLK0_USERCCLK, Sch name = EXP-IO11_N
+NET "DAC_CLK_REF_N" LOC = V10;
+# Bank = 2,  Pin name = IO_L31N_GCLK30_D15,     Sch name = EXP-IO12_N
+NET "DAC_DATA_N[1]" LOC = T8;
+# Bank = 2,  Pin name = *IO_L40N,        		Sch name = EXP-IO13_N
+NET "DAC_DATA_N[2]" LOC = N8;
+# Bank = 2,  Pin name = IO_L41N_VREF,        	Sch name = EXP-IO14_N
+NET "DAC_DATA_N[3]" LOC = V8;
+# Bank = 2,  Pin name = IO_L43N,        		Sch name = EXP-IO15_N
+NET "DAC_DATACLK_N" LOC = V7;
+# Bank = 2,  Pin name = *IO_L44N,        		Sch name = EXP-IO16_N
+NET "DAC_FRAME_N" LOC = P8;
+# Bank = 2,  Pin name = IO_L45N,        		Sch name = EXP-IO17_N
+NET "DAC_DATA_N[4]" LOC = V6;
+# Bank = 2,  Pin name = IO_L46N,        		Sch name = EXP-IO18_N
+NET "DAC_DATA_N[5]" LOC = T7;
+# Bank = 2,  Pin name = *IO_L47N,        		Sch name = EXP-IO19_N
+NET "DAC_DATA_N[6]" LOC = P7;
+# Bank = 2,  Pin name = IO_49N_D4,        		Sch name = EXP-IO20_N 
+NET "DAC_DATA_N[7]" LOC = V5;
 
 #NET "tck_pad_i"  LOC = "U15" ; # 34
 #NET "tdi_pad_i"  LOC = "U13" ; # 26
 #NET "tdo_pad_o"  LOC = "M11" ; # 23
 #NET "tms_pad_i"  LOC = "U5" ; # 33
 
-NET "rs232_rx"  LOC = "A16";
-NET "rs232_tx"  LOC = "B16";
+NET "rs232_rx" LOC = A16;
+NET "rs232_tx" LOC = B16;
 
 # Atlys PMOD connector
-NET "pmod<0>" LOC = "T3"; #JA-D0_N  / JA1
-NET "pmod<1>" LOC = "R3"; #JA-D0_P  / JA2
-NET "pmod<2>" LOC = "P6"; #JA-D2_N  / JA3
-NET "pmod<3>" LOC = "N5"; #JA-D2_P  / JA4
-NET "pmod<4>" LOC = "V9"; #JA-CLK_N / JA7
-NET "pmod<5>" LOC = "T9"; #JA-CLK_P / JA8
-NET "pmod<6>" LOC = "V4"; #JA-D1_N  / JA9
-NET "pmod<7>" LOC = "T4"; #JA-D1_P  / JA10
+#JA-D0_N  / JA1
+NET "pmod[0]" LOC = T3;
+#JA-D0_P  / JA2
+NET "pmod[1]" LOC = R3;
+#JA-D2_N  / JA3
+NET "pmod[2]" LOC = P6;
+#JA-D2_P  / JA4
+NET "pmod[3]" LOC = N5;
+#JA-CLK_N / JA7
+NET "pmod[4]" LOC = V9;
+#JA-CLK_P / JA8
+NET "pmod[5]" LOC = T9;
+#JA-D1_N  / JA9
+NET "pmod[6]" LOC = V4;
+#JA-D1_P  / JA10
+NET "pmod[7]" LOC = T4;
 # Buttons
-NET "btn<0>" LOC = "T15"; # Reset
-NET "btn<1>" LOC = "N4"|IOSTANDARD = LVCMOS18; # BTNU
-NET "btn<2>" LOC = "P4"|IOSTANDARD = LVCMOS18; # BTNL
-NET "btn<3>" LOC = "P3"|IOSTANDARD = LVCMOS18; # BTND
-NET "btn<4>" LOC = "F5"|IOSTANDARD = LVCMOS18; # BTNC
-NET "btn<5>" LOC = "F6"|IOSTANDARD = LVCMOS18; # BTNR
+# Reset
+NET "btn[0]" LOC = T15;
+# BTNU
+NET "btn[1]" LOC = N4;
+NET "btn[1]" IOSTANDARD = LVCMOS18;
+# BTNL
+NET "btn[2]" LOC = P4;
+NET "btn[2]" IOSTANDARD = LVCMOS18;
+# BTND
+NET "btn[3]" LOC = P3;
+NET "btn[3]" IOSTANDARD = LVCMOS18;
+# BTNC
+NET "btn[4]" LOC = F5;
+NET "btn[4]" IOSTANDARD = LVCMOS18;
+# BTNR
+NET "btn[5]" LOC = F6;
+NET "btn[5]" IOSTANDARD = LVCMOS18;
 # Timing constraints
 #
 #NET "clk_100_pin" TNM_NET = clk_100_pin;
@@ -126,32 +206,90 @@ NET "btn<5>" LOC = "F6"|IOSTANDARD = LVCMOS18; # BTNR
 # tSer = 1/2 ltc_clk period (2.5ns)
 # IN worst case is 0.35 * tSer, minus 350ps (Xilinx AR #39046)
 # OUT worst case is tSer - (0.65 * tSer) = 0.35 * tSer
-Net PhyResetOut_pin LOC=G13  |TIG  |IOSTANDARD=LVCMOS25;
-Net MII_TX_CLK_pin LOC=K16  |IOSTANDARD=LVCMOS25;
-Net GMII_TXD_pin<0> LOC=H16  |IOSTANDARD=LVCMOS25 |SLEW = FAST |IOB = force;
-Net GMII_TXD_pin<1> LOC=H13  |IOSTANDARD=LVCMOS25 |SLEW = FAST |IOB = force;
-Net GMII_TXD_pin<2> LOC=K14  |IOSTANDARD=LVCMOS25 |SLEW = FAST |IOB = force;
-Net GMII_TXD_pin<3> LOC=K13  |IOSTANDARD=LVCMOS25 |SLEW = FAST |IOB = force;
-Net GMII_TXD_pin<4> LOC=J13  |IOSTANDARD=LVCMOS25 |SLEW = FAST |IOB = force;
-Net GMII_TXD_pin<5> LOC=G14  |IOSTANDARD=LVCMOS25 |SLEW = FAST |IOB = force;
-Net GMII_TXD_pin<6> LOC=H12  |IOSTANDARD=LVCMOS25 |SLEW = FAST |IOB = force;
-Net GMII_TXD_pin<7> LOC=K12  |IOSTANDARD=LVCMOS25 |SLEW = FAST |IOB = force;
-Net GMII_TX_EN_pin LOC=H15  |IOSTANDARD=LVCMOS25 |SLEW = FAST |IOB = force;
-Net GMII_TX_ER_pin LOC=G18  |IOSTANDARD=LVCMOS25 |SLEW = FAST |IOB = force;
-Net GMII_TX_CLK_pin LOC=L12  |IOSTANDARD=LVCMOS25 |SLEW = FAST;
-Net GMII_RXD_pin<0> LOC=G16  |IOSTANDARD=LVCMOS25 |IOB = force;
-Net GMII_RXD_pin<1> LOC=H14  |IOSTANDARD=LVCMOS25 |IOB = force;
-Net GMII_RXD_pin<2> LOC=E16  |IOSTANDARD=LVCMOS25 |IOB = force;
-Net GMII_RXD_pin<3> LOC=F15  |IOSTANDARD=LVCMOS25 |IOB = force;
-Net GMII_RXD_pin<4> LOC=F14  |IOSTANDARD=LVCMOS25 |IOB = force;
-Net GMII_RXD_pin<5> LOC=E18  |IOSTANDARD=LVCMOS25 |IOB = force;
-Net GMII_RXD_pin<6> LOC=D18  |IOSTANDARD=LVCMOS25 |IOB = force;
-Net GMII_RXD_pin<7> LOC=D17  |IOSTANDARD=LVCMOS25 |IOB = force;
-Net GMII_RX_DV_pin LOC=F17  |IOSTANDARD=LVCMOS25 |IOB = force;
-Net GMII_RX_ER_pin LOC=F18  |IOSTANDARD=LVCMOS25 |IOB = force;
-Net GMII_RX_CLK_pin LOC=K15  |IOSTANDARD=LVCMOS25;
-Net MDC_pin LOC=F16  |IOSTANDARD=LVCMOS25;
-Net MDIO_pin LOC=N17  |IOSTANDARD=LVCMOS25;
+NET "PhyResetOut_pin" TIG;
+NET "PhyResetOut_pin" LOC = G13;
+NET "PhyResetOut_pin" IOSTANDARD = LVCMOS25;
+NET "MII_TX_CLK_pin" LOC = K16;
+NET "MII_TX_CLK_pin" IOSTANDARD = LVCMOS25;
+INST "GMII_TXD_pin_0_OBUF" IOB =FORCE;
+NET "GMII_TXD_pin[0]" LOC = H16;
+NET "GMII_TXD_pin[0]" IOSTANDARD = LVCMOS25;
+NET "GMII_TXD_pin[0]" SLEW = FAST;
+INST "GMII_TXD_pin_1_OBUF" IOB =FORCE;
+NET "GMII_TXD_pin[1]" LOC = H13;
+NET "GMII_TXD_pin[1]" IOSTANDARD = LVCMOS25;
+NET "GMII_TXD_pin[1]" SLEW = FAST;
+INST "GMII_TXD_pin_2_OBUF" IOB =FORCE;
+NET "GMII_TXD_pin[2]" LOC = K14;
+NET "GMII_TXD_pin[2]" IOSTANDARD = LVCMOS25;
+NET "GMII_TXD_pin[2]" SLEW = FAST;
+INST "GMII_TXD_pin_3_OBUF" IOB =FORCE;
+NET "GMII_TXD_pin[3]" LOC = K13;
+NET "GMII_TXD_pin[3]" IOSTANDARD = LVCMOS25;
+NET "GMII_TXD_pin[3]" SLEW = FAST;
+INST "GMII_TXD_pin_4_OBUF" IOB =FORCE;
+NET "GMII_TXD_pin[4]" LOC = J13;
+NET "GMII_TXD_pin[4]" IOSTANDARD = LVCMOS25;
+NET "GMII_TXD_pin[4]" SLEW = FAST;
+INST "GMII_TXD_pin_5_OBUF" IOB =FORCE;
+NET "GMII_TXD_pin[5]" LOC = G14;
+NET "GMII_TXD_pin[5]" IOSTANDARD = LVCMOS25;
+NET "GMII_TXD_pin[5]" SLEW = FAST;
+INST "GMII_TXD_pin_6_OBUF" IOB =FORCE;
+NET "GMII_TXD_pin[6]" LOC = H12;
+NET "GMII_TXD_pin[6]" IOSTANDARD = LVCMOS25;
+NET "GMII_TXD_pin[6]" SLEW = FAST;
+INST "GMII_TXD_pin_7_OBUF" IOB =FORCE;
+NET "GMII_TXD_pin[7]" LOC = K12;
+NET "GMII_TXD_pin[7]" IOSTANDARD = LVCMOS25;
+NET "GMII_TXD_pin[7]" SLEW = FAST;
+INST "GMII_TX_EN_pin_OBUF" IOB =FORCE;
+NET "GMII_TX_EN_pin" LOC = H15;
+NET "GMII_TX_EN_pin" IOSTANDARD = LVCMOS25;
+NET "GMII_TX_EN_pin" SLEW = FAST;
+INST "GMII_TX_ER_pin_OBUF" IOB =FORCE;
+NET "GMII_TX_ER_pin" LOC = G18;
+NET "GMII_TX_ER_pin" IOSTANDARD = LVCMOS25;
+NET "GMII_TX_ER_pin" SLEW = FAST;
+NET "GMII_TX_CLK_pin" LOC = L12;
+NET "GMII_TX_CLK_pin" IOSTANDARD = LVCMOS25;
+NET "GMII_TX_CLK_pin" SLEW = FAST;
+INST "GMII_RXD_pin_0_IBUF" IOB =FORCE;
+NET "GMII_RXD_pin[0]" LOC = G16;
+NET "GMII_RXD_pin[0]" IOSTANDARD = LVCMOS25;
+INST "GMII_RXD_pin_1_IBUF" IOB =FORCE;
+NET "GMII_RXD_pin[1]" LOC = H14;
+NET "GMII_RXD_pin[1]" IOSTANDARD = LVCMOS25;
+INST "GMII_RXD_pin_2_IBUF" IOB =FORCE;
+NET "GMII_RXD_pin[2]" LOC = E16;
+NET "GMII_RXD_pin[2]" IOSTANDARD = LVCMOS25;
+INST "GMII_RXD_pin_3_IBUF" IOB =FORCE;
+NET "GMII_RXD_pin[3]" LOC = F15;
+NET "GMII_RXD_pin[3]" IOSTANDARD = LVCMOS25;
+INST "GMII_RXD_pin_4_IBUF" IOB =FORCE;
+NET "GMII_RXD_pin[4]" LOC = F14;
+NET "GMII_RXD_pin[4]" IOSTANDARD = LVCMOS25;
+INST "GMII_RXD_pin_5_IBUF" IOB =FORCE;
+NET "GMII_RXD_pin[5]" LOC = E18;
+NET "GMII_RXD_pin[5]" IOSTANDARD = LVCMOS25;
+INST "GMII_RXD_pin_6_IBUF" IOB =FORCE;
+NET "GMII_RXD_pin[6]" LOC = D18;
+NET "GMII_RXD_pin[6]" IOSTANDARD = LVCMOS25;
+INST "GMII_RXD_pin_7_IBUF" IOB =FORCE;
+NET "GMII_RXD_pin[7]" LOC = D17;
+NET "GMII_RXD_pin[7]" IOSTANDARD = LVCMOS25;
+INST "GMII_RX_DV_pin_IBUF" IOB =FORCE;
+NET "GMII_RX_DV_pin" LOC = F17;
+NET "GMII_RX_DV_pin" IOSTANDARD = LVCMOS25;
+INST "GMII_RX_ER_pin_IBUF" IOB =FORCE;
+NET "GMII_RX_ER_pin" LOC = F18;
+NET "GMII_RX_ER_pin" IOSTANDARD = LVCMOS25;
+NET "GMII_RX_CLK_pin" LOC = K15;
+NET "GMII_RX_CLK_pin" IOSTANDARD = LVCMOS25;
+NET "MDC_pin" LOC = F16;
+NET "MDC_pin" IOSTANDARD = LVCMOS25;
+NET "MDIO_pin" LOC = N17;
+NET "MDIO_pin" IOSTANDARD = LVCMOS25;
 
 #NET "GMII_RX_CLK_pin" TNM_NET = "GMII_RX_CLK_pin";
 #
@@ -174,7 +312,22 @@ Net MDIO_pin LOC=N17  |IOSTANDARD=LVCMOS25;
 ############################################################################
 ## I/O TERMINATION
 ############################################################################
-NET "ddr2_dq[*]" IN_TERM = NONE;
+NET "ddr2_dq[0]" IN_TERM = NONE;
+NET "ddr2_dq[10]" IN_TERM = NONE;
+NET "ddr2_dq[11]" IN_TERM = NONE;
+NET "ddr2_dq[12]" IN_TERM = NONE;
+NET "ddr2_dq[13]" IN_TERM = NONE;
+NET "ddr2_dq[14]" IN_TERM = NONE;
+NET "ddr2_dq[15]" IN_TERM = NONE;
+NET "ddr2_dq[1]" IN_TERM = NONE;
+NET "ddr2_dq[2]" IN_TERM = NONE;
+NET "ddr2_dq[3]" IN_TERM = NONE;
+NET "ddr2_dq[4]" IN_TERM = NONE;
+NET "ddr2_dq[5]" IN_TERM = NONE;
+NET "ddr2_dq[6]" IN_TERM = NONE;
+NET "ddr2_dq[7]" IN_TERM = NONE;
+NET "ddr2_dq[8]" IN_TERM = NONE;
+NET "ddr2_dq[9]" IN_TERM = NONE;
 NET "ddr2_dqs" IN_TERM = NONE;
 NET "ddr2_dqs_n" IN_TERM = NONE;
 NET "ddr2_udqs" IN_TERM = NONE;
@@ -182,9 +335,38 @@ NET "ddr2_udqs_n" IN_TERM = NONE;
 ############################################################################
 # I/O STANDARDS
 ############################################################################
-NET "ddr2_dq[*]" IOSTANDARD = SSTL18_II;
-NET "ddr2_a[*]" IOSTANDARD = SSTL18_II;
-NET "ddr2_ba[*]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[0]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[10]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[11]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[12]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[13]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[14]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[15]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[1]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[2]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[3]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[4]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[5]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[6]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[7]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[8]" IOSTANDARD = SSTL18_II;
+NET "ddr2_dq[9]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[0]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[10]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[11]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[12]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[1]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[2]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[3]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[4]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[5]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[6]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[7]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[8]" IOSTANDARD = SSTL18_II;
+NET "ddr2_a[9]" IOSTANDARD = SSTL18_II;
+NET "ddr2_ba[0]" IOSTANDARD = SSTL18_II;
+NET "ddr2_ba[1]" IOSTANDARD = SSTL18_II;
+NET "ddr2_ba[2]" IOSTANDARD = SSTL18_II;
 NET "ddr2_dqs" IOSTANDARD = DIFF_SSTL18_II;
 NET "ddr2_udqs" IOSTANDARD = DIFF_SSTL18_II;
 NET "ddr2_dqs_n" IOSTANDARD = DIFF_SSTL18_II;
@@ -202,83 +384,130 @@ NET "ddr2_rzq" IOSTANDARD = SSTL18_II;
 NET "ddr2_zio" IOSTANDARD = SSTL18_II;
 #NET "c3_sys_clk" IOSTANDARD = LVCMOS25;
 #NET "c3_sys_rst_n" IOSTANDARD = LVCMOS18;
-NET "ddr2_ck" LOC = "G3"; # Bank = 3, Pin name = IO_L46P_M3CLK, Sch name = DDR-CK_P
-NET "ddr2_ck_n" LOC = "G1"; # Bank = 3, Pin name = IO_L46N_M3CLKN, Sch name = DDR-CK_N
-NET "ddr2_cke" LOC = "H7"; # Bank = 3, Pin name = IO_L53P_M3CKE, Sch name = DDR-CKE
-NET "ddr2_ras_n" LOC = "L5"; # Bank = 3, Pin name = IO_L43P_GCLK23_M3RASN, Sch name = DDR-RAS
-NET "ddr2_cas_n" LOC = "K5"; # Bank = 3, Pin name = IO_L43N_GCLK22_IRDY2_M3CASN, Sch name = DDR-CAS
-NET "ddr2_we_n" LOC = "E3"; # Bank = 3, Pin name = IO_L50P_M3WE, Sch name = DDR-WE
-NET "ddr2_rzq" LOC = "L6"; # Bank = 3, Pin name = IO_L31P, Sch name = RZQ
-NET "ddr2_zio" LOC = "C2"; # Bank = 3, Pin name = IO_L83P, Sch name = ZIO
-NET "ddr2_ba<0>" LOC = "F2"; # Bank = 3, Pin name = IO_L48P_M3BA0, Sch name = DDR-BA0
-NET "ddr2_ba<1>" LOC = "F1"; # Bank = 3, Pin name = IO_L48N_M3BA1, Sch name = DDR-BA1
-NET "ddr2_ba<2>" LOC = "E1"; # Bank = 3, Pin name = IO_L50N_M3BA2, Sch name = DDR-BA2
-NET "ddr2_a<0>" LOC = "J7"; # Bank = 3, Pin name = IO_L47P_M3A0, Sch name = DDR-A0
-NET "ddr2_a<1>" LOC = "J6"; # Bank = 3, Pin name = IO_L47N_M3A1, Sch name = DDR-A1
-NET "ddr2_a<2>" LOC = "H5"; # Bank = 3, Pin name = IO_L49N_M3A2, Sch name = DDR-A2
-NET "ddr2_a<3>" LOC = "L7"; # Bank = 3, Pin name = IO_L45P_M3A3, Sch name = DDR-A3
-NET "ddr2_a<4>" LOC = "F3"; # Bank = 3, Pin name = IO_L51N_M3A4, Sch name = DDR-A4
-NET "ddr2_a<5>" LOC = "H4"; # Bank = 3, Pin name = IO_L44P_GCLK21_M3A5, Sch name = DDR-A5
-NET "ddr2_a<6>" LOC = "H3"; # Bank = 3, Pin name = IO_L44N_GCLK20_M3A6, Sch name = DDR-A6
-NET "ddr2_a<7>" LOC = "H6"; # Bank = 3, Pin name = IO_L49P_M3A7, Sch name = DDR-A7
-NET "ddr2_a<8>" LOC = "D2"; # Bank = 3, Pin name = IO_L52P_M3A8, Sch name = DDR-A8
-NET "ddr2_a<9>" LOC = "D1"; # Bank = 3, Pin name = IO_L52N_M3A9, Sch name = DDR-A9
-NET "ddr2_a<10>" LOC = "F4"; # Bank = 3, Pin name = IO_L51P_M3A10, Sch name = DDR-A10
-NET "ddr2_a<11>" LOC = "D3"; # Bank = 3, Pin name = IO_L54N_M3A11, Sch name = DDR-A11
-NET "ddr2_a<12>" LOC = "G6"; # Bank = 3, Pin name = IO_L53N_M3A12, Sch name = DDR-A12
-NET "ddr2_dq<0>" LOC = "L2"; # Bank = 3, Pin name = IO_L37P_M3DQ0, Sch name = DDR-DQ0
-NET "ddr2_dq<1>" LOC = "L1"; # Bank = 3, Pin name = IO_L37N_M3DQ1, Sch name = DDR-DQ1
-NET "ddr2_dq<2>" LOC = "K2"; # Bank = 3, Pin name = IO_L38P_M3DQ2, Sch name = DDR-DQ2
-NET "ddr2_dq<3>" LOC = "K1"; # Bank = 3, Pin name = IO_L38N_M3DQ3, Sch name = DDR-DQ3
-NET "ddr2_dq<4>" LOC = "H2"; # Bank = 3, Pin name = IO_L41P_GCLK27_M3DQ4, Sch name = DDR-DQ4
-NET "ddr2_dq<5>" LOC = "H1"; # Bank = 3, Pin name = IO_L41N_GCLK26_M3DQ5, Sch name = DDR-DQ5
-NET "ddr2_dq<6>" LOC = "J3"; # Bank = 3, Pin name = IO_L40P_M3DQ6, Sch name = DDR-DQ6
-NET "ddr2_dq<7>" LOC = "J1"; # Bank = 3, Pin name = IO_L40N_M3DQ7, Sch name = DDR-DQ7
-NET "ddr2_dq<8>" LOC = "M3"; # Bank = 3, Pin name = IO_L36P_M3DQ8, Sch name = DDR-DQ8
-NET "ddr2_dq<9>" LOC = "M1"; # Bank = 3, Pin name = IO_L36N_M3DQ9, Sch name = DDR-DQ9
-NET "ddr2_dq<10>" LOC = "N2"; # Bank = 3, Pin name = IO_L35P_M3DQ10, Sch name = DDR-DQ10
-NET "ddr2_dq<11>" LOC = "N1"; # Bank = 3, Pin name = IO_L35N_M3DQ11, Sch name = DDR-DQ11
-NET "ddr2_dq<12>" LOC = "T2"; # Bank = 3, Pin name = IO_L33P_M3DQ12, Sch name = DDR-DQ12
-NET "ddr2_dq<13>" LOC = "T1"; # Bank = 3, Pin name = IO_L33N_M3DQ13, Sch name = DDR-DQ13
-NET "ddr2_dq<14>" LOC = "U2"; # Bank = 3, Pin name = IO_L32P_M3DQ14, Sch name = DDR-DQ14
-NET "ddr2_dq<15>" LOC = "U1"; # Bank = 3, Pin name = IO_L32N_M3DQ15, Sch name = DDR-DQ15
-NET "ddr2_udqs" LOC="P2"; # Bank = 3, Pin name = IO_L34P_M3UDQS, Sch name = DDR-UDQS_P
-NET "ddr2_udqs_n" LOC="P1"; # Bank = 3, Pin name = IO_L34N_M3UDQSN, Sch name = DDR-UDQS_N
-NET "ddr2_dqs" LOC="L4"; # Bank = 3, Pin name = IO_L39P_M3LDQS, Sch name = DDR-LDQS_P
-NET "ddr2_dqs_n" LOC="L3"; # Bank = 3, Pin name = IO_L39N_M3LDQSN, Sch name = DDR-LDQS_N
-NET "ddr2_dm" LOC="K3"; # Bank = 3, Pin name = IO_L42N_GCLK24_M3LDM, Sch name = DDR-LDM
-NET "ddr2_udm" LOC="K4"; # Bank = 3, Pin name = IO_L42P_GCLK25_TRDY2_M3UDM, Sch name = DDR-UDM
-NET "ddr2_odt" LOC="K6"; # Bank = 3, Pin name = IO_L45N_M3ODT, Sch name = DDR-ODT
+# Bank = 3, Pin name = IO_L46P_M3CLK, Sch name = DDR-CK_P
+NET "ddr2_ck" LOC = G3;
+# Bank = 3, Pin name = IO_L46N_M3CLKN, Sch name = DDR-CK_N
+NET "ddr2_ck_n" LOC = G1;
+# Bank = 3, Pin name = IO_L53P_M3CKE, Sch name = DDR-CKE
+NET "ddr2_cke" LOC = H7;
+# Bank = 3, Pin name = IO_L43P_GCLK23_M3RASN, Sch name = DDR-RAS
+NET "ddr2_ras_n" LOC = L5;
+# Bank = 3, Pin name = IO_L43N_GCLK22_IRDY2_M3CASN, Sch name = DDR-CAS
+NET "ddr2_cas_n" LOC = K5;
+# Bank = 3, Pin name = IO_L50P_M3WE, Sch name = DDR-WE
+NET "ddr2_we_n" LOC = E3;
+# Bank = 3, Pin name = IO_L31P, Sch name = RZQ
+NET "ddr2_rzq" LOC = L6;
+# Bank = 3, Pin name = IO_L83P, Sch name = ZIO
+NET "ddr2_zio" LOC = C2;
+# Bank = 3, Pin name = IO_L48P_M3BA0, Sch name = DDR-BA0
+NET "ddr2_ba[0]" LOC = F2;
+# Bank = 3, Pin name = IO_L48N_M3BA1, Sch name = DDR-BA1
+NET "ddr2_ba[1]" LOC = F1;
+# Bank = 3, Pin name = IO_L50N_M3BA2, Sch name = DDR-BA2
+NET "ddr2_ba[2]" LOC = E1;
+# Bank = 3, Pin name = IO_L47P_M3A0, Sch name = DDR-A0
+NET "ddr2_a[0]" LOC = J7;
+# Bank = 3, Pin name = IO_L47N_M3A1, Sch name = DDR-A1
+NET "ddr2_a[1]" LOC = J6;
+# Bank = 3, Pin name = IO_L49N_M3A2, Sch name = DDR-A2
+NET "ddr2_a[2]" LOC = H5;
+# Bank = 3, Pin name = IO_L45P_M3A3, Sch name = DDR-A3
+NET "ddr2_a[3]" LOC = L7;
+# Bank = 3, Pin name = IO_L51N_M3A4, Sch name = DDR-A4
+NET "ddr2_a[4]" LOC = F3;
+# Bank = 3, Pin name = IO_L44P_GCLK21_M3A5, Sch name = DDR-A5
+NET "ddr2_a[5]" LOC = H4;
+# Bank = 3, Pin name = IO_L44N_GCLK20_M3A6, Sch name = DDR-A6
+NET "ddr2_a[6]" LOC = H3;
+# Bank = 3, Pin name = IO_L49P_M3A7, Sch name = DDR-A7
+NET "ddr2_a[7]" LOC = H6;
+# Bank = 3, Pin name = IO_L52P_M3A8, Sch name = DDR-A8
+NET "ddr2_a[8]" LOC = D2;
+# Bank = 3, Pin name = IO_L52N_M3A9, Sch name = DDR-A9
+NET "ddr2_a[9]" LOC = D1;
+# Bank = 3, Pin name = IO_L51P_M3A10, Sch name = DDR-A10
+NET "ddr2_a[10]" LOC = F4;
+# Bank = 3, Pin name = IO_L54N_M3A11, Sch name = DDR-A11
+NET "ddr2_a[11]" LOC = D3;
+# Bank = 3, Pin name = IO_L53N_M3A12, Sch name = DDR-A12
+NET "ddr2_a[12]" LOC = G6;
+# Bank = 3, Pin name = IO_L37P_M3DQ0, Sch name = DDR-DQ0
+NET "ddr2_dq[0]" LOC = L2;
+# Bank = 3, Pin name = IO_L37N_M3DQ1, Sch name = DDR-DQ1
+NET "ddr2_dq[1]" LOC = L1;
+# Bank = 3, Pin name = IO_L38P_M3DQ2, Sch name = DDR-DQ2
+NET "ddr2_dq[2]" LOC = K2;
+# Bank = 3, Pin name = IO_L38N_M3DQ3, Sch name = DDR-DQ3
+NET "ddr2_dq[3]" LOC = K1;
+# Bank = 3, Pin name = IO_L41P_GCLK27_M3DQ4, Sch name = DDR-DQ4
+NET "ddr2_dq[4]" LOC = H2;
+# Bank = 3, Pin name = IO_L41N_GCLK26_M3DQ5, Sch name = DDR-DQ5
+NET "ddr2_dq[5]" LOC = H1;
+# Bank = 3, Pin name = IO_L40P_M3DQ6, Sch name = DDR-DQ6
+NET "ddr2_dq[6]" LOC = J3;
+# Bank = 3, Pin name = IO_L40N_M3DQ7, Sch name = DDR-DQ7
+NET "ddr2_dq[7]" LOC = J1;
+# Bank = 3, Pin name = IO_L36P_M3DQ8, Sch name = DDR-DQ8
+NET "ddr2_dq[8]" LOC = M3;
+# Bank = 3, Pin name = IO_L36N_M3DQ9, Sch name = DDR-DQ9
+NET "ddr2_dq[9]" LOC = M1;
+# Bank = 3, Pin name = IO_L35P_M3DQ10, Sch name = DDR-DQ10
+NET "ddr2_dq[10]" LOC = N2;
+# Bank = 3, Pin name = IO_L35N_M3DQ11, Sch name = DDR-DQ11
+NET "ddr2_dq[11]" LOC = N1;
+# Bank = 3, Pin name = IO_L33P_M3DQ12, Sch name = DDR-DQ12
+NET "ddr2_dq[12]" LOC = T2;
+# Bank = 3, Pin name = IO_L33N_M3DQ13, Sch name = DDR-DQ13
+NET "ddr2_dq[13]" LOC = T1;
+# Bank = 3, Pin name = IO_L32P_M3DQ14, Sch name = DDR-DQ14
+NET "ddr2_dq[14]" LOC = U2;
+# Bank = 3, Pin name = IO_L32N_M3DQ15, Sch name = DDR-DQ15
+NET "ddr2_dq[15]" LOC = U1;
+# Bank = 3, Pin name = IO_L34P_M3UDQS, Sch name = DDR-UDQS_P
+NET "ddr2_udqs" LOC = P2;
+# Bank = 3, Pin name = IO_L34N_M3UDQSN, Sch name = DDR-UDQS_N
+NET "ddr2_udqs_n" LOC = P1;
+# Bank = 3, Pin name = IO_L39P_M3LDQS, Sch name = DDR-LDQS_P
+NET "ddr2_dqs" LOC = L4;
+# Bank = 3, Pin name = IO_L39N_M3LDQSN, Sch name = DDR-LDQS_N
+NET "ddr2_dqs_n" LOC = L3;
+# Bank = 3, Pin name = IO_L42N_GCLK24_M3LDM, Sch name = DDR-LDM
+NET "ddr2_dm" LOC = K3;
+# Bank = 3, Pin name = IO_L42P_GCLK25_TRDY2_M3UDM, Sch name = DDR-UDM
+NET "ddr2_udm" LOC = K4;
+# Bank = 3, Pin name = IO_L45N_M3ODT, Sch name = DDR-ODT
+NET "ddr2_odt" LOC = K6;
 #
 #TIMEGRP "GMII_RX" OFFSET = IN 2.5 ns VALID 4 ns BEFORE "GMII_RX_CLK_pin" RISING;
 #Created by Constraints Editor (xc6slx45-csg324-3) - 2013/10/02
-NET "clk_100_pin" TNM_NET = clk_100_pin;
-TIMESPEC TS_clk_100_pin = PERIOD "clk_100_pin" 100 MHz HIGH 50% INPUT_JITTER 200 ps;
-NET "GMII_RX_CLK_pin" TNM_NET = GMII_RX_CLK_pin;
-TIMESPEC TS_GMII_RX_CLK_pin = PERIOD "GMII_RX_CLK_pin" 125 MHz HIGH 50% INPUT_JITTER 80 ps;
+NET "clk_100_pin" TNM_NET = "clk_100_pin";
+TIMESPEC TS_clk_100_pin = PERIOD "clk_100_pin" 100 MHz HIGH 50 % INPUT_JITTER 200 ps;
+NET "GMII_RX_CLK_pin" TNM_NET = "GMII_RX_CLK_pin";
+TIMESPEC TS_GMII_RX_CLK_pin = PERIOD "GMII_RX_CLK_pin" 125 MHz HIGH 50 % INPUT_JITTER 80 ps;
 #Created by Constraints Editor (xc6slx45-csg324-3) - 2013/10/02
-INST "GMII_RXD_pin<0>" TNM = GMII_RX;
-INST "GMII_RXD_pin<1>" TNM = GMII_RX;
-INST "GMII_RXD_pin<2>" TNM = GMII_RX;
-INST "GMII_RXD_pin<3>" TNM = GMII_RX;
-INST "GMII_RXD_pin<4>" TNM = GMII_RX;
-INST "GMII_RXD_pin<5>" TNM = GMII_RX;
-INST "GMII_RXD_pin<6>" TNM = GMII_RX;
-INST "GMII_RXD_pin<7>" TNM = GMII_RX;
-INST "GMII_RX_DV_pin" TNM = GMII_RX;
-INST "GMII_RX_ER_pin" TNM = GMII_RX;
+INST "GMII_RXD_pin[0]" TNM = "GMII_RX";
+INST "GMII_RXD_pin[1]" TNM = "GMII_RX";
+INST "GMII_RXD_pin[2]" TNM = "GMII_RX";
+INST "GMII_RXD_pin[3]" TNM = "GMII_RX";
+INST "GMII_RXD_pin[4]" TNM = "GMII_RX";
+INST "GMII_RXD_pin[5]" TNM = "GMII_RX";
+INST "GMII_RXD_pin[6]" TNM = "GMII_RX";
+INST "GMII_RXD_pin[7]" TNM = "GMII_RX";
+INST "GMII_RX_DV_pin" TNM = "GMII_RX";
+INST "GMII_RX_ER_pin" TNM = "GMII_RX";
 TIMEGRP "GMII_RX" OFFSET = IN 2.5 ns VALID 4 ns BEFORE "GMII_RX_CLK_pin" RISING;
 #Created by Constraints Editor (xc6slx45-csg324-3) - 2013/10/02
-INST "GMII_TXD_pin<0>" TNM = GMII_TX;
-INST "GMII_TXD_pin<1>" TNM = GMII_TX;
-INST "GMII_TXD_pin<2>" TNM = GMII_TX;
-INST "GMII_TXD_pin<3>" TNM = GMII_TX;
-INST "GMII_TXD_pin<4>" TNM = GMII_TX;
-INST "GMII_TXD_pin<5>" TNM = GMII_TX;
-INST "GMII_TXD_pin<6>" TNM = GMII_TX;
-INST "GMII_TXD_pin<7>" TNM = GMII_TX;
-INST "GMII_TX_EN_pin" TNM = GMII_TX;
-INST "GMII_TX_ER_pin" TNM = GMII_TX;
+INST "GMII_TXD_pin[0]" TNM = "GMII_TX";
+INST "GMII_TXD_pin[1]" TNM = "GMII_TX";
+INST "GMII_TXD_pin[2]" TNM = "GMII_TX";
+INST "GMII_TXD_pin[3]" TNM = "GMII_TX";
+INST "GMII_TXD_pin[4]" TNM = "GMII_TX";
+INST "GMII_TXD_pin[5]" TNM = "GMII_TX";
+INST "GMII_TXD_pin[6]" TNM = "GMII_TX";
+INST "GMII_TXD_pin[7]" TNM = "GMII_TX";
+INST "GMII_TX_EN_pin" TNM = "GMII_TX";
+INST "GMII_TX_ER_pin" TNM = "GMII_TX";
 #Created by Constraints Editor (xc6slx45-csg324-3) - 2013/10/02
 #TIMESPEC TS_SYNC_TO_BAUD = FROM "clk_125_tx_clkout0" TO "clk_125_tx_clkout2" TIG;
 #TIMESPEC TS_SYNC_TO_TX = FROM "clk_125_tx_clkout2" TO "clk_125_tx_clkout0" TIG;
@@ -317,3 +546,9 @@ INST "flash_spi_sck" TNM = "FLASH_OUT";
 TIMEGRP "FLASH_OUT" OFFSET = OUT 6.25 ns AFTER "clk_100_pin" REFERENCE_PIN "flash_spi_sck";
 #TIMESPEC TS_WB_TO_IO = FROM "clkgen0_dcm1_clkdv_prebufg" TO "clkgen0_dcm1_clkfx_prebufg" TS_clkgen0_dcm1_clkdv_prebufg * 2;
 #TIMESPEC TS_IO_TO_WB = FROM "clkgen0_dcm1_clkfx_prebufg" TO "clkgen0_dcm1_clkdv_prebufg" TS_clkgen0_dcm1_clkfx_prebufg * 2;
+
+
+
+# PlanAhead Generated physical constraints 
+
+INST "adc_rx/adc_if/bufio2_inst" LOC = BUFIO2_X3Y0;

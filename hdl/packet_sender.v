@@ -26,6 +26,9 @@ module packet_sender(
 	output reg wr_src_rdy_o,
 	input wr_dst_rdy_i,
 
+	input tx_fifo_status,
+	input [15:0] tx_fifo_cnt,
+	
 	input [31:0] pri_fifo_d,
 	input [8:0] pri_packet_size_i,
 	input pri_fifo_req,
@@ -34,18 +37,21 @@ module packet_sender(
 	input [31:0] sec_fifo_d,
 	input [8:0] sec_packet_size_i,
 	input sec_fifo_req,
-	output reg sec_fifo_rd
-    );
+	output reg sec_fifo_rd,
+	
+	input [47:0] my_mac,
+	input [31:0] my_ip,
+	input [47:0] dst_mac,
+	input [31:0] dst_ip
+	);
 	 
 	localparam IP_IDENTIFICATION = 16'haabb;
 	localparam IP_FRAG = 13'd0;
 	
-	parameter SRC_PORT = 16'h1234;
-	parameter DST_PORT = 16'h1234;
-	parameter SRC_MAC = 48'h0037_ffff_3737;
-	parameter DST_MAC = 48'h0090_F5DE_6431;//0023_dfff_3311;
-	parameter DST_IP = 32'ha9fe_a299;
-	parameter SRC_IP = 32'ha9fe_4d01;
+	parameter SRC_PORT = 16'h4711;
+	parameter DST_PORT_FIFO = 16'h1230;
+	parameter DST_PORT_PRI = 16'h1231;
+	parameter DST_PORT_SEC = 16'h1232;
 	
 	// Generate valid IP header checksums
 	wire [15:0] header_checksum;
@@ -53,17 +59,38 @@ module packet_sender(
 	wire [31:0] header_checksum_input;
 	reg enab_checksum;
 	reg header_checksum_reset;
-	ip_header_checksum ip_header_checksum ( .clk(clk), .checksum(header_checksum), .header(header_checksum_input), .enab(enab_checksum), .reset(header_checksum_reset));
 	
+	ip_header_checksum ip_header_checksum (
+		.clk(clk),
+		.checksum(header_checksum),
+		.header(header_checksum_input),
+		.enab(enab_checksum),
+		.reset(header_checksum_reset));
 
 	// Packet generation FSM
 	(* fsm_encoding = "user" *) 
 	reg [14:0] state;
-	reg pri_data_source;
+	reg [1:0] data_source;
+	reg [15:0] dst_port;
+	
+	localparam SOURCE_PRI = 2'b00;
+	localparam SOURCE_SEC = 2'b01;
+	localparam SOURCE_TX_FIFO = 2'b10;
+	
+	always @(data_source) begin
+		if (data_source == SOURCE_PRI)
+			dst_port <= DST_PORT_PRI;
+		else if (data_source == SOURCE_SEC)
+			dst_port <= DST_PORT_SEC;
+		else
+			dst_port <= DST_PORT_FIFO;
+	end
 	
 	// Calculate packet lengths
 	wire [15:0] packet_length_udp, packet_length_ip;
 	reg [8:0] packet_size_count;
+	reg [15:0] packet_counter[0:1];
+	
 	assign packet_length_udp = {5'b00000, packet_size_count[8:0], 2'b00} + 4'b1010;
 	assign packet_length_ip = {5'b00000, packet_size_count[8:0], 2'b00} + 5'b11110; // IP header adds 20 bytes to UDP packet
 
@@ -71,6 +98,8 @@ module packet_sender(
 	assign header_checksum_input = header[239:208];
 	
 	reg pri_fifo_req_latch;
+	reg tx_fifo_status_int;
+	reg tx_fifo_status_req;
 	
 	always @(posedge clk) begin
 		if (reset) begin
@@ -89,26 +118,33 @@ module packet_sender(
 			header_checksum_reset <= 1;
 			packet_size_count <= 0;
 			enab_checksum <= 0;
-			pri_data_source <= 0;
+			data_source <= 0;
 			pri_fifo_req_latch <= 0;
 			pri_fifo_rd <= 0;
 			sec_fifo_rd <= 0;
+			packet_counter[0] <= 0;
+			packet_counter[1] <= 0;
+			tx_fifo_status_int <= 0;
+			tx_fifo_status_req <= 0;
 			header <= {
-				DST_MAC,	// 48
-				SRC_MAC,	// 96
+				dst_mac,	// 48
+				my_mac,	// 96
 				16'h0800, 16'h4500,	// 128 ethernet / IP
 				packet_length_ip, IP_IDENTIFICATION[15:0],	// 160
 				3'b000, IP_FRAG[12:0], 16'h4011, // 192
 				16'h0000, // 208 checksum
-				SRC_IP,	// 240
-				DST_IP,	// 272
-				SRC_PORT, DST_PORT,	// 304
+				my_ip,	// 240
+				dst_ip,	// 272
+				SRC_PORT, dst_port,	// 304
 				packet_length_udp }; // 320
 		end else begin
 			// default values for state machine
 			pri_fifo_rd <= 0;
 			sec_fifo_rd <= 0;
+			tx_fifo_status_int <= tx_fifo_status;
 			
+			if (tx_fifo_status_int == 0 && tx_fifo_status == 1)
+				tx_fifo_status_req <= 1;
 			// store transmission requests
 			if (pri_fifo_req == 1)
 				pri_fifo_req_latch <= 1;
@@ -121,16 +157,19 @@ module packet_sender(
 			case(state)
 			
 			15'h0001:
-				if (pri_fifo_req | sec_fifo_req | pri_fifo_req_latch ) begin
+				if (pri_fifo_req | sec_fifo_req | pri_fifo_req_latch | tx_fifo_status_req) begin
 					// Wait until we're told to send a packet
 					// Calculate packet header
-					
-					if (pri_fifo_req | pri_fifo_req_latch) begin// prefer primary source if available
-						pri_data_source <= 1;
+					if (tx_fifo_status_req) begin
+						data_source <= SOURCE_TX_FIFO;
+						tx_fifo_status_req <= 0;
+						packet_size_count <= 0;
+					end else if (pri_fifo_req | pri_fifo_req_latch) begin // prefer primary source if available
+						data_source <= SOURCE_SEC;
 						packet_size_count <= pri_packet_size_i;
 						pri_fifo_req_latch <= 0;
 					end else begin
-						pri_data_source <= 0;
+						data_source <= SOURCE_SEC;
 						packet_size_count <= sec_packet_size_i;
 					end
 					header_checksum_reset <= 1;
@@ -139,15 +178,15 @@ module packet_sender(
 			15'h0002:
 				begin
 					header <= {
-						DST_MAC,	// 48
-						SRC_MAC,	// 96
+						dst_mac,	// 48
+						my_mac,	// 96
 						16'h0800, 16'h4500,	// 128 ethernet / IP
 						packet_length_ip, IP_IDENTIFICATION[15:0],	// 160
 						3'b000, IP_FRAG[12:0], 16'h4011, // 192
 						16'h0000, // 208 checksum
-						SRC_IP,	// 240
-						DST_IP,	// 272
-						SRC_PORT, DST_PORT,	// 304
+						my_ip,	// 240
+						dst_ip,	// 272
+						SRC_PORT, dst_port,	// 304
 						packet_length_udp }; // 320
 					header_checksum_reset <= 1;
 					next_state();
@@ -178,17 +217,25 @@ module packet_sender(
 			
 			15'h1000:
 				if (wr_dst_rdy_i) begin
-					wr_data_o <= 32'h0000_4142;  // UDP checksum (4), start of data payload: (4) "AB"
-					next_state();
-					if (pri_data_source)
-						pri_fifo_rd <= 1;
-					else
-						sec_fifo_rd <= 1;
+					if (data_source == SOURCE_TX_FIFO) begin
+						wr_data_o <= {16'h0000, tx_fifo_cnt};
+						state <= 15'h4000;
+						wr_flags_o <= 4'b0010; // EOF
+					end else begin
+						next_state();
+						if (data_source == SOURCE_PRI) begin
+							wr_data_o <= {16'h0000, packet_counter[0]};  // UDP checksum + running packet counter
+							pri_fifo_rd <= 1;
+						end else begin
+							wr_data_o <= {16'h0000, packet_counter[1]};  // UDP checksum + running packet counter
+							sec_fifo_rd <= 1;
+						end
+					end
 				 end
 			// Start sending the rest of the payload
 			15'h2000:
 				if (wr_dst_rdy_i) begin
-					if (pri_data_source) begin
+					if (data_source == SOURCE_PRI) begin
 						wr_data_o <= pri_fifo_d;
 						pri_fifo_rd <= 1;
 					end else begin
@@ -208,6 +255,10 @@ module packet_sender(
 				if (wr_dst_rdy_i) begin
 					wr_src_rdy_o <= 0;
 					next_state();
+					if (data_source == SOURCE_PRI)
+						packet_counter[0] <= packet_counter[0] + 1;
+					else if (data_source == SOURCE_SEC)
+						packet_counter[1] <= packet_counter[1] + 1;
 				end
 				
 			endcase

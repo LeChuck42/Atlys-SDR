@@ -66,6 +66,18 @@ module soc_top # (
 	input wire VHDCI_MUX_IN_P,
 	input wire VHDCI_MUX_IN_N,
 	
+	input wire DAC_CLK_REF_P,
+	input wire DAC_CLK_REF_N,
+
+	output wire [7:0] DAC_DATA_P,
+	output wire [7:0] DAC_DATA_N,
+	
+	output wire DAC_DATACLK_P,
+	output wire DAC_DATACLK_N,
+	
+	output wire DAC_FRAME_P,
+	output wire DAC_FRAME_N,
+	
 	// DDR2
 	output wire [12:0] ddr2_a,
 	output wire [2:0] ddr2_ba,
@@ -134,8 +146,6 @@ module soc_top # (
 	wire clk_125;
 	wire rst_125;
 	wire clk_125_GTX_CLK;
-	wire clk_io;
-	wire clk_io_inv;
 	wire clk_baud;
 	
 	clkgen clkgen0 (
@@ -145,8 +155,6 @@ module soc_top # (
 		.wb_clk_o (wb_clk),
 		.wb_rst_o (wb_rst),
 		
-		.io_clk_o (clk_io),
-		.io_clk_inv_o (clk_io_inv),
 		
 		.tck_pad_i (tck_pad_i),
 		.dbg_tck_o (dbg_tck),
@@ -238,7 +246,7 @@ module soc_top # (
 		.mdio(MDIO_pin), .mdc(MDC_pin),
 		
 		// I/O buses
-		.sys_clk(clk_100),
+		.sys_clk(clk_125),
 		.rx_f36_data({rd2_flags,rd2_data}), .rx_f36_src_rdy(rd2_src_rdy), .rx_f36_dst_rdy(rd2_dst_rdy),
 		.tx_f36_data({wr2_flags,wr2_data}), .tx_f36_src_rdy(wr2_src_rdy), .tx_f36_dst_rdy(wr2_dst_rdy),
 		
@@ -276,14 +284,41 @@ module soc_top # (
 	wire pri_fifo_req, pri_fifo_rd;
 	assign pri_packet_size_i = 9'd256;
 	assign sec_packet_size_i = ADC_PACKET_SIZE;
+	
+	wire [31:0] my_ip = 32'hc0a8_012a;
+	wire [47:0] my_mac = 48'h0037_ffff_3737;
+	wire [31:0] dst_ip = 32'hc0a8_0101;
+	wire [47:0] dst_mac = 48'h0090_F5DE_6431;
+	wire [15:0] status_req_clk_div_val = 16'd31249; // 100 pkts/sec
+	
+	wire [15:0] tx_fifo_cnt;
+	reg tx_fifo_status_req;
+	reg [15:0] status_req_clk_div_cnt;
+	
+	always @(posedge clk_baud or posedge rst_100) begin
+		if (rst_100) begin
+			tx_fifo_status_req <= 0;
+			status_req_clk_div_cnt <= 0;
+		end else begin
+			if (status_req_clk_div_cnt == status_req_clk_div_val) begin
+				tx_fifo_status_req <= ~tx_fifo_status_req;
+				status_req_clk_div_cnt <= 0;
+			end else
+				status_req_clk_div_cnt <= status_req_clk_div_cnt + 1;
+				
+		end
+	end
+	
 	// Send out Ethernet packets
 	packet_sender packet_sender (
-		.clk(clk_100),
+		.clk(clk_125),
 		.reset(~gemac_ready),
 		.wr_flags_o(wr2_flags),
 		.wr_data_o(wr2_data),
 		.wr_dst_rdy_i(wr2_dst_rdy),
 		.wr_src_rdy_o(wr2_src_rdy),
+		.tx_fifo_status(tx_fifo_status_req),
+		.tx_fifo_cnt(tx_fifo_cnt),
 		// primary interface: Configuration Data
 		.pri_fifo_d(0),
 		.pri_packet_size_i(pri_packet_size_i),
@@ -293,7 +328,11 @@ module soc_top # (
 		.sec_fifo_d(adc_fifo_d),
 		.sec_packet_size_i(sec_packet_size_i),
 		.sec_fifo_req(~adc_fifo_ae),
-		.sec_fifo_rd(adc_data_re));
+		.sec_fifo_rd(adc_data_re),
+		.my_mac(my_mac),
+		.my_ip(my_ip),
+		.dst_mac(dst_mac),
+		.dst_ip(dst_ip));
 	
 	wire [31:0] adc_data;
 	wire clk_adc;
@@ -305,7 +344,7 @@ module soc_top # (
 	adc_sample_fifo adc_sample_fifo_inst (
 		.rst(~gemac_ready), // input rst
 		.wr_clk(clk_adc), // input wr_clk
-		.rd_clk(clk_100), // input rd_clk
+		.rd_clk(clk_125), // input rd_clk
 		.din(adc_data), // input [31 : 0] din
 		.wr_en(adc_data_we), // input wr_en
 		.rd_en(adc_data_re), // input rd_en
@@ -318,7 +357,7 @@ module soc_top # (
 	);
 	
 	adc_rx adc_rx (
-		.clk(clk_100),
+		.clk(clk_125),
 		.reset(~gemac_ready),
 		
 		.adc_cha_p(adc_cha_p),
@@ -344,8 +383,11 @@ module soc_top # (
 	wire [31:0] udp_data_out;
 	wire udp_data_out_en;
 	
+	wire data_out_dac;
+	wire data_out_cpu;
+	
 	packet_receiver packet_receiver (
-		.clk(clk_100),
+		.clk(clk_125),
 		.reset(~gemac_ready),
 		
 		.rd_flags_i(rd2_flags),
@@ -353,10 +395,33 @@ module soc_top # (
 		
 		.rd_src_rdy_i(rd2_src_rdy),
 		.rd_dst_rdy_o(rd2_dst_rdy),
+		.data_out_dac(data_out_dac),
+		.data_out_cpu(data_out_cpu),
+		.data_out(udp_data_out),
 		
-		.data_out_en(udp_data_out_en),
-		.data_out(udp_data_out)
+		.packet_loss(),
+		.my_mac(my_mac),
+		.my_ip(my_ip)
 	);
+	
+	dac_tx dac_tx_inst (
+		.clk(clk_125),             // input  
+		.reset_ext(~gemac_ready),       // input  
+		.data_p(DAC_DATA_P),          // output [7:0] 
+		.data_n(DAC_DATA_N),          // output [7:0] 
+		.dataclk_p(DAC_DATACLK_P),       // output 
+		.dataclk_n(DAC_DATACLK_N),       // output 
+		.frame_p(DAC_FRAME_P),         // output 
+		.frame_n(DAC_FRAME_N),         // output 
+		.clk_dac_ref_p(DAC_CLK_REF_P),     // input  
+		.clk_dac_ref_n(DAC_CLK_REF_N),     // input
+		.data_we(data_out_dac),         // input  
+		.data_in(udp_data_out),         // input  [31:0]  
+		.fifo_data_cnt(tx_fifo_cnt),   // output [15:0] 
+		.fifo_full(),       // output 
+		.fifo_empty()       // output 
+	);
+	
 	
 	wire [31:0] or1k_irq;
 	wire [31:0] or1k_dbg_dat_i;
@@ -466,23 +531,6 @@ module soc_top # (
 			.WB_RTY_I(wb_s2m_flash0_rty),
 			.WB_ERR_I(wb_s2m_flash0_err));
 
-
-	//BUFGCE bufgce_spi_clk (
-	//	.I (clk_io_inv),
-	//	.CE (clk_spi_en),
-	//	.O (flash_spi_sck_int));
-	
-	//ODDR2 ODDR_SPI_FLASH (
-	//  .Q(flash_spi_sck),     // Data output (connect directly to top-level port)
-	//  .C0(flash_spi_sck_int),     // 0 degree clock input
-	//  .C1(~flash_spi_sck_int),    // 180 degree clock input
-	//  .CE(1'b1),     // Clock enable input
-	//  .D0(1'b1),     // Posedge data input
-	//  .D1(1'b0),     // Negedge data input
-	//  .R(1'b0),      // Synchronous reset input
-	//  .S(1'b0)       // Synchronous preset input
-	//  );
-	  
 	wire uart0_irq;
 	
 	wb_uart #(.clk_div_val(27))

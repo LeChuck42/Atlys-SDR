@@ -18,12 +18,8 @@ module clkgen (
 	output wire wb_clk_o,
 	output wire wb_rst_o,
 	
-	output wire io_clk_o,
-	output wire io_clk_inv_o,
-	
 	output wire rst100_o,
 	output wire clk100_o,
-	output wire clk100_inv_o,
 	
 	output wire rst125_o,
 	output wire clk125_o,
@@ -55,20 +51,15 @@ wire    plls_locked_n;
 wire    sys_clk_pad_ibufg;
 /* DCM0 wires */
 wire    dcm0_clk0_prebufg, clk_100;
-wire    dcm0_clk180_prebufg, clk_100_inv;
 wire    dcm0_clk2x_prebufg;
 wire    dcm0_clkdv_prebufg, clk_baud;
 wire    dcm0_clkfx_prebufg, dcm0_clkfx;
 wire    dcm0_locked;
 
-wire    dcm1_clk0_prebufg, dcm1_clk0;
-wire    dcm1_clkfx_prebufg, clk_io;
-wire    dcm1_clkfx180_prebufg, clk_io_inv;
-wire    dcm1_clkdv_prebufg, wb_clk;
-wire    dcm1_locked;
 
-wire    pll0_clkfb;
 wire    pll0_locked;
+wire    pll0_clkfb;
+wire    pll0_clk0_prebufg, wb_clk;
 wire    pll0_clk_125_prebufg, clk_125;
 wire    pll0_clk_125_90_prebufg, clk_125_90;
 
@@ -88,7 +79,7 @@ DCM_SP #(
 	// Outputs
 	.CLK0       (dcm0_clk0_prebufg),
 	.CLK90      (),
-	.CLK180     (dcm0_clk180_prebufg),
+	.CLK180     (),
 	.CLK270     (),
 	.CLK2X180   (),
 	.CLK2X      (dcm0_clk2x_prebufg),
@@ -107,62 +98,16 @@ BUFG dcm0_clk0_bufg
 	(.O (clk_100),
 	 .I (dcm0_clk0_prebufg));
 
-BUFG dcm0_clk180_bufg
-	(.O (clk_100_inv),
-	 .I (dcm0_clk180_prebufg));
-
-BUFG dcm0_clkdv_bufg
+BUFH dcm0_clkdv_bufh
 	(.O (clk_baud),
 	 .I (dcm0_clkdv_prebufg));
 
-wire dcm1_reset = ~dcm0_locked;
-// DCM providing main system/Wishbone clock
-DCM_SP #(
-	// Generate 80 MHz from CLKFX
-	.CLKFX_MULTIPLY (4),
-	.CLKFX_DIVIDE   (5),
 
-	// Generate 40 MHz from CLKDV
-	.CLKDV_DIVIDE   (2.5)
-) dcm1 (
-	// Outputs
-	.CLK0       (dcm1_clk0_prebufg),
-	.CLK90      (),
-	.CLK180     (),
-	.CLK270     (),
-	.CLK2X180   (),
-	.CLK2X      (),
-	.CLKDV      (dcm1_clkdv_prebufg),
-	.CLKFX180   (dcm1_clkfx180_prebufg),
-	.CLKFX      (dcm1_clkfx_prebufg),
-	.LOCKED     (dcm1_locked),
-	// Inputs
-	.CLKFB      (dcm1_clk0),
-	.CLKIN      (clk_100),
-	.PSEN       (1'b0),
-	.RST        (dcm1_reset)
-);
-
-BUFG dcm1_clk0_bufg
-	(.O  (dcm1_clk0),
-	 .I  (dcm1_clk0_prebufg));
-
-BUFG dcm1_clkdv_bufg
-	(.O  (wb_clk),
-	 .I  (dcm1_clkdv_prebufg));
-
-BUFG dcm1_clkfx_bufg
-	(.O  (clk_io),
-	 .I  (dcm1_clkfx_prebufg));
-
-BUFG dcm1_clkfx180_bufg
-	(.O  (clk_io_inv),
-	 .I  (dcm1_clkfx180_prebufg));
 wire pll_reset = ~dcm0_locked;
 // Daisy chain DCM-PLL to reduce jitter
 PLL_BASE #(
 	.BANDWIDTH             ("OPTIMIZED"),
-	.CLKOUT0_DIVIDE        (2),
+	.CLKOUT0_DIVIDE        (25),
 	.CLKOUT0_PHASE         (0.000),
 	.CLKOUT0_DUTY_CYCLE    (0.500),
 	.CLKOUT1_DIVIDE        (4),
@@ -190,7 +135,7 @@ PLL_BASE #(
 	.RESET_ON_LOSS_OF_LOCK ("FALSE")
 ) pll0 (
 	.CLKFBOUT              (pll0_clkfb),
-	.CLKOUT0               (),
+	.CLKOUT0               (pll0_clk0_prebufg),
 	.CLKOUT1               (),
 	.CLKOUT2               (pll0_clk_125_prebufg),
 	.CLKOUT3               (pll0_clk_125_90_prebufg),
@@ -202,6 +147,9 @@ PLL_BASE #(
 	.RST                   (pll_reset)
 );
 
+BUFG dcm1_clkdv_bufg
+	(.O  (wb_clk),
+	 .I  (pll0_clk0_prebufg));
 
 /*
 BUFG pll0_clkout1_buf
@@ -221,15 +169,12 @@ BUFG pll0_clkout4_buf
 	 .I (pll0_clk_62_5_prebufg));
 
 */
-assign plls_locked_n = ~pll0_locked || ~dcm0_locked || ~dcm1_locked;
+assign plls_locked_n = ~pll0_locked || ~dcm0_locked;
 //assign clk500_prebufg_o = pll0_clk_500_prebufg;
 assign ddr2_if_clk_o    = dcm0_clkfx_prebufg;
 
 assign wb_clk_o      = wb_clk;
-assign io_clk_o      = clk_io;
-assign io_clk_inv_o  = clk_io_inv;
 assign clk100_o      = clk_100;
-assign clk100_inv_o  = clk_100_inv;
 assign clk125_o      = clk_125;
 assign clk125_90_o   = clk_125_90;
 //assign clk250_o      = clk_250;
