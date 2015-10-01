@@ -1,0 +1,5 @@
+32
+~M 2 "" 0 packet_receiver
+~A 0 "" 0 packet_receiver
+~E 0 "" 0 tx_path_tb
+~A 0 "" 0 sim

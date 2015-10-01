@@ -24,7 +24,7 @@ LANGUAGE=VHDL
 REFRESH_FLOW=1
 FLOWTOOLS=NONE
 FAMILY=Xilinx SPARTAN6
-fileopenfolder=C:\FPGA\AtlysAFE\coregen
+fileopenfolder=C:\PLD\AtlysAFE\hdl\coregen
 NoTimingChecks=0
 NoTchkMsg=0
 EnableXtrace=0
@@ -106,7 +106,7 @@ IncludeDir4=.\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim
 WindowVisible=0
 
 [HierarchyViewer]
-HierarchyInformation=
+HierarchyInformation=wb_flash_loader|rtl|0 
 ShowHide=ShowTopLevel
 Selected=
 
@@ -288,10 +288,10 @@ unisims_ver=
 .\..\..\..\hdl\vhdci_mux.v=Verilog Source Code
 .\..\..\..\hdl\gpio.v=Verilog Source Code
 .\..\..\..\..\AtlysAFE\hdl\main.vhd=VHDL Source Code
-.\..\..\..\..\AtlysAFE\coregen\pll_main.vhd=VHDL Source Code
-.\..\..\..\..\AtlysAFE\coregen\pll_mux.vhd=VHDL Source Code
-.\..\..\..\..\AtlysAFE\coregen\rx_mux.vhd=VHDL Source Code
-.\..\..\..\..\AtlysAFE\coregen\tx_mux.vhd=VHDL Source Code
+.\..\..\..\..\AtlysAFE\hdl\coregen\pll_main.vhd=VHDL Source Code
+.\..\..\..\..\AtlysAFE\hdl\coregen\pll_mux.vhd=VHDL Source Code
+.\..\..\..\..\AtlysAFE\hdl\coregen\rx_mux.vhd=VHDL Source Code
+.\..\..\..\..\AtlysAFE\hdl\coregen\tx_mux.vhd=VHDL Source Code
 
 [Files]
 /..\..\..\..\hdl\wb_flash_loader.vhd=-1
@@ -418,9 +418,9 @@ unisims_ver=
 /..\..\..\..\hdl\sim\bidir_delay.vhd=-1
 /..\..\..\..\hdl\vhdci_mux.v=-1
 /..\..\..\..\hdl\gpio.v=-1
-/..\..\..\..\..\AtlysAFE\coregen\pll_main.vhd=-1
-/..\..\..\..\..\AtlysAFE\coregen\pll_mux.vhd=-1
-/..\..\..\..\..\AtlysAFE\coregen\rx_mux.vhd=-1
-/..\..\..\..\..\AtlysAFE\coregen\tx_mux.vhd=-1
+/..\..\..\..\..\AtlysAFE\hdl\coregen\pll_main.vhd=-1
+/..\..\..\..\..\AtlysAFE\hdl\coregen\pll_mux.vhd=-1
+/..\..\..\..\..\AtlysAFE\hdl\coregen\rx_mux.vhd=-1
+/..\..\..\..\..\AtlysAFE\hdl\coregen\tx_mux.vhd=-1
 /..\..\..\..\..\AtlysAFE\hdl\main.vhd=-1
 

@@ -1,0 +1,12 @@
+[Version]
+Version=10.2
+[Designs]
+tx_path_tb=.\tx_path_tb.adf
+[Browser]
+sort=order
+mode=none
+[Order]
+order=1
+macro=
+[Expand]
+tx_path_tb=1

@@ -67,6 +67,9 @@ module packet_receiver (
 	
 	assign rd_dst_rdy_o = rd_src_rdy_i;
 	
+	wire flag_eof = rd_flags_i[1];
+	wire flag_sof = rd_flags_i[0];
+	
 	always @(posedge clk) begin
 		if (reset) begin
 			state <= 13'h0001;
@@ -74,13 +77,16 @@ module packet_receiver (
 			dst_mac_buffer <= 0;
 			dst_ip_buffer <= 0;
 			dst_port_buffer <= 0;
+			packet_counter[0] <= 0;
+			packet_counter[1] <= 0;
+			packet_loss <= 0;
 		end else begin
 			data_out_reg <= 0;
 			
 			case(state)
 				13'h0001:
 					// Wait for a new packet
-					if (rd_src_rdy_i && (rd_flags_i == 4'b0001)) begin // SOF indicator
+					if (rd_src_rdy_i && flag_sof == 1) begin // SOF indicator
 						dst_mac_buffer[47:16] <= rd_data_i;
 						next_state();
 					end
@@ -153,16 +159,19 @@ module packet_receiver (
 						// Read data
 						data_out <= rd_data_i;
 						data_out_reg <= 1;
-						if (rd_flags_i[1] == 1) begin
-							if (packet_length == 0)
-								packet_counter[dst_port_buffer[0]] <= packet_counter[dst_port_buffer[0]] + 1;
-							state <= 13'h0001;
+						if (packet_length == 16'd4 || flag_eof == 1) begin
+							packet_loss <= 0;
+							packet_counter[dst_port_buffer[0]] <= packet_counter[dst_port_buffer[0]] + 1;
+							if (flag_eof == 1)
+								state <= 13'h0001;
+							else
+								state <= 13'h1000;
 						end else
 							packet_length <= packet_length - 16'd4;
 					end
 				13'h1000:
 					// Wait until the end of the packet
-					if (rd_flags_i[1] == 1)
+					if (flag_eof == 1)
 						state <= 13'h0001;
 			endcase
 			
