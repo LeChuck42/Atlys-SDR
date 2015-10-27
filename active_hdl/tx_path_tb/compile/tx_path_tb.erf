@@ -1,15 +1,4 @@
-MESSAGE "Pass 1. Scanning modules hierarchy."
-BEGINPROGRESS Compiling...
-UPDATEPROGRESS 35
-MESSAGE "Pass 2. Processing instantiations."
-UPDATEPROGRESS 45
-MESSAGE "Pass 3. Processing behavioral statements."
-UPDATEPROGRESS 80
-MESSAGE "ELB/DAG code generating."
-UPDATEPROGRESS 90
-UPDATEPROGRESS 100
-MESSAGE "Unit top modules: packet_receiver."
-MESSAGE "$root top modules: packet_receiver."
-ENDPROGRESS Compiling...
-SUCCESS "Compile success 0 Errors 0 Warnings  Analysis time: 0[s]."
-MESSAGE "done"
+MESSAGE "File: D:\FPGA\atlys_sdr\active_hdl\tx_path_tb\src\tx_path_tb.vhd" 
+MESSAGE "Compile Entity "tx_path_tb"" 
+MESSAGE "Compile Architecture "sim" of Entity "tx_path_tb"" 
+SUCCESS "Compile success 0 Errors 0 Warnings  Analysis time :  47.0 [ms]" 

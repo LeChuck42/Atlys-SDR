@@ -136,6 +136,7 @@ begin
 		rd_flags_i <= (others => '0');
 		rd_data_i <= (others => '0');
 		wait for 100 ns;
+		-- target 0
 		wait until clk = '1';
 		ip_header(x"0090f5de6431",
 		          x"0037ffff3737",
@@ -144,6 +145,119 @@ begin
 		          x"1230",
 		          x"1230",
 		          0,
+		          16);
+		          
+		wait until clk = '1';
+		mac_data32(x"12345678");
+		wait until clk = '1';
+		mac_data32(x"5500aa00");
+		wait until clk = '1';
+		mac_data32(x"ffffffff");
+		wait until clk = '1';
+		rd_flags_i(1) <= '1';
+		mac_data32(x"00001111");
+		rd_flags_i(1) <= '0';
+		wait for 100 ns;
+		-- wrong target mac
+		wait until clk = '1';
+		ip_header(x"0090f5de6431",
+		          x"0037ffff3738",
+		          x"c0a8012a",
+		          x"c0a80101",
+		          x"1230",
+		          x"1230",
+		          1,
+		          16);
+		          
+		wait until clk = '1';
+		mac_data32(x"12345678");
+		wait until clk = '1';
+		mac_data32(x"5500aa00");
+		wait until clk = '1';
+		mac_data32(x"ffffffff");
+		wait until clk = '1';
+		rd_flags_i(1) <= '1';
+		mac_data32(x"00001111");
+		rd_flags_i(1) <= '0';
+		wait for 100 ns;
+		-- target 1
+		wait until clk = '1';
+		ip_header(x"0090f5de6431",
+		          x"0037ffff3737",
+		          x"c0a8012a",
+		          x"c0a80101",
+		          x"1230",
+		          x"1231",
+		          0,
+		          16);
+		          
+		wait until clk = '1';
+		mac_data32(x"12345678");
+		wait until clk = '1';
+		mac_data32(x"5500aa00");
+		wait until clk = '1';
+		mac_data32(x"ffffffff");
+		wait until clk = '1';
+		rd_flags_i(1) <= '1';
+		mac_data32(x"00001111");
+		rd_flags_i(1) <= '0';
+	
+		wait for 100 ns;
+		-- wrong target ip
+		wait until clk = '1';
+		ip_header(x"0090f5de6431",
+		          x"0037ffff3737",
+		          x"c0a8012a",
+		          x"c0a80102",
+		          x"1230",
+		          x"1231",
+		          1,
+		          16);
+		          
+		wait until clk = '1';
+		mac_data32(x"12345678");
+		wait until clk = '1';
+		mac_data32(x"5500aa00");
+		wait until clk = '1';
+		mac_data32(x"ffffffff");
+		wait until clk = '1';
+		rd_flags_i(1) <= '1';
+		mac_data32(x"00001111");
+		rd_flags_i(1) <= '0';
+		
+		wait for 100 ns;
+		-- target 1
+		wait until clk = '1';
+		ip_header(x"0090f5de6431",
+		          x"0037ffff3737",
+		          x"c0a8012a",
+		          x"c0a80101",
+		          x"1230",
+		          x"1231",
+		          1,
+		          16);
+		          
+		wait until clk = '1';
+		mac_data32(x"12345678");
+		wait until clk = '1';
+		mac_data32(x"5500aa00");
+		wait until clk = '1';
+		mac_data32(x"ffffffff");
+		wait until clk = '1';
+		rd_flags_i(1) <= '1';
+		mac_data32(x"00001111");
+		rd_flags_i(1) <= '0';
+		
+		wait for 100 ns;
+		-- wrong packet count
+		wait until clk = '1';
+		ip_header(x"0090f5de6431",
+		          x"0037ffff3737",
+		          x"c0a8012a",
+		          x"c0a80101",
+		          x"1230",
+		          x"1231",
+		          1,
 		          16);
 		          
 		wait until clk = '1';

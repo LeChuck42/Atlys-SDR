@@ -76,8 +76,9 @@ BUFG dcm_dac_clk270_bufg
 	(.O (clk_dac270),
 	 .I (dcm_dac_clk270_prebufg));
 
-reg  frame_sync;
-wire [15:0] data_out;
+reg        frame_sync;
+reg        channel_sync;
+reg [15:0] data_out;
 wire [7:0] ddr_data_out;
 
 genvar b;
@@ -131,16 +132,23 @@ OBUFDS OBUFDS_clk (
 	.I(ddr_clk_out) // Buffer input
 );
 
+wire [31:0] tx_fifo_output;
+
 always @(posedge clk_dac0) begin
 	if (reset == 1) begin
 		frame_sync <= 0;
+		channel_sync <= 0;
+		data_out <= 0;
 	end else begin
-		frame_sync <= ~frame_sync;
+		if (channel_sync == 1'b1) begin
+			frame_sync <= ~frame_sync;
+			data_out <= tx_fifo_output[15:0];
+		end else begin
+			data_out <= tx_fifo_output[31:16];
+		end
+		channel_sync <= ~channel_sync;
 	end
 end
-
-wire [31:0] tx_fifo_output;
-assign data_out = (frame_sync) ? tx_fifo_output[31:16] : tx_fifo_output[15:0];
 
 dac_sample_fifo tx_fifo (
 	.rst(rst), // input rst
@@ -148,7 +156,7 @@ dac_sample_fifo tx_fifo (
 	.rd_clk(clk_dac0), // input rd_clk
 	.din(data_in), // input [31 : 0] din
 	.wr_en(data_we), // input wr_en
-	.rd_en(~frame_sync), // input rd_en
+	.rd_en(channel_sync), // input rd_en
 	.dout(tx_fifo_output), // output [31 : 0] dout
 	.full(fifo_full), // output full
 	.empty(fifo_empty), // output empty

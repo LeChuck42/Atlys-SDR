@@ -35,7 +35,7 @@ entity wb_flash_loader is
 end entity wb_flash_loader;
 
 architecture rtl of wb_flash_loader is
-	type flash_state_t is (COMMAND, DUMMY, READ_DATA, WRITING, FINISHED);
+	type flash_state_t is (INIT, COMMAND, DUMMY, READ_DATA, FINISHED);
 	signal flash_state:     flash_state_t;
 	signal word_cnt:        unsigned(SIZE-3 downto 0);
 	signal trx_cnt:         unsigned(4 downto 0);
@@ -52,14 +52,14 @@ begin
 	WB_BTE_O <= "00";
 	WB_ADR_O <= std_logic_vector(unsigned(WRITE_OFFSET) + unsigned(std_logic_vector(word_cnt) & "00"));
 	
-	SPI_IO(0) <= cmd_buf(cmd_buf'LEFT) when flash_state = COMMAND else 'Z';
+	--SPI_IO(0) <= cmd_buf(cmd_buf'LEFT) when flash_state = COMMAND else 'Z';
 	SPI_IO(1) <= 'Z';
 	SPI_IO(2) <= 'Z';
 	SPI_IO(3) <= 'Z';
 	
-	SPI_CSN <= '0' when flash_state /= FINISHED and RESET = '0' else '1';
+	--SPI_CSN <= '0' when flash_state /= FINISHED and RESET = '0' else '1';
 	
-	SPI_CLK <= clk_div when flash_state /= FINISHED and flash_state /= WRITING and RESET = '0' else '0';
+	--SPI_CLK <= clk_div when flash_state /= FINISHED and flash_state /= WRITING and RESET = '0' else '0';
 	
 	DONE <= '1' when flash_state = FINISHED else '0';
 	
@@ -67,7 +67,7 @@ begin
 	begin
 		if RESET = '1' then
 			if SIMULATION = "FALSE" then
-				flash_state <= COMMAND;
+				flash_state <= INIT;
 			else
 				flash_state <= FINISHED;
 			end if;
@@ -76,64 +76,76 @@ begin
 			cmd_buf  <= x"6B" & READ_OFFSET; -- QOFR + 3 ADDR BYTES
 			data_buf <= (others => '0');
 			clk_div <= '0';
+			SPI_CSN <= '1';
 			wb_wr_cyc <= '0';
+			SPI_IO(0) <= '0';
 		elsif rising_edge(CLK) then
-			
-			if wb_wr_cyc = '1' and WB_ACK_I = '1' then
-				wb_wr_cyc <= '0';
-			end if;
-			
-			clk_div <= not clk_div;
-			
-			if clk_div = '1' then
-				case (flash_state) is
-					
-					when COMMAND =>
-						cmd_buf <= cmd_buf(30 downto 0) & cmd_buf(31);
+			case (flash_state) is
+				when INIT =>
+					SPI_IO(0) <= cmd_buf(31);
+					cmd_buf <= cmd_buf(30 downto 0) & cmd_buf(31);
+					SPI_CSN <= '0';
+					flash_state <= COMMAND;
+				when COMMAND =>
+					SPI_CSN <= '0';
+					clk_div <= not clk_div;
+					if clk_div = '1' then
 						if trx_cnt = to_unsigned(31, trx_cnt'LENGTH) then
 							flash_state <= DUMMY;
+							SPI_IO(0) <= 'Z';
 							trx_cnt <= to_unsigned(0, trx_cnt'LENGTH);
 						else
+							SPI_IO(0) <= cmd_buf(31);
+							cmd_buf <= cmd_buf(30 downto 0) & cmd_buf(31);
 							trx_cnt <= trx_cnt + 1;
 						end if;
-						
-					when DUMMY =>
-						-- bus turnaround
+					end if;
+					
+				when DUMMY =>
+					-- bus turnaround
+					SPI_CSN <= '0';
+					clk_div <= not clk_div;
+					if clk_div = '1' then
 						if trx_cnt = to_unsigned(DUMMY_CYCLES-1, trx_cnt'LENGTH) then
 							flash_state <= READ_DATA;
 							trx_cnt <= to_unsigned(0, trx_cnt'LENGTH);
 						else
 							trx_cnt <= trx_cnt + 1;
 						end if;
-						
-					when READ_DATA =>
-						if trx_cnt = to_unsigned(7, trx_cnt'LENGTH) then
-							trx_cnt <= to_unsigned(0, trx_cnt'LENGTH);
-							WB_DAT_O <= data_buf & SPI_IO;
-							wb_wr_cyc <= '1';
-							flash_state <= WRITING;
-						else -- if trx_cnt
-							data_buf <= data_buf(23 downto 0) & SPI_IO;
-							trx_cnt <= trx_cnt + 1;
-						end if;
-						
-					when WRITING =>
-						if wb_wr_cyc = '0' then
-							word_cnt <= word_cnt + 1;
-							if word_cnt = (word_cnt'RANGE => '1') then
-								-- this was the last transfer
-								flash_state <= FINISHED;
-							else
-								-- continue reading
-								flash_state <= READ_DATA;
+					end if;
+				when READ_DATA =>
+					SPI_CSN <= '0';
+					if word_cnt /= (word_cnt'RANGE => '1') and 
+					   (wb_wr_cyc = '0' or trx_cnt /= to_unsigned(7, trx_cnt'LENGTH)) then
+						clk_div <= not clk_div;
+						if clk_div = '1' then
+							if trx_cnt = to_unsigned(7, trx_cnt'LENGTH) then
+								trx_cnt <= to_unsigned(0, trx_cnt'LENGTH);
+								WB_DAT_O <= data_buf & SPI_IO;
+								wb_wr_cyc <= '1';
+							else -- if trx_cnt
+								data_buf <= data_buf(23 downto 0) & SPI_IO;
+								trx_cnt <= trx_cnt + 1;
 							end if;
 						end if;
+					end if;
 					
-					when FINISHED =>
-						flash_state <= FINISHED;
-						
-				end case;
-			end if;
+					if WB_ACK_I = '1' then
+						wb_wr_cyc <= '0';
+						word_cnt <= word_cnt + 1;
+						if word_cnt = (word_cnt'RANGE => '1') then
+							-- this was the last transfer
+							SPI_CSN <= '1';
+							flash_state <= FINISHED;
+						end if;
+					end if;
+				
+				when FINISHED =>
+					SPI_CSN <= '1';
+					clk_div <= '0';
+					flash_state <= FINISHED;
+					
+			end case;
 		end if;
 	end process;
 	

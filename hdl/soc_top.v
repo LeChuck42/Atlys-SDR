@@ -788,7 +788,17 @@ module soc_top # (
 	wire [31:0] gpio_in;
 	wire [31:0] gpio_out;
 	//wire [31:0] gpio_dir;
+	reg  [31:0] gpio_in_sync, gpio_in_buf;
 	
+	always @(posedge wb_clk or posedge wb_rst)
+		if (wb_rst) begin
+			gpio_in_sync <= 0;
+			gpio_in_buf <= 0;
+		end else begin
+			gpio_in_buf <= gpio_in;
+			gpio_in_sync <= gpio_in_buf;
+		end
+		
 	gpio gpio0 (
 		.wb_clk   (wb_clk),
 		.wb_rst   (wb_rst),
@@ -804,7 +814,7 @@ module soc_top # (
 		.wb_ack_o (wb_s2m_gpio0_ack),
 		.wb_err_o (wb_s2m_gpio0_err),
 		.wb_rty_o (wb_s2m_gpio0_rty),
-		.gpio_i   (gpio_in),
+		.gpio_i   (gpio_in_sync),
 		.gpio_o   (gpio_out),
 		.gpio_dir_o ());
 		

@@ -59,9 +59,9 @@ wire    dcm0_locked;
 
 wire    pll0_locked;
 wire    pll0_clkfb;
-wire    pll0_clk0_prebufg, wb_clk;
-wire    pll0_clk_125_prebufg, clk_125;
-wire    pll0_clk_125_90_prebufg, clk_125_90;
+wire    pll0_clk0_prebuf, wb_clk;
+wire    pll0_clk2_prebuf, clk_125;
+wire    pll0_clk3_prebuf, clk_125_90;
 
 IBUFG sys_clk_in_ibufg (
 	.I  (sys_clk_pad_i),
@@ -110,8 +110,8 @@ PLL_BASE #(
 	.CLKOUT0_DIVIDE        (25),
 	.CLKOUT0_PHASE         (0.000),
 	.CLKOUT0_DUTY_CYCLE    (0.500),
-	.CLKOUT1_DIVIDE        (4),
-	.CLKOUT1_PHASE         (90.000),
+	.CLKOUT1_DIVIDE        (50),
+	.CLKOUT1_PHASE         (0.000),
 	.CLKOUT1_DUTY_CYCLE    (0.500),
 	.CLKOUT2_DIVIDE        (8),
 	.CLKOUT2_PHASE         (0.000),
@@ -135,10 +135,10 @@ PLL_BASE #(
 	.RESET_ON_LOSS_OF_LOCK ("FALSE")
 ) pll0 (
 	.CLKFBOUT              (pll0_clkfb),
-	.CLKOUT0               (pll0_clk0_prebufg),
+	.CLKOUT0               (pll0_clk0_prebuf),
 	.CLKOUT1               (),
-	.CLKOUT2               (pll0_clk_125_prebufg),
-	.CLKOUT3               (pll0_clk_125_90_prebufg),
+	.CLKOUT2               (pll0_clk2_prebuf),
+	.CLKOUT3               (pll0_clk3_prebuf),
 	.CLKOUT4               (),
 	.CLKOUT5               (),
 	.LOCKED                (pll0_locked),
@@ -149,7 +149,7 @@ PLL_BASE #(
 
 BUFG dcm1_clkdv_bufg
 	(.O  (wb_clk),
-	 .I  (pll0_clk0_prebufg));
+	 .I  (pll0_clk0_prebuf));
 
 /*
 BUFG pll0_clkout1_buf
@@ -158,11 +158,11 @@ BUFG pll0_clkout1_buf
 */
 BUFG pll0_clkout2_buf
 	(.O (clk_125),
-	 .I (pll0_clk_125_prebufg));
+	 .I (pll0_clk2_prebuf));
 
 BUFG pll0_clkout3_buf
 	(.O (clk_125_90),
-	 .I (pll0_clk_125_90_prebufg));
+	 .I (pll0_clk3_prebuf));
 /*
 BUFG pll0_clkout4_buf
 	(.O (clk_62_5),

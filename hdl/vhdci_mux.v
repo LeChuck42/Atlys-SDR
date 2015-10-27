@@ -86,14 +86,14 @@ module vhdci_mux (
 	reg [2:0] delay_sync_state;
 	
 	reg vhdci_mux_bitslip;
-	wire [7:0] mux_in, mux_out;
+	wire [7:0] mux_in;
+	reg  [7:0] mux_in_sync;
+	reg  [7:0] mux_out;
 	assign mux_data_out = mux_in[6:0];
 	
 	reg [7:0] sync_pattern;
 	reg sync_mon_expect, sync_mon_valid, sync_mon_out;
 	reg bitslip_sync;
-	
-	assign mux_out = (mux_synced) ? {sync_mon_out, mux_data_in} : sync_pattern;
 	
 	wire reset_sync = rst_in | (!mux_pll_locked);
 	always @(posedge clk_mux_div or posedge reset_sync)
@@ -105,31 +105,35 @@ module vhdci_mux (
 			sync_mon_expect <= 0;
 			bitslip_sync <= 0;
 			sync_pattern <= 8'h00;
+			mux_out <= 8'h00;
+			mux_in_sync <= 8'h00;
 		end else begin
 			sync_mon_out <= !sync_mon_out; // output sync bit to detect loss of link on other side
 			vhdci_mux_bitslip <= 0;
 			bitslip_sync <= vhdci_mux_bitslip;
+			mux_out <= (mux_synced) ? {sync_mon_out, mux_data_in} : sync_pattern;
+			mux_in_sync <= mux_in;
 			if (mux_synced == 1) begin
 				if (sync_mon_valid == 1) begin
-					if (sync_mon_expect == mux_in[7]) begin
-						sync_mon_expect <= !mux_in[7];
+					if (sync_mon_expect == mux_in_sync[7]) begin
+						sync_mon_expect <= !mux_in_sync[7];
 					end else begin
 						sync_mon_valid <= 0;
 						mux_synced <= 0;
 					end
-				end else if (mux_in != 8'h81) begin
-					sync_mon_expect <= !mux_in[7];
+				end else if (mux_in_sync != 8'h81) begin
+					sync_mon_expect <= !mux_in_sync[7];
 					sync_mon_valid <= 1;
 				end
 			end else begin
 				sync_mon_valid <= 0;
 				if (delay_sync_state == 3'b101) begin
-					if (mux_in != 8'h01 && mux_in != 8'h81) begin
+					if (mux_in_sync != 8'h01 && mux_in_sync != 8'h81) begin
 						if (vhdci_mux_bitslip == 0 && bitslip_sync == 0)
 							vhdci_mux_bitslip <= 1;
 						sync_pattern <= 8'h01;
 					end else begin
-						if (mux_in == 8'h81 && sync_pattern == 8'h81 && vhdci_mux_bitslip == 0 && bitslip_sync == 0)
+						if (mux_in_sync == 8'h81 && sync_pattern == 8'h81 && vhdci_mux_bitslip == 0 && bitslip_sync == 0)
 							mux_synced <= 1;
 						sync_pattern <= 8'h81;
 					end
@@ -138,6 +142,7 @@ module vhdci_mux (
 		end
 	
 	wire delay_busy;
+	reg  delay_busy_sync;
 	reg  delay_cal;
 	reg  delay_ce;
 	reg  delay_inc;
@@ -152,7 +157,9 @@ module vhdci_mux (
 			io_reset <= 1;
 			delay_sync_state <= 3'b000;
 			delay_half_shift <= 15;
+			delay_busy_sync <= 1'b0;
 		end else begin
+			delay_busy_sync <= delay_busy;
 			case (delay_sync_state)
 				3'b000 : begin	// start calibration
 						io_reset <= 0;
@@ -160,7 +167,7 @@ module vhdci_mux (
 						delay_sync_state <= 3'b001;
 					end
 				3'b001 : begin	// wait for calibration
-						if (delay_cal == 0 && delay_busy == 0) begin
+						if (delay_cal == 0 && delay_busy == 0 && delay_busy_sync == 0) begin
 							delay_sync_state <= 3'b011;
 							io_reset <= 1;
 						end
@@ -168,8 +175,8 @@ module vhdci_mux (
 					end
 				3'b011 : begin	// wait for rx data and store reference
 						io_reset <= 0;
-						if (mux_in != 8'h00) begin
-							mux_in_buf <= mux_in;
+						if (mux_in_sync != 8'h00) begin
+							mux_in_buf <= mux_in_sync;
 							delay_sync_state <= 3'b010;
 						end
 					end
@@ -178,8 +185,8 @@ module vhdci_mux (
 						delay_sync_state <= 3'b110;
 					end
 				3'b110 : begin	// wait for delay
-						if (delay_ce == 0 && delay_busy == 0) begin
-							if (mux_in != mux_in_buf) begin
+						if (delay_ce == 0 && delay_busy == 0 && delay_busy_sync == 0) begin
+							if (mux_in_sync != mux_in_buf) begin
 								delay_sync_state <= 3'b111;
 							end else begin
 								delay_sync_state <= 3'b010;
@@ -188,7 +195,7 @@ module vhdci_mux (
 						delay_ce <= 0;
 					end
 				3'b111 : begin // edge found, shift to mid
-						if (delay_ce == 0 && delay_busy == 0) begin
+						if (delay_ce == 0 && delay_busy == 0 && delay_busy_sync == 0) begin
 							if (delay_half_shift == 0) begin
 								delay_sync_state <= 3'b101;
 							end else begin
@@ -214,7 +221,7 @@ module vhdci_mux (
 	assign debug[1] = vhdci_mux_bitslip;
 	assign debug[0] = mux_synced;
 	
-	FPGA_MUX vhdci_mux
+	FPGA_MUX fpga_mux_inst
 	(
 		// From the system into the device
 		.DATA_IN_FROM_PINS_P     ({VHDCI_MUX_IN_P}),
