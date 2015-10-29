@@ -17,13 +17,13 @@ module vhdci_mux (
 	output wire VHDCI_MUX_CLK_N,
 	output wire [7:0] debug);
 	
-	wire clk_mux, clk_mux_out, clk_250_int, clk_mux_div, clk_mux_div_int, mux_pll_locked, clkfbout, clkfbout_buf;
+	wire clk_mux, clk_mux_out, clk_160_int, clk_mux_div, clk_mux_div_int, mux_pll_locked, clkfbout, clkfbout_buf;
 	PLL_BASE
 	#(.BANDWIDTH               ("OPTIMIZED"),
 		.CLK_FEEDBACK          ("CLKFBOUT"),
 		.COMPENSATION          ("DCM2PLL"),
 		.DIVCLK_DIVIDE         (1),
-		.CLKFBOUT_MULT         (10),
+		.CLKFBOUT_MULT         (16),
 		.CLKFBOUT_PHASE        (0.000),
 		.CLKOUT0_DIVIDE        (2),
 		.CLKOUT0_PHASE         (0.000),
@@ -34,14 +34,14 @@ module vhdci_mux (
 		.CLKOUT2_DIVIDE        (16),
 		.CLKOUT2_PHASE         (0.000),
 		.CLKOUT2_DUTY_CYCLE    (0.500),
-		.CLKIN_PERIOD          (10.0),
+		.CLKIN_PERIOD          (25.0),
 		.REF_JITTER            (0.010))
 	pll_base_inst
 	// Output clocks
 	(
 		.CLKFBOUT              (clkfbout),
 		.CLKOUT0               (clk_mux),
-		.CLKOUT1               (clk_250_int),
+		.CLKOUT1               (clk_160_int),
 		.CLKOUT2               (clk_mux_div_int),
 		.CLKOUT3               (),
 		.CLKOUT4               (),
@@ -59,7 +59,7 @@ module vhdci_mux (
 	
 	BUFG clkout_buf
 	 (.O (clk_mux_out),
-	  .I (clk_250_int));
+	  .I (clk_160_int));
 	
 	BUFG clkfb_buf
 	(.O (clkfbout_buf),
@@ -89,11 +89,11 @@ module vhdci_mux (
 	wire [7:0] mux_in;
 	reg  [7:0] mux_in_sync;
 	reg  [7:0] mux_out;
-	assign mux_data_out = mux_in[6:0];
+	assign mux_data_out = mux_in_sync[6:0];
 	
 	reg [7:0] sync_pattern;
 	reg sync_mon_expect, sync_mon_valid, sync_mon_out;
-	reg bitslip_sync;
+	reg [1:0] bitslip_sync;
 	
 	wire reset_sync = rst_in | (!mux_pll_locked);
 	always @(posedge clk_mux_div or posedge reset_sync)
@@ -110,7 +110,8 @@ module vhdci_mux (
 		end else begin
 			sync_mon_out <= !sync_mon_out; // output sync bit to detect loss of link on other side
 			vhdci_mux_bitslip <= 0;
-			bitslip_sync <= vhdci_mux_bitslip;
+			bitslip_sync[0] <= vhdci_mux_bitslip;
+			bitslip_sync[1] <= bitslip_sync[0];
 			mux_out <= (mux_synced) ? {sync_mon_out, mux_data_in} : sync_pattern;
 			mux_in_sync <= mux_in;
 			if (mux_synced == 1) begin

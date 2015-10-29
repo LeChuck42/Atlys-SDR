@@ -151,7 +151,7 @@ always @(posedge clk_dac0) begin
 end
 
 dac_sample_fifo tx_fifo (
-	.rst(rst), // input rst
+	.rst(reset_ext), // input rst
 	.wr_clk(clk), // input wr_clk
 	.rd_clk(clk_dac0), // input rd_clk
 	.din(data_in), // input [31 : 0] din

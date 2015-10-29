@@ -59,7 +59,7 @@ begin
 	
 	--SPI_CSN <= '0' when flash_state /= FINISHED and RESET = '0' else '1';
 	
-	--SPI_CLK <= clk_div when flash_state /= FINISHED and flash_state /= WRITING and RESET = '0' else '0';
+	SPI_CLK <= clk_div;-- when flash_state /= FINISHED and flash_state /= WRITING and RESET = '0' else '0';
 	
 	DONE <= '1' when flash_state = FINISHED else '0';
 	
@@ -82,6 +82,7 @@ begin
 		elsif rising_edge(CLK) then
 			case (flash_state) is
 				when INIT =>
+					clk_div <= '0';
 					SPI_IO(0) <= cmd_buf(31);
 					cmd_buf <= cmd_buf(30 downto 0) & cmd_buf(31);
 					SPI_CSN <= '0';

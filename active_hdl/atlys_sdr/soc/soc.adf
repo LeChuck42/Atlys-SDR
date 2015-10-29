@@ -9,6 +9,7 @@ compile=soc
 
 [Library]
 soc=.\soc\soc.lib
+machxo2=.\..\..\..\..\lib\machxo2\machxo2\machxo2.lib
 
 [Settings]
 AccessRead=1
@@ -24,7 +25,7 @@ LANGUAGE=VHDL
 REFRESH_FLOW=1
 FLOWTOOLS=NONE
 FAMILY=Xilinx SPARTAN6
-fileopenfolder=C:\PLD\AtlysAFE\hdl\coregen
+fileopenfolder=D:\FPGA\atlys_sdr\hdl
 NoTimingChecks=0
 NoTchkMsg=0
 EnableXtrace=0
@@ -90,6 +91,7 @@ Active_lib=SPARTAN6
 xilinxun=SPARTAN6
 UnlinkedDesignLibrary=SPARTAN6
 DESIGNS=SPARTAN6
+machxo2=.
 
 [DefineMacro]
 Global=
@@ -106,7 +108,7 @@ IncludeDir4=.\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim
 WindowVisible=0
 
 [HierarchyViewer]
-HierarchyInformation=wb_flash_loader|rtl|0 
+HierarchyInformation=
 ShowHide=ShowTopLevel
 Selected=
 
@@ -176,8 +178,8 @@ unisims_ver=
 .\..\..\..\hdl\packet_sender.v=Verilog Source Code
 .\..\..\..\hdl\rx_sim.vhd=VHDL Source Code
 .\..\..\..\hdl\scope.vhd=VHDL Source Code
+.\..\..\..\hdl\coregen\dac_sample_fifo.v=Verilog Source Code
 .\..\..\..\hdl\soc_top.v=Verilog Source Code
-.\..\..\..\hdl\soc_top_tb.v=Verilog Source Code
 .\..\..\..\hdl\uart_scope.vhd=VHDL Source Code
 .\..\..\..\hdl\adv_debug_sys\adbg_crc32.v=Verilog Source Code
 .\..\..\..\hdl\adv_debug_sys\adbg_defines.v=Verilog Source Code
@@ -287,11 +289,14 @@ unisims_ver=
 .\..\..\..\hdl\sim\bidir_delay.vhd=VHDL Source Code
 .\..\..\..\hdl\vhdci_mux.v=Verilog Source Code
 .\..\..\..\hdl\gpio.v=Verilog Source Code
-.\..\..\..\..\AtlysAFE\hdl\main.vhd=VHDL Source Code
-.\..\..\..\..\AtlysAFE\hdl\coregen\pll_main.vhd=VHDL Source Code
+.\..\..\..\..\AtlysAFE\hdl\spi_register.vhd=VHDL Source Code
 .\..\..\..\..\AtlysAFE\hdl\coregen\pll_mux.vhd=VHDL Source Code
 .\..\..\..\..\AtlysAFE\hdl\coregen\rx_mux.vhd=VHDL Source Code
 .\..\..\..\..\AtlysAFE\hdl\coregen\tx_mux.vhd=VHDL Source Code
+.\..\..\..\..\AtlysAFE\hdl\main.vhd=VHDL Source Code
+C:\Xilinx\14.7\ISE_DS\ISE\verilog\src\glbl.v=Verilog Source Code
+.\..\..\..\hdl\soc_top_tb.v=Verilog Source Code
+.\..\..\..\hdl\dac_tx.v=Verilog Source Code
 
 [Files]
 /..\..\..\..\hdl\wb_flash_loader.vhd=-1
@@ -307,8 +312,9 @@ unisims_ver=
 /..\..\..\..\hdl\packet_sender.v=-1
 /..\..\..\..\hdl\rx_sim.vhd=-1
 /..\..\..\..\hdl\scope.vhd=-1
+/..\..\..\..\hdl\coregen\dac_sample_fifo.v=-1
+/..\..\..\..\hdl\dac_tx.v=-1
 /..\..\..\..\hdl\soc_top.v=-1
-/..\..\..\..\hdl\soc_top_tb.v=-1
 /..\..\..\..\hdl\uart_scope.vhd=-1
 /..\..\..\..\hdl\adv_debug_sys\adbg_crc32.v=-1
 /..\..\..\..\hdl\adv_debug_sys\adbg_defines.v=-1
@@ -418,9 +424,11 @@ unisims_ver=
 /..\..\..\..\hdl\sim\bidir_delay.vhd=-1
 /..\..\..\..\hdl\vhdci_mux.v=-1
 /..\..\..\..\hdl\gpio.v=-1
-/..\..\..\..\..\AtlysAFE\hdl\coregen\pll_main.vhd=-1
+/..\..\..\..\..\AtlysAFE\hdl\spi_register.vhd=-1
 /..\..\..\..\..\AtlysAFE\hdl\coregen\pll_mux.vhd=-1
 /..\..\..\..\..\AtlysAFE\hdl\coregen\rx_mux.vhd=-1
 /..\..\..\..\..\AtlysAFE\hdl\coregen\tx_mux.vhd=-1
 /..\..\..\..\..\AtlysAFE\hdl\main.vhd=-1
+/C:\Xilinx\14.7\ISE_DS\ISE\verilog\src\glbl.v=-1
+/..\..\..\..\hdl\soc_top_tb.v=-1
 

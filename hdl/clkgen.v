@@ -18,9 +18,6 @@ module clkgen (
 	output wire wb_clk_o,
 	output wire wb_rst_o,
 	
-	output wire rst100_o,
-	output wire clk100_o,
-	
 	output wire rst125_o,
 	output wire clk125_o,
 	output wire clk125_90_o,
@@ -174,7 +171,6 @@ assign plls_locked_n = ~pll0_locked || ~dcm0_locked;
 assign ddr2_if_clk_o    = dcm0_clkfx_prebufg;
 
 assign wb_clk_o      = wb_clk;
-assign clk100_o      = clk_100;
 assign clk125_o      = clk_125;
 assign clk125_90_o   = clk_125_90;
 //assign clk250_o      = clk_250;
@@ -201,13 +197,6 @@ always @(posedge clk_125 or posedge plls_locked_n)
 		rst_125_shr <= {rst_125_shr[2:0], 1'b0};
 assign rst125_o = rst_125_shr[3];
 
-reg [3:0] rst_100_shr;
-always @(posedge clk_100 or posedge plls_locked_n)
-	if (plls_locked_n)
-		rst_100_shr <= 4'hf;
-	else
-		rst_100_shr <= {rst_100_shr[2:0], 1'b0};
-assign rst100_o = rst_100_shr[3];
 /*
 reg [3:0] rst_62_5_shr;
 always @(posedge clk_62_5 or posedge plls_locked_n)

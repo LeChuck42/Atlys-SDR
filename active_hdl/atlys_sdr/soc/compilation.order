@@ -11,8 +11,9 @@
 .\..\..\..\hdl\packet_sender.v
 .\..\..\..\hdl\rx_sim.vhd
 .\..\..\..\hdl\scope.vhd
+.\..\..\..\hdl\coregen\dac_sample_fifo.v
+.\..\..\..\hdl\dac_tx.v
 .\..\..\..\hdl\soc_top.v
-.\..\..\..\hdl\soc_top_tb.v
 .\..\..\..\hdl\uart_scope.vhd
 .\..\..\..\hdl\adv_debug_sys\adbg_crc32.v
 .\..\..\..\hdl\adv_debug_sys\adbg_defines.v
@@ -122,8 +123,10 @@
 .\..\..\..\hdl\sim\bidir_delay.vhd
 .\..\..\..\hdl\vhdci_mux.v
 .\..\..\..\hdl\gpio.v
-.\..\..\..\..\AtlysAFE\hdl\coregen\pll_main.vhd
+.\..\..\..\..\AtlysAFE\hdl\spi_register.vhd
 .\..\..\..\..\AtlysAFE\hdl\coregen\pll_mux.vhd
 .\..\..\..\..\AtlysAFE\hdl\coregen\rx_mux.vhd
 .\..\..\..\..\AtlysAFE\hdl\coregen\tx_mux.vhd
 .\..\..\..\..\AtlysAFE\hdl\main.vhd
+C:\Xilinx\14.7\ISE_DS\ISE\verilog\src\glbl.v
+.\..\..\..\hdl\soc_top_tb.v

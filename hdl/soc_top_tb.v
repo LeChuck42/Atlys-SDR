@@ -312,9 +312,8 @@ module soc_top_tb;
 	main rx_sim_inst (
 		.CLK_FPGA(1'b0),
 		.MUX_CLK(mux_clk),
-		.MUX1(1'b0),
-		.MUX2(tx_delayed),
-		.MUX3(rx_internal),
+		.MUX_IN(tx_delayed),
+		.MUX_OUT(rx_internal),
 		.FPGA_PGOOD(1'b1),
 		.DAC_ALARM(1'b0)
 		

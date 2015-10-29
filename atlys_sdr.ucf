@@ -305,7 +305,6 @@ NET "MDIO_pin" IOSTANDARD = LVCMOS25;
 #NET "MDC_pin" TNM_NET = "MDC_pin";
 #TIMESPEC TS_MDC_pin = PERIOD "MDC_pin" 160 ns HIGH 50%;
 #NET "MDIO_pin" OFFSET = IN 10ns VALID 10ns BEFORE "MDC_PIN";
-
 ## DDR2
 ############################################################################
 ## I/O TERMINATION
@@ -510,7 +509,7 @@ INST "GMII_TX_ER_pin" TNM = "GMII_TX";
 #TIMESPEC TS_SYNC_TO_BAUD = FROM "clk_125_tx_clkout0" TO "clk_125_tx_clkout2" TIG;
 #TIMESPEC TS_SYNC_TO_TX = FROM "clk_125_tx_clkout2" TO "clk_125_tx_clkout0" TIG;
 # DDR2 Constraints
-#NET "xilinx_ddr2_0/xilinx_ddr2_if0/ddr2_mig/memc?_wrapper_inst/mcb_ui_top_inst/mcb_raw_wrapper_inst/selfrefresh_mcb_mode" TIG;
+NET "xilinx_ddr2_0/xilinx_ddr2/memc?_wrapper_inst/mcb_ui_top_inst/mcb_raw_wrapper_inst/selfrefresh_mcb_mode" TIG;
 #NET "xilinx_ddr2_0/xilinx_ddr2_if0/ddr2_mig/c?_pll_lock" TIG;
 #NET "xilinx_ddr2_0/xilinx_ddr2_if0/ddr2_mig/memc?_wrapper_inst/mcb_ui_top_inst/mcb_raw_wrapper_inst/gen_term_calib.mcb_soft_calibration_top_inst/mcb_soft_calibration_inst/CKE_Train" TIG; ##This path exists for DDR2 only
 NET "xilinx_ddr2_0/xilinx_ddr2/memc?_wrapper_inst/mcb_ui_top_inst/mcb_raw_wrapper_inst/gen_term_calib.mcb_soft_calibration_top_inst/mcb_soft_calibration_inst/DONE_SOFTANDHARD_CAL" TIG;
@@ -545,9 +544,11 @@ TIMEGRP "FLASH_OUT" OFFSET = OUT 8 ns AFTER "clk_100_pin" REFERENCE_PIN "flash_s
 #TIMESPEC TS_WB_TO_IO = FROM "clkgen0_dcm1_clkdv_prebufg" TO "clkgen0_dcm1_clkfx_prebufg" TS_clkgen0_dcm1_clkdv_prebufg * 2;
 #TIMESPEC TS_IO_TO_WB = FROM "clkgen0_dcm1_clkfx_prebufg" TO "clkgen0_dcm1_clkdv_prebufg" TS_clkgen0_dcm1_clkfx_prebufg * 2;
 
-
 # PlanAhead Generated physical constraints 
 INST "adc_rx/adc_if/bufio2_inst" LOC = BUFIO2_X3Y0;
 #Created by Constraints Editor (xc6slx45-csg324-3) - 2015/09/17
 NET "DAC_CLK_REF_P" TNM_NET = DAC_CLK_REF_P;
 TIMESPEC TS_DAC_CLK_REF_P = PERIOD "DAC_CLK_REF_P" 125 MHz HIGH 50%;
+#Created by Constraints Editor (xc6slx45-csg324-3) - 2015/10/28
+#Created by Constraints Editor (xc6slx45-csg324-3) - 2015/10/28
+TIMESPEC TS_WB_TO_125 = FROM "clkgen0_pll0_clk0_prebuf" TO "clkgen0_pll0_clk2_prebuf" TIG;

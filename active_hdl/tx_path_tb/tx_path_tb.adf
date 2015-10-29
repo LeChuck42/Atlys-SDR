@@ -100,6 +100,6 @@ Count=0
 [SpecTracer]
 WindowVisible=0
 [HierarchyViewer]
-HierarchyInformation=tx_path_tb|sim|0  
+HierarchyInformation=tx_path_tb|sim|0   
 ShowHide=ShowTopLevel
 Selected=

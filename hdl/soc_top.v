@@ -136,8 +136,6 @@ module soc_top # (
 	wire dbg_tck;
 	wire ddr2_if_clk;
 	wire ddr2_if_rst;
-	wire rst_100;
-	wire clk_100;
 	wire phy_rst;
 	//wire clk_mux;
 	//wire clk_mux_out;
@@ -160,8 +158,6 @@ module soc_top # (
 		.dbg_tck_o (dbg_tck),
 		.ddr2_if_clk_o (ddr2_if_clk),
 		.ddr2_if_rst_o (ddr2_if_rst),
-		.rst100_o (rst_100),
-		.clk100_o (clk_100),
 		.clk125_o(clk_125),
 		.rst125_o(rst_125),
 		.clk125_90_o(clk_125_GTX_CLK),
@@ -273,7 +269,7 @@ module soc_top # (
 		.wb_dat_o(wb_dat_o),
 		
 		.phy_reset(PhyResetOut_pin), // Connect to PHY's reset pin
-		.reset(rst_100),
+		.reset(wb_rst),
 		.debug(gemac_debug),
 		.ready(gemac_ready)); // Signal to rest of the system that negotiation is complete
 
@@ -295,8 +291,8 @@ module soc_top # (
 	reg tx_fifo_status_req;
 	reg [15:0] status_req_clk_div_cnt;
 	
-	always @(posedge clk_baud or posedge rst_100) begin
-		if (rst_100) begin
+	always @(posedge clk_baud or posedge wb_rst) begin
+		if (wb_rst) begin
 			tx_fifo_status_req <= 0;
 			status_req_clk_div_cnt <= 0;
 		end else begin
@@ -837,8 +833,8 @@ module soc_top # (
 	assign gpio_in[7:0] = sw;
 	
 vhdci_mux vhdci_mux_inst (
-	.clk_in(clk_100),
-	.rst_in(rst_100),
+	.clk_in(wb_clk),
+	.rst_in(wb_rst),
 	
 	.mux_data_in({spi0_sck, spi0_mosi, spi0_ss[4], spi0_ss[3], spi0_ss[2], spi0_ss[1], spi0_ss[0]}),
 	.mux_data_out({spi0_miso, gpio_in[13:8]}),
