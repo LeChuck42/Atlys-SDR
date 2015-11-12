@@ -24,7 +24,7 @@ LANGUAGE=VHDL
 REFRESH_FLOW=1
 FLOWTOOLS=NONE
 FAMILY=Xilinx SPARTAN6
-fileopenfolder=C:\PLD\atlys_sdr\hdl
+fileopenfolder=C:\Xilinx\14.7\ISE_DS\ISE\verilog\src
 DisableIEEEWarnings=0
 DisableVitalMsg=0
 VitalAccel=1
@@ -75,6 +75,11 @@ DisableRangeChecks=0
 ProtectLevel=0
 IncrementalCompilation=0
 AdditionalOptions=
+ReorderOnFirstRebuild=1
+ElaborationAfterCompilation=0
+PrintErrWarnOnly=0
+GenMultiplatformLib=0
+VhdlPreservePortComments=0
 
 [$LibMap$]
 tx_path_tb=.
@@ -83,23 +88,40 @@ xilinxun=SPARTAN6
 UnlinkedDesignLibrary=SPARTAN6
 DESIGNS=SPARTAN6
 
-[Files]
-/..\..\..\hdl\packet_receiver.v=-1
-/tx_path_tb.vhd=-1
+[DefineMacro]
+Global=
+
+[LocalVerilogDirs]
+Count=0
+
+[SpecTracer]
+WindowVisible=0
+
+[HierarchyViewer]
+HierarchyInformation=tx_path_tb|sim|0 
+ShowHide=ShowTopLevel
+Selected=
 
 [Files.Data]
 .\..\..\hdl\packet_receiver.v=Verilog Source Code
-
+.\..\..\hdl\dac_tx.v=Verilog Source Code
 .\src\tx_path_tb.vhd=VHDL Source Code
-[DefineMacro]
-Global=
-[LocalVerilogDirs]
-Count=0
+.\..\..\hdl\coregen\dac_sample_fifo.v=Verilog Source Code
+C:\Xilinx\14.7\ISE_DS\ISE\verilog\src\glbl.v=Verilog Source Code
+
+[Files]
+/..\..\..\hdl\packet_receiver.v=-1
+/..\..\..\hdl\coregen\dac_sample_fifo.v=-1
+/..\..\..\hdl\dac_tx.v=-1
+/tx_path_tb.vhd=-1
+/C:\Xilinx\14.7\ISE_DS\ISE\verilog\src\glbl.v=-1
+
 [LoadVHPI]
 Count=0
-[SpecTracer]
-WindowVisible=0
-[HierarchyViewer]
-HierarchyInformation=tx_path_tb|sim|0   
-ShowHide=ShowTopLevel
-Selected=
+
+[Verilog Library]
+unimacro_ver=
+unisims_ver=
+xilinxcorelib_ver=
+simprims_ver=
+

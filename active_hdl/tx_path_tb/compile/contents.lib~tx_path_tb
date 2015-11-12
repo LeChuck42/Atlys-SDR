@@ -1,6 +1,12 @@
-40
+53
 ~M 0 "" 0 $root
 ~A 1 "" 0 $root
+~M 1 "./../../../hdl/coregen/dac_sample_fifo.v" 39 dac_sample_fifo
+~A 1 "./../../../hdl/coregen/dac_sample_fifo.v" 39 dac_sample_fifo
+~M 3 "./../../../hdl/dac_tx.v" 3 dac_tx
+~A 1 "./../../../hdl/dac_tx.v" 3 dac_tx
+~M 3 "C:/Xilinx/14.7/ISE_DS/ISE/verilog/src/glbl.v" 5 glbl
+~A 1 "C:/Xilinx/14.7/ISE_DS/ISE/verilog/src/glbl.v" 5 glbl
 ~M 3 "./../../../hdl/packet_receiver.v" 25 packet_receiver
 ~A 1 "./../../../hdl/packet_receiver.v" 25 packet_receiver
 ~E 1 "./../src/tx_path_tb.vhd" 5 tx_path_tb

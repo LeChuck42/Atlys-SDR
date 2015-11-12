@@ -28,6 +28,29 @@ architecture sim of tx_path_tb is
 			my_ip           : in  std_logic_vector(31 downto 0));
 	end component;
 
+	component dac_tx is
+		port (
+			clk                     : in std_logic;
+			reset_ext               : in std_logic;
+			data_p                  : out std_logic_vector(7 downto 0);
+			data_n                  : out std_logic_vector(7 downto 0);
+
+			dataclk_p               : out std_logic;
+			dataclk_n               : out std_logic;
+
+			frame_p                 : out std_logic;
+			frame_n                 : out std_logic;
+
+			clk_dac_ref_p           : in std_logic;
+			clk_dac_ref_n           : in std_logic;
+
+			data_we                 : in std_logic;
+			data_in                 : in std_logic_vector(31 downto 0);
+			fifo_data_cnt           : out std_logic_vector(15 downto 0);
+			fifo_full               : out std_logic;
+			fifo_empty              : out std_logic);
+	end component;
+
 	signal clk              : std_logic;
 	signal reset            : std_logic;
 	signal rd_flags_i       : std_logic_vector(3 downto 0);
@@ -41,9 +64,21 @@ architecture sim of tx_path_tb is
 	signal my_mac           : std_logic_vector(47 downto 0);
 	signal my_ip            : std_logic_vector(31 downto 0);
 
+	signal data_p           : std_logic_vector(7 downto 0);
+	signal data_n           : std_logic_vector(7 downto 0);
+	signal dataclk_p        : std_logic;
+	signal dataclk_n        : std_logic;
+	signal frame_p          : std_logic;
+	signal frame_n          : std_logic;
+	signal clk_dac_ref_p    : std_logic;
+	signal clk_dac_ref_n    : std_logic;
+
+	signal fifo_data_cnt    : std_logic_vector(15 downto 0);
+	signal fifo_full        : std_logic;
+	signal fifo_empty       : std_logic;
 begin
 
-	uut: packet_receiver port map (
+	packet_receiver_inst: packet_receiver port map (
 		clk             => clk,
 		reset           => reset,
 		rd_flags_i      => rd_flags_i,
@@ -57,6 +92,23 @@ begin
 		my_mac          => my_mac,
 		my_ip           => my_ip);
 
+	dac_tx_inst: dac_tx port map (
+		clk             => clk,
+		reset_ext       => reset,
+		data_p          => data_p,
+		data_n          => data_n,
+		dataclk_p       => dataclk_p,
+		dataclk_n       => dataclk_n,
+		frame_p         => frame_p,
+		frame_n         => frame_n,
+		clk_dac_ref_p   => clk_dac_ref_p,
+		clk_dac_ref_n   => clk_dac_ref_n,
+		data_we         => data_out_dac,
+		data_in         => data_out,
+		fifo_data_cnt   => fifo_data_cnt,
+		fifo_full       => fifo_full,
+		fifo_empty      => fifo_empty);
+
 	clk_gen: process
 	begin
 		-- 125 MHz
@@ -66,15 +118,26 @@ begin
 		wait for 4 ns;
 	end process;
 	
+	dac_ref_gen: process
+	begin
+		-- 40 MHz
+		clk_dac_ref_p <= '0';
+		clk_dac_ref_n <= '1';
+		wait for 12.5 ns;
+		clk_dac_ref_p <= '1';
+		clk_dac_ref_n <= '0';
+		wait for 12.5 ns;
+	end process;
+	
 	rst_gen: process
 	begin
 		reset <= '1';
-		wait until clk = '1';
+		wait for 100 ns;
 		wait until clk = '1';
 		reset <= '0';
 		wait;
 	end process;
-	
+
 	data_gen: process
 		procedure mac_data32(data: std_logic_vector(31 downto 0)) is
 		begin
@@ -98,12 +161,12 @@ begin
 			dst_port: std_logic_vector(15 downto 0);
 			packet_count: integer;
 			payload_length: integer) is
-			
+
 		variable checksum: unsigned(15 downto 0);
 		variable header: std_logic_vector(319 downto 0);
 		begin
-			header := dst_mac & 
-			          src_mac & 
+			header := dst_mac &
+			          src_mac &
 			          x"08004500" &
 			          std_logic_vector(to_unsigned(payload_length + 30, 16)) & x"aabb" &
 			          x"00004011" &
@@ -119,7 +182,7 @@ begin
 			end loop;
 			checksum := not checksum;
 			header(127 downto 112) := std_logic_vector(checksum);
-			
+
 			rd_flags_i(0) <= '1';
 			for i in 9 downto 0 loop
 				mac_data32(header(i*32 + 31 downto i*32));
@@ -128,7 +191,7 @@ begin
 			end loop;
 			mac_data32(x"0000" & std_logic_vector(to_unsigned(packet_count, 16)));
 		end procedure;
-		
+
 	begin
 		rd_src_rdy_i <= '0';
 		my_mac <= x"0037ffff3737";
@@ -146,7 +209,7 @@ begin
 		          x"1230",
 		          0,
 		          16);
-		          
+
 		wait until clk = '1';
 		mac_data32(x"12345678");
 		wait until clk = '1';
@@ -168,7 +231,7 @@ begin
 		          x"1230",
 		          1,
 		          16);
-		          
+
 		wait until clk = '1';
 		mac_data32(x"12345678");
 		wait until clk = '1';
@@ -190,7 +253,7 @@ begin
 		          x"1231",
 		          0,
 		          16);
-		          
+
 		wait until clk = '1';
 		mac_data32(x"12345678");
 		wait until clk = '1';
@@ -201,7 +264,7 @@ begin
 		rd_flags_i(1) <= '1';
 		mac_data32(x"00001111");
 		rd_flags_i(1) <= '0';
-	
+
 		wait for 100 ns;
 		-- wrong target ip
 		wait until clk = '1';
@@ -213,7 +276,7 @@ begin
 		          x"1231",
 		          1,
 		          16);
-		          
+
 		wait until clk = '1';
 		mac_data32(x"12345678");
 		wait until clk = '1';
@@ -224,7 +287,7 @@ begin
 		rd_flags_i(1) <= '1';
 		mac_data32(x"00001111");
 		rd_flags_i(1) <= '0';
-		
+
 		wait for 100 ns;
 		-- target 1
 		wait until clk = '1';
@@ -236,7 +299,7 @@ begin
 		          x"1231",
 		          1,
 		          16);
-		          
+
 		wait until clk = '1';
 		mac_data32(x"12345678");
 		wait until clk = '1';
@@ -247,7 +310,7 @@ begin
 		rd_flags_i(1) <= '1';
 		mac_data32(x"00001111");
 		rd_flags_i(1) <= '0';
-		
+
 		wait for 100 ns;
 		-- wrong packet count
 		wait until clk = '1';
@@ -259,7 +322,7 @@ begin
 		          x"1231",
 		          1,
 		          16);
-		          
+
 		wait until clk = '1';
 		mac_data32(x"12345678");
 		wait until clk = '1';
@@ -271,5 +334,5 @@ begin
 		mac_data32(x"00001111");
 		rd_flags_i(1) <= '0';
 		wait;
-	end process; 
+	end process;
 end architecture sim;

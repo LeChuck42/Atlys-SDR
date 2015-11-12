@@ -1,16 +1,40 @@
-timestamp=1445882946995
+timestamp=1447176622802
 
 [~A]
+C:/Xilinx/14.7/ISE_DS/ISE/verilog/src/glbl.v=0*72649*73453
 D:/FPGA/atlys_sdr/hdl/packet_receiver.v=0*8277*9941
-LastVerilogToplevel=packet_receiver
-ModifyID=40
+LastVerilogToplevel=dac_tx
+ModifyID=53
 Version=73
+d:/FPGA/atlys_sdr/hdl/coregen/dac_sample_fifo.v=0*50995*54411
+d:/FPGA/atlys_sdr/hdl/dac_tx.v=0*74683*76258
 
 [$root]
-A/$root=22|||1*10762
-BinI32/$root=3*10947
-SLP=3*11051
-Version=10.2.3312.5682  (Windows)|0000000a789cd34d494a57d02d33ca360500104b02f0|c73a565f2ade592f8ac1c68f484c92162d6afe66686ec859ab9c50c9d97b9d77
+A/$root=22|||1*139221
+BinI32/$root=3*38243
+SLP=3*38347
+Version=10.2.3312.5682  (Windows)|0000004e789cd34d494a57d0cd5128cdcbcc4d4c2eca8f2f4b2d82f28b33738b61dc8acc9cccbc8ae4fca2d49ccc249820504141115c519951b62900586f1c5a|c73a565f2ade592f8ac1c68f484c9216bb4a82211eebbd47d9bda365c7fb4561
+
+[dac_sample_fifo]
+A/dac_sample_fifo=22|./../../../hdl/coregen/dac_sample_fifo.v|39|1*87588
+BinI32/dac_sample_fifo=3*25589
+R=./../../../hdl/coregen/dac_sample_fifo.v|39
+SLP=3*25703
+Version=10.2.3312.5682  (Windows)|0000003e789cd34d494a57d0cd5128cdcbcc4d4c2eca8f2f4b2d82f28b33738b61dc8acc9cccbc8ae4fca2d49ccc2488609951b62900ba211661|d1d14f4ee6d3f15ab6dd85434deab5988263fd2048347986f408bf89a0b5ac6955ba382d445ae6b58d5f99b0729eefad
+
+[dac_tx]
+A/dac_tx=22|./../../../hdl/dac_tx.v|3|1*139627
+BinI32/dac_tx=3*38415
+R=./../../../hdl/dac_tx.v|3
+SLP=3*39554
+Version=10.2.3312.5682  (Windows)|0000004e789cd34d494a57d0cd5128cdcbcc4d4c2eca8f2f4b2d82f28b33738b61dc8acc9cccbc8ae4fca2d49ccc249820504141115c519951b62900586f1c5a|51cec932ecc618947e7a3b2b04f3753748d9f65c40596f02ff6b203263f13067
+
+[glbl]
+A/glbl=22|C:/Xilinx/14.7/ISE_DS/ISE/verilog/src/glbl.v|5|1*135562
+BinI32/glbl=3*36902
+R=C:/Xilinx/14.7/ISE_DS/ISE/verilog/src/glbl.v|5
+SLP=3*37914
+Version=10.2.3312.5682  (Windows)|0000004e789cd34d494a57d0cd5128cdcbcc4d4c2eca8f2f4b2d82f28b33738b61dc8acc9cccbc8ae4fca2d49ccc249820504141115c519951b62900586f1c5a|e453c9fe98ea743e4315e0b5669101f10c91e99821b43f4060c0d60a45d3dad9
 
 [packet_receiver]
 A/packet_receiver=22|./../../../hdl/packet_receiver.v|25|1*11136
@@ -20,22 +44,25 @@ SLP=3*15364
 Version=10.2.3312.5682  (Windows)|0000000a789cd34d494a57d02d33ca360500104b02f0|75f3ce881bd8cbd0e2818246e9a8a247f772095b7b048327da5f36afec5ca18f9d5e7890676dde453830aba644c32790
 
 [tx_path_tb]
-A/sim=21|./../src/tx_path_tb.vhd|9|1*41106
-BinI32/sim=3*17846
+A/sim=21|./../src/tx_path_tb.vhd|9|1*165575
+BinI32/sim=3*40256
 I=0*3630
-I/sim=0*38496
+I/sim=0*94732
 M=11|2|vc6|1445534366473|./../src/tx_path_tb.vhd|0*3352*0x3a94b45b88d72a5e9faab68d5350d9c2723624db|0*3545*0x5eebbfaf24833dd780412b1f91e05209
-M/sim=21|0|vc6|1445882946954|./../src/tx_path_tb.vhd|0*31121*0x5c40a17f0bd0d959e45cc8a0e96b7f5961c25f70|0*38404*0x9f7672f34934e0a5b91b54c4e667d63c
+M/sim=21|0|vc6|1447176622766|./../src/tx_path_tb.vhd|0*85973*0x28a12acdbf2b714ede8956ae8f8b8362c02b2065|0*94640*0x9f7672f34934e0a5b91b54c4e667d63c
 R=./../src/tx_path_tb.vhd|5
 Version=10.2.3312.5682  (Windows64)|00000004789cd34d494a0700030f015b|169a3486a1a56672bd5530bbbebc9068ef33df250f8daa7483d8f62ca4336ac75225133573f7d7e915c322b439dac5d8
-Version/sim=10.2.3312.5682  (Windows)|00000004789cd34d494a0700030f015b|568baa4d5cc541d8a07face3c28717b06d2907b26afdc73708c49086188171c9
+Version/sim=10.2.3312.5682  (Windows)|00000004789cd34d494a0700030f015b|568baa4d5cc541d8a07face3c28717b08362a135ba9d4c007f52067d9547e234
 
 [~MFT]
-0=8|0tx_path_tb.mgf|38496|26918
-1=2|1tx_path_tb.mgf|41106|36639
-3=2|3tx_path_tb.mgf|17846|10947
+0=8|0tx_path_tb.mgf|94732|69022
+1=2|1tx_path_tb.mgf|165575|134547
+3=2|3tx_path_tb.mgf|40256|29903
 
 [~U]
-$root=12|0*7744|
+$root=12|0*74058|
+dac_sample_fifo=12|0*50691|
+dac_tx=12|0*74288||0x10
+glbl=12|0*72473||0x10
 packet_receiver=12|0*7910||0x10
 tx_path_tb=11|0*3226|

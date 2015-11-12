@@ -134,7 +134,7 @@ OBUFDS OBUFDS_clk (
 
 wire [31:0] tx_fifo_output;
 
-always @(posedge clk_dac0) begin
+always @(posedge clk_dac0 or posedge reset) begin
 	if (reset == 1) begin
 		frame_sync <= 0;
 		channel_sync <= 0;

@@ -1,2 +1,5 @@
 .\..\..\hdl\packet_receiver.v
+.\..\..\hdl\coregen\dac_sample_fifo.v
+.\..\..\hdl\dac_tx.v
 .\src\tx_path_tb.vhd
+C:\Xilinx\14.7\ISE_DS\ISE\verilog\src\glbl.v

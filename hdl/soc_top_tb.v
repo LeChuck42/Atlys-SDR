@@ -239,6 +239,7 @@ module soc_top_tb;
 		mux_clk_en = 0;
 		#1000;
 		mux_clk_en = 1;*/
+		/*
 		#20000;
 		btn = 6'b111110;
 		#1234;
@@ -254,6 +255,7 @@ module soc_top_tb;
 		#20000;
 		btn = 6'b111110;
 		#1500;
+		*/
       /*
 		rs232_send(8'h52); // set rising trigger
 		#234;

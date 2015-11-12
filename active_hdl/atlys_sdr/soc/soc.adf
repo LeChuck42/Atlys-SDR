@@ -108,7 +108,7 @@ IncludeDir4=.\..\..\..\hdl\coregen\xilinx_ddr2\user_design\sim
 WindowVisible=0
 
 [HierarchyViewer]
-HierarchyInformation=
+HierarchyInformation=glbl|glbl|0 soc_top_tb|soc_top_tb|0   
 ShowHide=ShowTopLevel
 Selected=
 

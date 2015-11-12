@@ -105,6 +105,7 @@ begin
 				when DUMMY =>
 					-- bus turnaround
 					SPI_CSN <= '0';
+					SPI_IO(0) <= 'Z';
 					clk_div <= not clk_div;
 					if clk_div = '1' then
 						if trx_cnt = to_unsigned(DUMMY_CYCLES-1, trx_cnt'LENGTH) then
@@ -116,8 +117,8 @@ begin
 					end if;
 				when READ_DATA =>
 					SPI_CSN <= '0';
-					if word_cnt /= (word_cnt'RANGE => '1') and 
-					   (wb_wr_cyc = '0' or trx_cnt /= to_unsigned(7, trx_cnt'LENGTH)) then
+					SPI_IO(0) <= 'Z';
+					if (wb_wr_cyc = '0' or trx_cnt /= to_unsigned(7, trx_cnt'LENGTH)) then
 						clk_div <= not clk_div;
 						if clk_div = '1' then
 							if trx_cnt = to_unsigned(7, trx_cnt'LENGTH) then
@@ -143,6 +144,7 @@ begin
 				
 				when FINISHED =>
 					SPI_CSN <= '1';
+					SPI_IO(0) <= 'Z';
 					clk_div <= '0';
 					flash_state <= FINISHED;
 					

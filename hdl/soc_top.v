@@ -291,6 +291,9 @@ module soc_top # (
 	reg tx_fifo_status_req;
 	reg [15:0] status_req_clk_div_cnt;
 	
+	wire rx_enable;
+	wire tx_enable;
+	
 	always @(posedge clk_baud or posedge wb_rst) begin
 		if (wb_rst) begin
 			tx_fifo_status_req <= 0;
@@ -338,7 +341,7 @@ module soc_top # (
 	wire adc_fifo_empty;
 	
 	adc_sample_fifo adc_sample_fifo_inst (
-		.rst(~gemac_ready), // input rst
+		.rst(~gemac_ready || ~rx_enable), // input rst
 		.wr_clk(clk_adc), // input wr_clk
 		.rd_clk(clk_125), // input rd_clk
 		.din(adc_data), // input [31 : 0] din
@@ -354,7 +357,7 @@ module soc_top # (
 	
 	adc_rx adc_rx (
 		.clk(clk_125),
-		.reset(~gemac_ready),
+		.reset(~gemac_ready || ~rx_enable),
 		
 		.adc_cha_p(adc_cha_p),
 		.adc_cha_n(adc_cha_n),
@@ -384,7 +387,7 @@ module soc_top # (
 	
 	packet_receiver packet_receiver (
 		.clk(clk_125),
-		.reset(~gemac_ready),
+		.reset(~gemac_ready || ~tx_enable),
 		
 		.rd_flags_i(rd2_flags),
 		.rd_data_i(rd2_data),
@@ -402,7 +405,7 @@ module soc_top # (
 	
 	dac_tx dac_tx_inst (
 		.clk(clk_125),             // input  
-		.reset_ext(~gemac_ready),       // input  
+		.reset_ext(~gemac_ready || ~tx_enable),       // input  
 		.data_p(DAC_DATA_P),          // output [7:0] 
 		.data_n(DAC_DATA_N),          // output [7:0] 
 		.dataclk_p(DAC_DATACLK_P),       // output 
@@ -815,22 +818,13 @@ module soc_top # (
 		.gpio_dir_o ());
 		
 	wire scope_armed, scope_triggered;
-	/*
-	uart_scope uart_scope (
-		.reset(rst_100),
-		.rxd(1'b1),
-		.txd(),
-		.baud_clk(clk_baud),
-		
-		.probes(debug_mac),
-		.probe_clk(rst_100),
-		.armed(scope_armed),
-		.triggered(scope_triggered)
-	);
-	*/
+	
 	assign leds[6:0] = gpio_out[22:16];
 	assign gpio_in[31:14] = 0;
 	assign gpio_in[7:0] = sw;
+	
+	assign rx_enable = gpio_in_sync[0];
+	assign tx_enable = gpio_in_sync[1];
 	
 vhdci_mux vhdci_mux_inst (
 	.clk_in(wb_clk),
