@@ -62,13 +62,15 @@ module packet_receiver (
 	
 	reg [15:0] packet_counter[0:1];
 	
-	assign dst_mac_match = (dst_mac_buffer == my_mac)? 1'b1 : 1'b0;
+	assign dst_mac_match = (dst_mac_buffer == my_mac || dst_mac_buffer == 48'hFFFF_FFFF_FFFF)? 1'b1 : 1'b0;
 	assign dst_ip_match = (dst_ip_buffer == my_ip)? 1'b1 : 1'b0;
 	
 	assign rd_dst_rdy_o = rd_src_rdy_i;
 	
 	wire flag_eof = rd_flags_i[1];
 	wire flag_sof = rd_flags_i[0];
+	
+	reg reset_fifo;
 	
 	always @(posedge clk) begin
 		if (reset) begin
@@ -80,6 +82,7 @@ module packet_receiver (
 			packet_counter[0] <= 0;
 			packet_counter[1] <= 0;
 			packet_loss <= 0;
+			reset_fifo <= 1;
 		end else begin
 			data_out_reg <= 0;
 			
@@ -183,5 +186,15 @@ module packet_receiver (
 		state <= {state[14:0],state[15]};
 	end
 	endtask
+	
+	forward_buffer_inst forward_buffer (
+		.clk(clk),
+		.rst(),
+		.din(,
+		.wr_en,
+		.rd_en,
+		.dout,
+		.full,
+		.empty
 	
 endmodule

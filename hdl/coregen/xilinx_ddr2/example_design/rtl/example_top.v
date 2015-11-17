@@ -137,13 +137,13 @@ module example_top #
 // port-5 in Config-4: Two 64-bit bi-directional ports. Please look into the 
 // Chapter-2 of ug388.pdf in the /docs directory for further details.
    localparam C3_PORT_ENABLE              = 6'b111111;
-   localparam C3_PORT_CONFIG             =  "B32_B32_R32_W32_R32_R32";
+   localparam C3_PORT_CONFIG             =  "B32_B32_R32_W32_R32_W32";
    localparam C3_P0_PORT_MODE             =  "BI_MODE";
    localparam C3_P1_PORT_MODE             =  "BI_MODE";
    localparam C3_P2_PORT_MODE             =  "RD_MODE";
    localparam C3_P3_PORT_MODE             =  "WR_MODE";
    localparam C3_P4_PORT_MODE             =  "RD_MODE";
-   localparam C3_P5_PORT_MODE             =  "RD_MODE";
+   localparam C3_P5_PORT_MODE             =  "WR_MODE";
    localparam C3_CLKOUT0_DIVIDE       = 1;       
    localparam C3_CLKOUT1_DIVIDE       = 1;       
    localparam C3_CLKOUT2_DIVIDE       = 16;       
@@ -239,16 +239,16 @@ module example_top #
    localparam C3_p3_END_ADDRESS                     = (C3_HW_TESTING == "TRUE") ? 32'h06ffffff:32'h000006ff;
    localparam C3_p3_PRBS_EADDR_MASK_POS             = (C3_HW_TESTING == "TRUE") ? 32'hf8000000:32'hfffff800;
    localparam C3_p3_PRBS_SADDR_MASK_POS             = (C3_HW_TESTING == "TRUE") ? 32'h05000000:32'h00000500;
-   localparam C3_p4_BEGIN_ADDRESS                   = (C3_HW_TESTING == "TRUE") ? 32'h05000000:32'h00000500;
+   localparam C3_p4_BEGIN_ADDRESS                   = (C3_HW_TESTING == "TRUE") ? 32'h01000000:32'h00000100;
    localparam C3_p4_DATA_MODE                       = 4'b0010;
-   localparam C3_p4_END_ADDRESS                     = (C3_HW_TESTING == "TRUE") ? 32'h06ffffff:32'h000006ff;
-   localparam C3_p4_PRBS_EADDR_MASK_POS             = (C3_HW_TESTING == "TRUE") ? 32'hf8000000:32'hfffff800;
-   localparam C3_p4_PRBS_SADDR_MASK_POS             = (C3_HW_TESTING == "TRUE") ? 32'h05000000:32'h00000500;
-   localparam C3_p5_BEGIN_ADDRESS                   = (C3_HW_TESTING == "TRUE") ? 32'h01000000:32'h00000100;
+   localparam C3_p4_END_ADDRESS                     = (C3_HW_TESTING == "TRUE") ? 32'h02ffffff:32'h000002ff;
+   localparam C3_p4_PRBS_EADDR_MASK_POS             = (C3_HW_TESTING == "TRUE") ? 32'hfc000000:32'hfffffc00;
+   localparam C3_p4_PRBS_SADDR_MASK_POS             = (C3_HW_TESTING == "TRUE") ? 32'h01000000:32'h00000100;
+   localparam C3_p5_BEGIN_ADDRESS                   = (C3_HW_TESTING == "TRUE") ? 32'h07000000:32'h00000700;
    localparam C3_p5_DATA_MODE                       = 4'b0010;
-   localparam C3_p5_END_ADDRESS                     = (C3_HW_TESTING == "TRUE") ? 32'h02ffffff:32'h000002ff;
-   localparam C3_p5_PRBS_EADDR_MASK_POS             = (C3_HW_TESTING == "TRUE") ? 32'hfc000000:32'hfffffc00;
-   localparam C3_p5_PRBS_SADDR_MASK_POS             = (C3_HW_TESTING == "TRUE") ? 32'h01000000:32'h00000100;
+   localparam C3_p5_END_ADDRESS                     = (C3_HW_TESTING == "TRUE") ? 32'h08ffffff:32'h000008ff;
+   localparam C3_p5_PRBS_EADDR_MASK_POS             = (C3_HW_TESTING == "TRUE") ? 32'hf0000000:32'hfffff000;
+   localparam C3_p5_PRBS_SADDR_MASK_POS             = (C3_HW_TESTING == "TRUE") ? 32'h07000000:32'h00000700;
    localparam DBG_WR_STS_WIDTH        = 32;
    localparam DBG_RD_STS_WIDTH        = 32;
    localparam C3_ARB_TIME0_SLOT  = {C3_ARB_TIME_SLOT_0[17:15], C3_ARB_TIME_SLOT_0[14:12], C3_ARB_TIME_SLOT_0[11:9], C3_ARB_TIME_SLOT_0[8:6], C3_ARB_TIME_SLOT_0[5:3], C3_ARB_TIME_SLOT_0[2:0]};

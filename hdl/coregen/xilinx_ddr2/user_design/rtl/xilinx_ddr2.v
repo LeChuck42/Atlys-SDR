@@ -226,14 +226,15 @@ module xilinx_ddr2 #
       input [29:0]	c3_p5_cmd_byte_addr,
       output		c3_p5_cmd_empty,
       output		c3_p5_cmd_full,
-      input		c3_p5_rd_clk,
-      input		c3_p5_rd_en,
-      output [31:0]	c3_p5_rd_data,
-      output		c3_p5_rd_full,
-      output		c3_p5_rd_empty,
-      output [6:0]	c3_p5_rd_count,
-      output		c3_p5_rd_overflow,
-      output		c3_p5_rd_error
+      input		c3_p5_wr_clk,
+      input		c3_p5_wr_en,
+      input [3:0]	c3_p5_wr_mask,
+      input [31:0]	c3_p5_wr_data,
+      output		c3_p5_wr_full,
+      output		c3_p5_wr_empty,
+      output [6:0]	c3_p5_wr_count,
+      output		c3_p5_wr_underrun,
+      output		c3_p5_wr_error
 );
 // The parameter CX_PORT_ENABLE shows all the active user ports in the design.
 // For example, the value 6'b111100 tells that only port-2, port-3, port-4
@@ -244,7 +245,7 @@ module xilinx_ddr2 #
 // port-5 in Config-4: Two 64-bit bi-directional ports. Please look into the 
 // Chapter-2 of ug388.pdf in the /docs directory for further details.
    localparam C3_PORT_ENABLE              = 6'b111111;
-   localparam C3_PORT_CONFIG             =  "B32_B32_R32_W32_R32_R32";
+   localparam C3_PORT_CONFIG             =  "B32_B32_R32_W32_R32_W32";
    localparam C3_CLKOUT0_DIVIDE       = 1;       
    localparam C3_CLKOUT1_DIVIDE       = 1;       
    localparam C3_CLKOUT2_DIVIDE       = 16;       
@@ -376,15 +377,14 @@ wire				c3_p4_wr_empty;
 wire[6:0]			c3_p4_wr_count;
 wire				c3_p4_wr_underrun;
 wire				c3_p4_wr_error;
-wire				c3_p5_wr_clk;
-wire				c3_p5_wr_en;
-wire[3:0]			c3_p5_wr_mask;
-wire[31:0]			c3_p5_wr_data;
-wire				c3_p5_wr_full;
-wire				c3_p5_wr_empty;
-wire[6:0]			c3_p5_wr_count;
-wire				c3_p5_wr_underrun;
-wire				c3_p5_wr_error;
+wire				c3_p5_rd_clk;
+wire				c3_p5_rd_en;
+wire[31:0]			c3_p5_rd_data;
+wire				c3_p5_rd_full;
+wire				c3_p5_rd_empty;
+wire[6:0]			c3_p5_rd_count;
+wire				c3_p5_rd_overflow;
+wire				c3_p5_rd_error;
 
 
    reg   c1_aresetn;

@@ -153,7 +153,7 @@ module infrastructure #
       // SINGLE_ENDED input clock input buffers
       //***********************************************************************
 
-      BUFG  u_ibufg_sys_clk
+      IBUFG  u_ibufg_sys_clk
           (
            .I  (sys_clk),
            .O  (sys_clk_ibufg)

@@ -10,7 +10,7 @@ project set "Speed Grade" "-3"
 
 project set "Synthesis Tool" "XST (VHDL/Verilog)"
 
-project set "Simulator" "ISim (VHDL/Verilog)"
+project set "Simulator" "Modelsim-SE Mixed"
 
 xfile add "../rtl/infrastructure.v"
 xfile add "../rtl/memc_wrapper.v"

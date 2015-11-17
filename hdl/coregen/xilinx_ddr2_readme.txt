@@ -1,6 +1,6 @@
 
 The design files are located at
-/home/matthias/fpga/atlys_sdr/hdl/coregen:
+D:/FPGA/atlys_sdr/hdl/coregen:
 
    - xilinx_ddr2.veo:
         veo template file containing code that can be used as a model

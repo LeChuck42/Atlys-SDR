@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Project NoOfControllers="1" >
     <ModuleName>xilinx_ddr2</ModuleName>
     <TargetFPGA>xc6slx45-csg324/-3</TargetFPGA>
@@ -9,7 +9,7 @@
         <EnableVoltageRange>0</EnableVoltageRange>
         <DataMask>1</DataMask>
         <CustomPart>FALSE</CustomPart>
-        <NewPartName/>
+        <NewPartName></NewPartName>
         <RowAddress>13</RowAddress>
         <ColAddress>10</ColAddress>
         <BankAddress>3</BankAddress>
@@ -32,9 +32,9 @@
         <DataClass>Class II</DataClass>
         <InputPinTermination>CALIB_TERM</InputPinTermination>
         <DataTermination>25 Ohms</DataTermination>
-        <CalibrationRowAddress/>
-        <CalibrationColumnAddress/>
-        <CalibrationBankAddress/>
+        <CalibrationRowAddress></CalibrationRowAddress>
+        <CalibrationColumnAddress></CalibrationColumnAddress>
+        <CalibrationBankAddress></CalibrationBankAddress>
         <SystemClock>Single-Ended</SystemClock>
         <BypassCalibration>1</BypassCalibration>
         <DebugSignals>Disable</DebugSignals>
@@ -43,7 +43,7 @@
         <RzqPin>L6</RzqPin>
         <ZioPin>C2</ZioPin>
         <PortsSelected>Port0,Port1,Port2,Port3,Port4,Port5</PortsSelected>
-        <PortDirections>Bi-directional,Bi-directional,Read,Write,Read,Read</PortDirections>
+        <PortDirections>Bi-directional,Bi-directional,Read,Write,Read,Write</PortDirections>
         <UserMemoryAddressMap>BANK_ROW_COLUMN</UserMemoryAddressMap>
         <ArbitrationAlgorithm>Round Robin</ArbitrationAlgorithm>
         <TimeSlot0>012345</TimeSlot0>

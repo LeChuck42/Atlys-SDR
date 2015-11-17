@@ -281,9 +281,9 @@ module soc_top # (
 	assign pri_packet_size_i = 9'd256;
 	assign sec_packet_size_i = ADC_PACKET_SIZE;
 	
-	wire [31:0] my_ip = 32'hc0a8_012a;
+	wire [31:0] my_ip = 32'hc0a8_2a2a;
 	wire [47:0] my_mac = 48'h0037_ffff_3737;
-	wire [31:0] dst_ip = 32'hc0a8_0101;
+	wire [31:0] dst_ip = 32'hc0a8_2a01;
 	wire [47:0] dst_mac = 48'h0090_F5DE_6431;
 	wire [15:0] status_req_clk_div_val = 16'd31249; // 100 pkts/sec
 	

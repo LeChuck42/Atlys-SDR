@@ -214,14 +214,15 @@ u_xilinx_ddr2 (
    .c3_p5_cmd_byte_addr                    (c3_p5_cmd_byte_addr),
    .c3_p5_cmd_empty                        (c3_p5_cmd_empty),
    .c3_p5_cmd_full                         (c3_p5_cmd_full),
-   .c3_p5_rd_clk                           (c3_p5_rd_clk),
-   .c3_p5_rd_en                            (c3_p5_rd_en),
-   .c3_p5_rd_data                          (c3_p5_rd_data),
-   .c3_p5_rd_full                          (c3_p5_rd_full),
-   .c3_p5_rd_empty                         (c3_p5_rd_empty),
-   .c3_p5_rd_count                         (c3_p5_rd_count),
-   .c3_p5_rd_overflow                      (c3_p5_rd_overflow),
-   .c3_p5_rd_error                         (c3_p5_rd_error)
+   .c3_p5_wr_clk                           (c3_p5_wr_clk),
+   .c3_p5_wr_en                            (c3_p5_wr_en),
+   .c3_p5_wr_mask                          (c3_p5_wr_mask),
+   .c3_p5_wr_data                          (c3_p5_wr_data),
+   .c3_p5_wr_full                          (c3_p5_wr_full),
+   .c3_p5_wr_empty                         (c3_p5_wr_empty),
+   .c3_p5_wr_count                         (c3_p5_wr_count),
+   .c3_p5_wr_underrun                      (c3_p5_wr_underrun),
+   .c3_p5_wr_error                         (c3_p5_wr_error)
 );
 
 // INST_TAG_END ------ End INSTANTIATION Template ---------
