@@ -281,10 +281,10 @@ module soc_top # (
 	assign pri_packet_size_i = 9'd256;
 	assign sec_packet_size_i = ADC_PACKET_SIZE;
 	
-	wire [31:0] my_ip = 32'hc0a8_2a2a;
-	wire [47:0] my_mac = 48'h0037_ffff_3737;
-	wire [31:0] dst_ip = 32'hc0a8_2a01;
-	wire [47:0] dst_mac = 48'h0090_F5DE_6431;
+	//wire [31:0] my_ip = 32'hc0a8_2a2a;
+	//wire [47:0] my_mac = 48'h0037_ffff_3737;
+	//wire [31:0] dst_ip = 32'hc0a8_2a01;
+	//wire [47:0] dst_mac = 48'h0090_F5DE_6431;
 	wire [15:0] status_req_clk_div_val = 16'd31249; // 100 pkts/sec
 	
 	wire [15:0] tx_fifo_cnt;
@@ -328,10 +328,10 @@ module soc_top # (
 		.sec_packet_size_i(sec_packet_size_i),
 		.sec_fifo_req(~adc_fifo_ae),
 		.sec_fifo_rd(adc_data_re),
-		.my_mac(my_mac),
-		.my_ip(my_ip),
-		.dst_mac(dst_mac),
-		.dst_ip(dst_ip));
+		.my_mac(reg_my_mac),
+		.my_ip(reg_my_ip),
+		.dst_mac(reg_dst_mac),
+		.dst_ip(reg_dst_ip));
 	
 	wire [31:0] adc_data;
 	wire clk_adc;
@@ -385,6 +385,12 @@ module soc_top # (
 	wire data_out_dac;
 	wire data_out_cpu;
 	
+	wire rx_forward_rd;
+	wire [31:0] rx_forward_data;
+	wire rx_forward_last;
+	wire rx_forward_empty;
+	wire rx_forward_enable;
+	
 	packet_receiver packet_receiver (
 		.clk(clk_125),
 		.reset(~gemac_ready || ~tx_enable),
@@ -399,8 +405,23 @@ module soc_top # (
 		.data_out(udp_data_out),
 		
 		.packet_loss(),
-		.my_mac(my_mac),
-		.my_ip(my_ip)
+		.my_mac(reg_my_mac),
+		.my_ip(reg_my_ip),
+		.wb_clk_i(wb_clk),
+		.wb_rst_i(wb_rst),
+		.wb_adr_o(wb_m2s_eth_rx_dma_adr),
+		.wb_stb_o(wb_m2s_eth_rx_dma_stb),
+		.wb_cyc_o(wb_m2s_eth_rx_dma_cyc),
+		.wb_cti_o(wb_m2s_eth_rx_dma_cti),
+		.wb_bte_o(wb_m2s_eth_rx_dma_bte),
+		.wb_we_o (wb_m2s_eth_rx_dma_we),
+		.wb_sel_o(wb_m2s_eth_rx_dma_sel),
+		.wb_dat_o(wb_m2s_eth_rx_dma_dat),
+		.wb_dat_i(wb_s2m_eth_rx_dma_dat),
+		.wb_ack_i(wb_s2m_eth_rx_dma_ack),
+		                           
+		.wb_addr_offset(reg_eth_rx_addr_offset),
+		.wb_addr_ready()
 	);
 	
 	dac_tx dac_tx_inst (
@@ -693,16 +714,28 @@ module soc_top # (
 	.wb3_ack_o (wb_s2m_ddr2_loader_ack),
 	.wb3_dat_o (wb_s2m_ddr2_loader_dat),
 	// RO
-	.wb4_adr_i (0),
-	.wb4_bte_i (0),
-	.wb4_cti_i (0),
-	.wb4_cyc_i (0),
-	.wb4_dat_i (0),
-	.wb4_sel_i (0),
-	.wb4_stb_i (0),
-	.wb4_we_i (0),
-	.wb4_ack_o (),
-	.wb4_dat_o (),
+	.wb4_adr_i (wb_m2s_ddr2_eth_tx_adr),
+	.wb4_bte_i (wb_m2s_ddr2_eth_tx_bte),
+	.wb4_cti_i (wb_m2s_ddr2_eth_tx_cti),
+	.wb4_cyc_i (wb_m2s_ddr2_eth_tx_cyc),
+	.wb4_dat_i (wb_m2s_ddr2_eth_tx_dat),
+	.wb4_sel_i (wb_m2s_ddr2_eth_tx_sel),
+	.wb4_stb_i (wb_m2s_ddr2_eth_tx_stb),
+	.wb4_we_i  (wb_m2s_ddr2_eth_tx_we),
+	.wb4_ack_o (wb_s2m_ddr2_eth_tx_ack),
+	.wb4_dat_o (wb_s2m_ddr2_eth_tx_dat),
+	// WO
+	.wb5_adr_i (wb_m2s_ddr2_eth_rx_adr),
+	.wb5_bte_i (wb_m2s_ddr2_eth_rx_bte),
+	.wb5_cti_i (wb_m2s_ddr2_eth_rx_cti),
+	.wb5_cyc_i (wb_m2s_ddr2_eth_rx_cyc),
+	.wb5_dat_i (wb_m2s_ddr2_eth_rx_dat),
+	.wb5_sel_i (wb_m2s_ddr2_eth_rx_sel),
+	.wb5_stb_i (wb_m2s_ddr2_eth_rx_stb),
+	.wb5_we_i  (wb_m2s_ddr2_eth_rx_we),
+	.wb5_ack_o (wb_s2m_ddr2_eth_rx_ack),
+	.wb5_dat_o (wb_s2m_ddr2_eth_rx_dat),
+	
 	.wb_clk (wb_clk),
 	.wb_rst (wb_rst),
 	.ddr2_a (ddr2_a[12:0]),
@@ -783,6 +816,42 @@ module soc_top # (
 		// Inputs
 		.miso_i		(spi0_miso)
 	);
+	
+	wire [32*8-1:0] reg_data_out;
+	wire [32*8-1:0] reg_data_in;
+	wire [   8-1:0] reg_data_we;
+	
+	assign reg_data_we = 0;
+	assign reg_data_in = 0;
+	
+	wire [31:0] reg_my_ip              = reg_data_out[31:0];
+	wire [47:0] reg_my_mac             = reg_data_out[79:32];
+	wire [31:0] reg_dst_ip             = reg_data_out[127:96];
+	wire [47:0] reg_dst_mac            = reg_data_out[175:128];
+	wire [31:0] reg_eth_rx_addr_offset = reg_data_out[223:192];
+	
+	wb_config # (
+		.DATA_WIDTH(32),
+		.ADDR_WIDTH(3))
+	wb_config0 (
+		.CLK         (wb_clk),
+	    .RST         (wb_rst),
+	    .WB_ADR_I    (wb_m2s_sdr_reg_adr),
+	    .WB_DAT_I    (wb_m2s_sdr_reg_dat),
+	    .WB_SEL_I    (wb_m2s_sdr_reg_sel),
+	    .WB_WE_I     (wb_m2s_sdr_reg_we),
+	    .WB_CYC_I    (wb_m2s_sdr_reg_cyc),
+	    .WB_STB_I    (wb_m2s_sdr_reg_stb),
+	    .WB_CTI_I    (wb_m2s_sdr_reg_cti),
+	    .WB_BTE_I    (wb_m2s_sdr_reg_bte),
+	    .WB_DAT_O    (wb_s2m_sdr_reg_dat),
+	    .WB_ACK_O    (wb_s2m_sdr_reg_ack),
+	    .WB_ERR_O    (wb_s2m_sdr_reg_err),
+	    .WB_RTY_O    (wb_s2m_sdr_reg_rty),
+	    .DATA_OUTPUT (reg_data_out),
+	    .DATA_INPUT  (reg_data_in),
+	    .DATA_WE     (reg_data_we));
+	
 	
 	wire [31:0] gpio_in;
 	wire [31:0] gpio_out;

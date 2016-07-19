@@ -158,6 +158,12 @@ module infrastructure #
            .I  (sys_clk),
            .O  (sys_clk_ibufg)
            );
+    end else if (C_INPUT_CLK_TYPE == "INTERNAL") begin: internal_input_clk
+	  BUFG  u_ibufg_sys_clk
+          (
+           .I  (sys_clk),
+           .O  (sys_clk_ibufg)
+           );
    end
   endgenerate
 

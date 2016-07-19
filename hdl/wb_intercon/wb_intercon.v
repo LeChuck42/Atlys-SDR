@@ -51,6 +51,30 @@ module wb_intercon
     output        wb_flash0_ack_o,
     output        wb_flash0_err_o,
     output        wb_flash0_rty_o,
+    input  [31:0] wb_eth_rx_dma_adr_i,
+    input  [31:0] wb_eth_rx_dma_dat_i,
+    input   [3:0] wb_eth_rx_dma_sel_i,
+    input         wb_eth_rx_dma_we_i,
+    input         wb_eth_rx_dma_cyc_i,
+    input         wb_eth_rx_dma_stb_i,
+    input   [2:0] wb_eth_rx_dma_cti_i,
+    input   [1:0] wb_eth_rx_dma_bte_i,
+    output [31:0] wb_eth_rx_dma_dat_o,
+    output        wb_eth_rx_dma_ack_o,
+    output        wb_eth_rx_dma_err_o,
+    output        wb_eth_rx_dma_rty_o,
+    input  [31:0] wb_eth_tx_dma_adr_i,
+    input  [31:0] wb_eth_tx_dma_dat_i,
+    input   [3:0] wb_eth_tx_dma_sel_i,
+    input         wb_eth_tx_dma_we_i,
+    input         wb_eth_tx_dma_cyc_i,
+    input         wb_eth_tx_dma_stb_i,
+    input   [2:0] wb_eth_tx_dma_cti_i,
+    input   [1:0] wb_eth_tx_dma_bte_i,
+    output [31:0] wb_eth_tx_dma_dat_o,
+    output        wb_eth_tx_dma_ack_o,
+    output        wb_eth_tx_dma_err_o,
+    output        wb_eth_tx_dma_rty_o,
     output [31:0] wb_ddr2_dbus_adr_o,
     output [31:0] wb_ddr2_dbus_dat_o,
     output  [3:0] wb_ddr2_dbus_sel_o,
@@ -99,6 +123,30 @@ module wb_intercon
     input         wb_ddr2_debug_ack_i,
     input         wb_ddr2_debug_err_i,
     input         wb_ddr2_debug_rty_i,
+    output [31:0] wb_ddr2_eth_rx_adr_o,
+    output [31:0] wb_ddr2_eth_rx_dat_o,
+    output  [3:0] wb_ddr2_eth_rx_sel_o,
+    output        wb_ddr2_eth_rx_we_o,
+    output        wb_ddr2_eth_rx_cyc_o,
+    output        wb_ddr2_eth_rx_stb_o,
+    output  [2:0] wb_ddr2_eth_rx_cti_o,
+    output  [1:0] wb_ddr2_eth_rx_bte_o,
+    input  [31:0] wb_ddr2_eth_rx_dat_i,
+    input         wb_ddr2_eth_rx_ack_i,
+    input         wb_ddr2_eth_rx_err_i,
+    input         wb_ddr2_eth_rx_rty_i,
+    output [31:0] wb_ddr2_eth_tx_adr_o,
+    output [31:0] wb_ddr2_eth_tx_dat_o,
+    output  [3:0] wb_ddr2_eth_tx_sel_o,
+    output        wb_ddr2_eth_tx_we_o,
+    output        wb_ddr2_eth_tx_cyc_o,
+    output        wb_ddr2_eth_tx_stb_o,
+    output  [2:0] wb_ddr2_eth_tx_cti_o,
+    output  [1:0] wb_ddr2_eth_tx_bte_o,
+    input  [31:0] wb_ddr2_eth_tx_dat_i,
+    input         wb_ddr2_eth_tx_ack_i,
+    input         wb_ddr2_eth_tx_err_i,
+    input         wb_ddr2_eth_tx_rty_i,
     output [31:0] wb_uart0_adr_o,
     output  [7:0] wb_uart0_dat_o,
     output  [3:0] wb_uart0_sel_o,
@@ -134,8 +182,44 @@ module wb_intercon
     input   [7:0] wb_spi0_dat_i,
     input         wb_spi0_ack_i,
     input         wb_spi0_err_i,
-    input         wb_spi0_rty_i);
+    input         wb_spi0_rty_i,
+    output [31:0] wb_sdr_reg_adr_o,
+    output [31:0] wb_sdr_reg_dat_o,
+    output  [3:0] wb_sdr_reg_sel_o,
+    output        wb_sdr_reg_we_o,
+    output        wb_sdr_reg_cyc_o,
+    output        wb_sdr_reg_stb_o,
+    output  [2:0] wb_sdr_reg_cti_o,
+    output  [1:0] wb_sdr_reg_bte_o,
+    input  [31:0] wb_sdr_reg_dat_i,
+    input         wb_sdr_reg_ack_i,
+    input         wb_sdr_reg_err_i,
+    input         wb_sdr_reg_rty_i);
 
+wire [31:0] wb_m2s_or1k_d_sdr_reg_adr;
+wire [31:0] wb_m2s_or1k_d_sdr_reg_dat;
+wire  [3:0] wb_m2s_or1k_d_sdr_reg_sel;
+wire        wb_m2s_or1k_d_sdr_reg_we;
+wire        wb_m2s_or1k_d_sdr_reg_cyc;
+wire        wb_m2s_or1k_d_sdr_reg_stb;
+wire  [2:0] wb_m2s_or1k_d_sdr_reg_cti;
+wire  [1:0] wb_m2s_or1k_d_sdr_reg_bte;
+wire [31:0] wb_s2m_or1k_d_sdr_reg_dat;
+wire        wb_s2m_or1k_d_sdr_reg_ack;
+wire        wb_s2m_or1k_d_sdr_reg_err;
+wire        wb_s2m_or1k_d_sdr_reg_rty;
+wire [31:0] wb_m2s_dbg_sdr_reg_adr;
+wire [31:0] wb_m2s_dbg_sdr_reg_dat;
+wire  [3:0] wb_m2s_dbg_sdr_reg_sel;
+wire        wb_m2s_dbg_sdr_reg_we;
+wire        wb_m2s_dbg_sdr_reg_cyc;
+wire        wb_m2s_dbg_sdr_reg_stb;
+wire  [2:0] wb_m2s_dbg_sdr_reg_cti;
+wire  [1:0] wb_m2s_dbg_sdr_reg_bte;
+wire [31:0] wb_s2m_dbg_sdr_reg_dat;
+wire        wb_s2m_dbg_sdr_reg_ack;
+wire        wb_s2m_dbg_sdr_reg_err;
+wire        wb_s2m_dbg_sdr_reg_rty;
 wire [31:0] wb_m2s_resize_uart0_adr;
 wire [31:0] wb_m2s_resize_uart0_dat;
 wire  [3:0] wb_m2s_resize_uart0_sel;
@@ -194,9 +278,9 @@ wb_mux
     .wbs_rty_i ({wb_ddr2_ibus_rty_i}));
 
 wb_mux
-  #(.num_slaves (4),
-    .MATCH_ADDR ({32'h00000000, 32'h90000000, 32'h91000000, 32'hb0000000}),
-    .MATCH_MASK ({32'hf8000000, 32'hfffffffe, 32'hfffffff0, 32'hfffffff8}))
+  #(.num_slaves (5),
+    .MATCH_ADDR ({32'h00000000, 32'h90000000, 32'h91000000, 32'hb0000000, 32'h40000000}),
+    .MATCH_MASK ({32'hf8000000, 32'hfffffffe, 32'hfffffff0, 32'hfffffff8, 32'hffffff00}))
  wb_mux_or1k_d
    (.wb_clk_i  (wb_clk_i),
     .wb_rst_i  (wb_rst_i),
@@ -212,23 +296,23 @@ wb_mux
     .wbm_ack_o (wb_or1k_d_ack_o),
     .wbm_err_o (wb_or1k_d_err_o),
     .wbm_rty_o (wb_or1k_d_rty_o),
-    .wbs_adr_o ({wb_ddr2_dbus_adr_o, wb_m2s_resize_uart0_adr, wb_gpio0_adr_o, wb_m2s_resize_spi0_adr}),
-    .wbs_dat_o ({wb_ddr2_dbus_dat_o, wb_m2s_resize_uart0_dat, wb_gpio0_dat_o, wb_m2s_resize_spi0_dat}),
-    .wbs_sel_o ({wb_ddr2_dbus_sel_o, wb_m2s_resize_uart0_sel, wb_gpio0_sel_o, wb_m2s_resize_spi0_sel}),
-    .wbs_we_o  ({wb_ddr2_dbus_we_o, wb_m2s_resize_uart0_we, wb_gpio0_we_o, wb_m2s_resize_spi0_we}),
-    .wbs_cyc_o ({wb_ddr2_dbus_cyc_o, wb_m2s_resize_uart0_cyc, wb_gpio0_cyc_o, wb_m2s_resize_spi0_cyc}),
-    .wbs_stb_o ({wb_ddr2_dbus_stb_o, wb_m2s_resize_uart0_stb, wb_gpio0_stb_o, wb_m2s_resize_spi0_stb}),
-    .wbs_cti_o ({wb_ddr2_dbus_cti_o, wb_m2s_resize_uart0_cti, wb_gpio0_cti_o, wb_m2s_resize_spi0_cti}),
-    .wbs_bte_o ({wb_ddr2_dbus_bte_o, wb_m2s_resize_uart0_bte, wb_gpio0_bte_o, wb_m2s_resize_spi0_bte}),
-    .wbs_dat_i ({wb_ddr2_dbus_dat_i, wb_s2m_resize_uart0_dat, wb_gpio0_dat_i, wb_s2m_resize_spi0_dat}),
-    .wbs_ack_i ({wb_ddr2_dbus_ack_i, wb_s2m_resize_uart0_ack, wb_gpio0_ack_i, wb_s2m_resize_spi0_ack}),
-    .wbs_err_i ({wb_ddr2_dbus_err_i, wb_s2m_resize_uart0_err, wb_gpio0_err_i, wb_s2m_resize_spi0_err}),
-    .wbs_rty_i ({wb_ddr2_dbus_rty_i, wb_s2m_resize_uart0_rty, wb_gpio0_rty_i, wb_s2m_resize_spi0_rty}));
+    .wbs_adr_o ({wb_ddr2_dbus_adr_o, wb_m2s_resize_uart0_adr, wb_gpio0_adr_o, wb_m2s_resize_spi0_adr, wb_m2s_or1k_d_sdr_reg_adr}),
+    .wbs_dat_o ({wb_ddr2_dbus_dat_o, wb_m2s_resize_uart0_dat, wb_gpio0_dat_o, wb_m2s_resize_spi0_dat, wb_m2s_or1k_d_sdr_reg_dat}),
+    .wbs_sel_o ({wb_ddr2_dbus_sel_o, wb_m2s_resize_uart0_sel, wb_gpio0_sel_o, wb_m2s_resize_spi0_sel, wb_m2s_or1k_d_sdr_reg_sel}),
+    .wbs_we_o  ({wb_ddr2_dbus_we_o, wb_m2s_resize_uart0_we, wb_gpio0_we_o, wb_m2s_resize_spi0_we, wb_m2s_or1k_d_sdr_reg_we}),
+    .wbs_cyc_o ({wb_ddr2_dbus_cyc_o, wb_m2s_resize_uart0_cyc, wb_gpio0_cyc_o, wb_m2s_resize_spi0_cyc, wb_m2s_or1k_d_sdr_reg_cyc}),
+    .wbs_stb_o ({wb_ddr2_dbus_stb_o, wb_m2s_resize_uart0_stb, wb_gpio0_stb_o, wb_m2s_resize_spi0_stb, wb_m2s_or1k_d_sdr_reg_stb}),
+    .wbs_cti_o ({wb_ddr2_dbus_cti_o, wb_m2s_resize_uart0_cti, wb_gpio0_cti_o, wb_m2s_resize_spi0_cti, wb_m2s_or1k_d_sdr_reg_cti}),
+    .wbs_bte_o ({wb_ddr2_dbus_bte_o, wb_m2s_resize_uart0_bte, wb_gpio0_bte_o, wb_m2s_resize_spi0_bte, wb_m2s_or1k_d_sdr_reg_bte}),
+    .wbs_dat_i ({wb_ddr2_dbus_dat_i, wb_s2m_resize_uart0_dat, wb_gpio0_dat_i, wb_s2m_resize_spi0_dat, wb_s2m_or1k_d_sdr_reg_dat}),
+    .wbs_ack_i ({wb_ddr2_dbus_ack_i, wb_s2m_resize_uart0_ack, wb_gpio0_ack_i, wb_s2m_resize_spi0_ack, wb_s2m_or1k_d_sdr_reg_ack}),
+    .wbs_err_i ({wb_ddr2_dbus_err_i, wb_s2m_resize_uart0_err, wb_gpio0_err_i, wb_s2m_resize_spi0_err, wb_s2m_or1k_d_sdr_reg_err}),
+    .wbs_rty_i ({wb_ddr2_dbus_rty_i, wb_s2m_resize_uart0_rty, wb_gpio0_rty_i, wb_s2m_resize_spi0_rty, wb_s2m_or1k_d_sdr_reg_rty}));
 
 wb_mux
-  #(.num_slaves (1),
-    .MATCH_ADDR ({32'h00000000}),
-    .MATCH_MASK ({32'hf8000000}))
+  #(.num_slaves (2),
+    .MATCH_ADDR ({32'h00000000, 32'h40000000}),
+    .MATCH_MASK ({32'hf8000000, 32'hffffff00}))
  wb_mux_dbg
    (.wb_clk_i  (wb_clk_i),
     .wb_rst_i  (wb_rst_i),
@@ -244,18 +328,18 @@ wb_mux
     .wbm_ack_o (wb_dbg_ack_o),
     .wbm_err_o (wb_dbg_err_o),
     .wbm_rty_o (wb_dbg_rty_o),
-    .wbs_adr_o ({wb_ddr2_debug_adr_o}),
-    .wbs_dat_o ({wb_ddr2_debug_dat_o}),
-    .wbs_sel_o ({wb_ddr2_debug_sel_o}),
-    .wbs_we_o  ({wb_ddr2_debug_we_o}),
-    .wbs_cyc_o ({wb_ddr2_debug_cyc_o}),
-    .wbs_stb_o ({wb_ddr2_debug_stb_o}),
-    .wbs_cti_o ({wb_ddr2_debug_cti_o}),
-    .wbs_bte_o ({wb_ddr2_debug_bte_o}),
-    .wbs_dat_i ({wb_ddr2_debug_dat_i}),
-    .wbs_ack_i ({wb_ddr2_debug_ack_i}),
-    .wbs_err_i ({wb_ddr2_debug_err_i}),
-    .wbs_rty_i ({wb_ddr2_debug_rty_i}));
+    .wbs_adr_o ({wb_ddr2_debug_adr_o, wb_m2s_dbg_sdr_reg_adr}),
+    .wbs_dat_o ({wb_ddr2_debug_dat_o, wb_m2s_dbg_sdr_reg_dat}),
+    .wbs_sel_o ({wb_ddr2_debug_sel_o, wb_m2s_dbg_sdr_reg_sel}),
+    .wbs_we_o  ({wb_ddr2_debug_we_o, wb_m2s_dbg_sdr_reg_we}),
+    .wbs_cyc_o ({wb_ddr2_debug_cyc_o, wb_m2s_dbg_sdr_reg_cyc}),
+    .wbs_stb_o ({wb_ddr2_debug_stb_o, wb_m2s_dbg_sdr_reg_stb}),
+    .wbs_cti_o ({wb_ddr2_debug_cti_o, wb_m2s_dbg_sdr_reg_cti}),
+    .wbs_bte_o ({wb_ddr2_debug_bte_o, wb_m2s_dbg_sdr_reg_bte}),
+    .wbs_dat_i ({wb_ddr2_debug_dat_i, wb_s2m_dbg_sdr_reg_dat}),
+    .wbs_ack_i ({wb_ddr2_debug_ack_i, wb_s2m_dbg_sdr_reg_ack}),
+    .wbs_err_i ({wb_ddr2_debug_err_i, wb_s2m_dbg_sdr_reg_err}),
+    .wbs_rty_i ({wb_ddr2_debug_rty_i, wb_s2m_dbg_sdr_reg_rty}));
 
 wb_mux
   #(.num_slaves (1),
@@ -288,6 +372,70 @@ wb_mux
     .wbs_ack_i ({wb_ddr2_loader_ack_i}),
     .wbs_err_i ({wb_ddr2_loader_err_i}),
     .wbs_rty_i ({wb_ddr2_loader_rty_i}));
+
+wb_mux
+  #(.num_slaves (1),
+    .MATCH_ADDR ({32'h00000000}),
+    .MATCH_MASK ({32'hf8000000}))
+ wb_mux_eth_rx_dma
+   (.wb_clk_i  (wb_clk_i),
+    .wb_rst_i  (wb_rst_i),
+    .wbm_adr_i (wb_eth_rx_dma_adr_i),
+    .wbm_dat_i (wb_eth_rx_dma_dat_i),
+    .wbm_sel_i (wb_eth_rx_dma_sel_i),
+    .wbm_we_i  (wb_eth_rx_dma_we_i),
+    .wbm_cyc_i (wb_eth_rx_dma_cyc_i),
+    .wbm_stb_i (wb_eth_rx_dma_stb_i),
+    .wbm_cti_i (wb_eth_rx_dma_cti_i),
+    .wbm_bte_i (wb_eth_rx_dma_bte_i),
+    .wbm_dat_o (wb_eth_rx_dma_dat_o),
+    .wbm_ack_o (wb_eth_rx_dma_ack_o),
+    .wbm_err_o (wb_eth_rx_dma_err_o),
+    .wbm_rty_o (wb_eth_rx_dma_rty_o),
+    .wbs_adr_o ({wb_ddr2_eth_rx_adr_o}),
+    .wbs_dat_o ({wb_ddr2_eth_rx_dat_o}),
+    .wbs_sel_o ({wb_ddr2_eth_rx_sel_o}),
+    .wbs_we_o  ({wb_ddr2_eth_rx_we_o}),
+    .wbs_cyc_o ({wb_ddr2_eth_rx_cyc_o}),
+    .wbs_stb_o ({wb_ddr2_eth_rx_stb_o}),
+    .wbs_cti_o ({wb_ddr2_eth_rx_cti_o}),
+    .wbs_bte_o ({wb_ddr2_eth_rx_bte_o}),
+    .wbs_dat_i ({wb_ddr2_eth_rx_dat_i}),
+    .wbs_ack_i ({wb_ddr2_eth_rx_ack_i}),
+    .wbs_err_i ({wb_ddr2_eth_rx_err_i}),
+    .wbs_rty_i ({wb_ddr2_eth_rx_rty_i}));
+
+wb_mux
+  #(.num_slaves (1),
+    .MATCH_ADDR ({32'h00000000}),
+    .MATCH_MASK ({32'hf8000000}))
+ wb_mux_eth_tx_dma
+   (.wb_clk_i  (wb_clk_i),
+    .wb_rst_i  (wb_rst_i),
+    .wbm_adr_i (wb_eth_tx_dma_adr_i),
+    .wbm_dat_i (wb_eth_tx_dma_dat_i),
+    .wbm_sel_i (wb_eth_tx_dma_sel_i),
+    .wbm_we_i  (wb_eth_tx_dma_we_i),
+    .wbm_cyc_i (wb_eth_tx_dma_cyc_i),
+    .wbm_stb_i (wb_eth_tx_dma_stb_i),
+    .wbm_cti_i (wb_eth_tx_dma_cti_i),
+    .wbm_bte_i (wb_eth_tx_dma_bte_i),
+    .wbm_dat_o (wb_eth_tx_dma_dat_o),
+    .wbm_ack_o (wb_eth_tx_dma_ack_o),
+    .wbm_err_o (wb_eth_tx_dma_err_o),
+    .wbm_rty_o (wb_eth_tx_dma_rty_o),
+    .wbs_adr_o ({wb_ddr2_eth_tx_adr_o}),
+    .wbs_dat_o ({wb_ddr2_eth_tx_dat_o}),
+    .wbs_sel_o ({wb_ddr2_eth_tx_sel_o}),
+    .wbs_we_o  ({wb_ddr2_eth_tx_we_o}),
+    .wbs_cyc_o ({wb_ddr2_eth_tx_cyc_o}),
+    .wbs_stb_o ({wb_ddr2_eth_tx_stb_o}),
+    .wbs_cti_o ({wb_ddr2_eth_tx_cti_o}),
+    .wbs_bte_o ({wb_ddr2_eth_tx_bte_o}),
+    .wbs_dat_i ({wb_ddr2_eth_tx_dat_i}),
+    .wbs_ack_i ({wb_ddr2_eth_tx_ack_i}),
+    .wbs_err_i ({wb_ddr2_eth_tx_err_i}),
+    .wbs_rty_i ({wb_ddr2_eth_tx_rty_i}));
 
 wb_data_resize
   #(.aw  (32),
@@ -346,5 +494,35 @@ wb_data_resize
     .wbs_ack_i (wb_spi0_ack_i),
     .wbs_err_i (wb_spi0_err_i),
     .wbs_rty_i (wb_spi0_rty_i));
+
+wb_arbiter
+  #(.num_masters (2))
+ wb_arbiter_sdr_reg
+   (.wb_clk_i  (wb_clk_i),
+    .wb_rst_i  (wb_rst_i),
+    .wbm_adr_i ({wb_m2s_or1k_d_sdr_reg_adr, wb_m2s_dbg_sdr_reg_adr}),
+    .wbm_dat_i ({wb_m2s_or1k_d_sdr_reg_dat, wb_m2s_dbg_sdr_reg_dat}),
+    .wbm_sel_i ({wb_m2s_or1k_d_sdr_reg_sel, wb_m2s_dbg_sdr_reg_sel}),
+    .wbm_we_i  ({wb_m2s_or1k_d_sdr_reg_we, wb_m2s_dbg_sdr_reg_we}),
+    .wbm_cyc_i ({wb_m2s_or1k_d_sdr_reg_cyc, wb_m2s_dbg_sdr_reg_cyc}),
+    .wbm_stb_i ({wb_m2s_or1k_d_sdr_reg_stb, wb_m2s_dbg_sdr_reg_stb}),
+    .wbm_cti_i ({wb_m2s_or1k_d_sdr_reg_cti, wb_m2s_dbg_sdr_reg_cti}),
+    .wbm_bte_i ({wb_m2s_or1k_d_sdr_reg_bte, wb_m2s_dbg_sdr_reg_bte}),
+    .wbm_dat_o ({wb_s2m_or1k_d_sdr_reg_dat, wb_s2m_dbg_sdr_reg_dat}),
+    .wbm_ack_o ({wb_s2m_or1k_d_sdr_reg_ack, wb_s2m_dbg_sdr_reg_ack}),
+    .wbm_err_o ({wb_s2m_or1k_d_sdr_reg_err, wb_s2m_dbg_sdr_reg_err}),
+    .wbm_rty_o ({wb_s2m_or1k_d_sdr_reg_rty, wb_s2m_dbg_sdr_reg_rty}),
+    .wbs_adr_o (wb_sdr_reg_adr_o),
+    .wbs_dat_o (wb_sdr_reg_dat_o),
+    .wbs_sel_o (wb_sdr_reg_sel_o),
+    .wbs_we_o  (wb_sdr_reg_we_o),
+    .wbs_cyc_o (wb_sdr_reg_cyc_o),
+    .wbs_stb_o (wb_sdr_reg_stb_o),
+    .wbs_cti_o (wb_sdr_reg_cti_o),
+    .wbs_bte_o (wb_sdr_reg_bte_o),
+    .wbs_dat_i (wb_sdr_reg_dat_i),
+    .wbs_ack_i (wb_sdr_reg_ack_i),
+    .wbs_err_i (wb_sdr_reg_err_i),
+    .wbs_rty_i (wb_sdr_reg_rty_i));
 
 endmodule
