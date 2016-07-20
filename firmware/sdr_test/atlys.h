@@ -12,6 +12,7 @@
 #define ATLYS_UART_BASE			0x90000000
 #define ATLYS_GPIO_BASE			0x91000000
 #define ATLYS_SPI_BASE			0xB0000000
+#define ATLYS_ETH_BASE			0x92000000
 
 // UART Registers
 #define ATLYS_UART_DATA_PTR		(((unsigned char*)ATLYS_UART_BASE) + 0)
@@ -86,6 +87,8 @@
 #define SPI_SLAVE_ADC			(1<<3)
 #define SPI_SLAVE_FPGA			(1<<4)
 
+// Ethernet Register
+#define ETH_TARGET_ADDRESS		((unsigned char**)ATLYS_ETH_BASE)
 
 // Interrupt lines ******************************************************************
 #define ATLYS_INTERRUPT_UART	2

@@ -12,6 +12,8 @@
 #include "adc.h"
 #include "clk.h"
 #include "fpga.h"
+#include "eth.h"
+#include "packet.h"
 #include <or1k-support.h>
 
 unsigned int dwTest;
@@ -38,6 +40,8 @@ static void init()
 
 int main()
 {
+	int dwPacketId;
+
 	init();
 	TIMER_AddHandler(blink, 0, 500, 1);
 	CLK_WriteConfig();
@@ -50,6 +54,11 @@ int main()
 			FPGA_REG_ADC_AMPB_ENAB);
 	while (1)
 	{
-
+		dwPacketId = ETH_CheckPacket();
+		if (dwPacketId != ETH_NO_PACKET)
+		{
+			while (PACKET_Process(ETH_GetBuffer(dwPacketId)) == PACKET_BUSY);
+			ETH_Free(dwPacketId);
+		}
 	}
 }
