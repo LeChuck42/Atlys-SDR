@@ -273,12 +273,13 @@ module soc_top # (
 		.debug(gemac_debug),
 		.ready(gemac_ready)); // Signal to rest of the system that negotiation is complete
 
+
+
 	wire [31:0] pri_fifo_d, adc_fifo_d;
 	wire adc_data_re, adc_fifo_ae;
 
-	wire [8:0] pri_packet_size_i, sec_packet_size_i;
+	wire [8:0] sec_packet_size_i;
 	wire pri_fifo_req, pri_fifo_rd;
-	assign pri_packet_size_i = 9'd256;
 	assign sec_packet_size_i = ADC_PACKET_SIZE;
 	
 	//wire [31:0] my_ip = 32'hc0a8_2a2a;
@@ -308,6 +309,14 @@ module soc_top # (
 		end
 	end
 	
+	wire eth_tx_irq_flag;
+	wire [31:0] eth_tx_fifo_d;
+	wire eth_tx_fifo_rd;
+	wire eth_tx_fifo_empty;
+	wire eth_tx_fifo_full;
+	wire gpio_tx_buf_rdy;
+	
+	wire eth_tx_fifo_wr = wb_m2s_eth_tx_fifo_sel & wb_m2s_eth_tx_fifo_stb & wb_m2s_eth_tx_fifo_we & ~eth_tx_fifo_full;
 	// Send out Ethernet packets
 	packet_sender packet_sender (
 		.clk(clk_125),
@@ -319,10 +328,10 @@ module soc_top # (
 		.tx_fifo_status(tx_fifo_status_req),
 		.tx_fifo_cnt(tx_fifo_cnt),
 		// primary interface: Configuration Data
-		.pri_fifo_d(0),
-		.pri_packet_size_i(pri_packet_size_i),
-		.pri_fifo_req(0),
-		.pri_fifo_rd(),
+		.pri_fifo_d(eth_tx_fifo_d),
+		.pri_fifo_req(gpio_tx_buf_rdy),
+		.pri_fifo_rd(eth_tx_fifo_rd),
+		.pri_fifo_empty(eth_tx_fifo_empty),
 		// secondary interface: ADC Data
 		.sec_fifo_d(adc_fifo_d),
 		.sec_packet_size_i(sec_packet_size_i),
@@ -331,7 +340,25 @@ module soc_top # (
 		.my_mac(reg_my_mac),
 		.my_ip(reg_my_ip),
 		.dst_mac(reg_dst_mac),
-		.dst_ip(reg_dst_ip));
+		.dst_ip(reg_dst_ip),
+		.eth_tx_irq_flag(eth_tx_irq_flag));
+	
+	assign wb_s2m_eth_tx_fifo_ack = eth_tx_fifo_wr;
+	assign wb_s2m_eth_tx_fifo_err = 1'b0;
+	assign wb_s2m_eth_tx_fifo_rty = 1'b0;
+	assign wb_s2m_eth_tx_fifo_dat = 0;
+	
+	wb_fifo tx_fifo (
+		.wr_clk(wb_clk),
+		.rd_clk(clk_125),
+		.rst(wb_rst),
+		.din(wb_m2s_eth_tx_fifo_dat),
+		.wr_en(eth_tx_fifo_wr),
+		.rd_en(eth_tx_fifo_rd),
+		.dout(eth_tx_fifo_d),
+		.full(eth_tx_fifo_full),
+		.empty(eth_tx_fifo_empty)
+		);
 	
 	wire [31:0] adc_data;
 	wire clk_adc;
@@ -390,6 +417,9 @@ module soc_top # (
 	wire rx_forward_last;
 	wire rx_forward_empty;
 	wire rx_forward_enable;
+	wire gpio_rx_addr_ready;
+	wire gpio_rx_packet_loss;
+	wire eth_rx_irq_flag;
 	
 	packet_receiver packet_receiver (
 		.clk(clk_125),
@@ -404,7 +434,7 @@ module soc_top # (
 		.data_out_cpu(data_out_cpu),
 		.data_out(udp_data_out),
 		
-		.packet_loss(),
+		.packet_loss(gpio_rx_packet_loss),
 		.my_mac(reg_my_mac),
 		.my_ip(reg_my_ip),
 		.wb_clk_i(wb_clk),
@@ -421,7 +451,8 @@ module soc_top # (
 		.wb_ack_i(wb_s2m_eth_rx_dma_ack),
 		                           
 		.wb_addr_offset(reg_eth_rx_addr_offset),
-		.wb_addr_ready()
+		.wb_addr_ready(gpio_rx_addr_ready),
+		.eth_rx_irq_flag(eth_rx_irq_flag)
 	);
 	
 	dac_tx dac_tx_inst (
@@ -889,11 +920,18 @@ module soc_top # (
 	wire scope_armed, scope_triggered;
 	
 	assign leds[6:0] = gpio_out[22:16];
-	assign gpio_in[31:14] = 0;
+	assign gpio_in[22:14] = 0;
+	assign gpio_in[23] = gpio_rx_addr_ready;
+	assign gpio_in[24] = gpio_rx_packet_loss;
+	assign gpio_in[25] = gpio_tx_buf_rdy;
+	assign gpio_in[31:26] = 0;
 	assign gpio_in[7:0] = sw;
 	
 	assign rx_enable = gpio_in_sync[0];
 	assign tx_enable = gpio_in_sync[1];
+	
+	assign gpio_rx_addr_ready = gpio_out[23];
+	assign gpio_tx_buf_rdy = gpio_out[25];
 	
 vhdci_mux vhdci_mux_inst (
 	.clk_in(wb_clk),
@@ -925,8 +963,8 @@ vhdci_mux vhdci_mux_inst (
 	assign or1k_irq[5] = 0;
 	assign or1k_irq[6] = spi0_irq;
 	assign or1k_irq[7] = 0;
-	assign or1k_irq[8] = 0;
-	assign or1k_irq[9] = 0;
+	assign or1k_irq[8] = eth_rx_irq_flag;
+	assign or1k_irq[9] = eth_tx_irq_flag;
 	assign or1k_irq[10] = 0;
 	assign or1k_irq[11] = 0;
 	assign or1k_irq[12] = 0;

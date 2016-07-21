@@ -63,18 +63,6 @@ module wb_intercon
     output        wb_eth_rx_dma_ack_o,
     output        wb_eth_rx_dma_err_o,
     output        wb_eth_rx_dma_rty_o,
-    input  [31:0] wb_eth_tx_dma_adr_i,
-    input  [31:0] wb_eth_tx_dma_dat_i,
-    input   [3:0] wb_eth_tx_dma_sel_i,
-    input         wb_eth_tx_dma_we_i,
-    input         wb_eth_tx_dma_cyc_i,
-    input         wb_eth_tx_dma_stb_i,
-    input   [2:0] wb_eth_tx_dma_cti_i,
-    input   [1:0] wb_eth_tx_dma_bte_i,
-    output [31:0] wb_eth_tx_dma_dat_o,
-    output        wb_eth_tx_dma_ack_o,
-    output        wb_eth_tx_dma_err_o,
-    output        wb_eth_tx_dma_rty_o,
     output [31:0] wb_ddr2_dbus_adr_o,
     output [31:0] wb_ddr2_dbus_dat_o,
     output  [3:0] wb_ddr2_dbus_sel_o,
@@ -194,7 +182,19 @@ module wb_intercon
     input  [31:0] wb_sdr_reg_dat_i,
     input         wb_sdr_reg_ack_i,
     input         wb_sdr_reg_err_i,
-    input         wb_sdr_reg_rty_i);
+    input         wb_sdr_reg_rty_i,
+    output [31:0] wb_eth_tx_fifo_adr_o,
+    output [31:0] wb_eth_tx_fifo_dat_o,
+    output  [3:0] wb_eth_tx_fifo_sel_o,
+    output        wb_eth_tx_fifo_we_o,
+    output        wb_eth_tx_fifo_cyc_o,
+    output        wb_eth_tx_fifo_stb_o,
+    output  [2:0] wb_eth_tx_fifo_cti_o,
+    output  [1:0] wb_eth_tx_fifo_bte_o,
+    input  [31:0] wb_eth_tx_fifo_dat_i,
+    input         wb_eth_tx_fifo_ack_i,
+    input         wb_eth_tx_fifo_err_i,
+    input         wb_eth_tx_fifo_rty_i);
 
 wire [31:0] wb_m2s_or1k_d_sdr_reg_adr;
 wire [31:0] wb_m2s_or1k_d_sdr_reg_dat;
@@ -404,38 +404,6 @@ wb_mux
     .wbs_ack_i ({wb_ddr2_eth_rx_ack_i}),
     .wbs_err_i ({wb_ddr2_eth_rx_err_i}),
     .wbs_rty_i ({wb_ddr2_eth_rx_rty_i}));
-
-wb_mux
-  #(.num_slaves (1),
-    .MATCH_ADDR ({32'h00000000}),
-    .MATCH_MASK ({32'hf8000000}))
- wb_mux_eth_tx_dma
-   (.wb_clk_i  (wb_clk_i),
-    .wb_rst_i  (wb_rst_i),
-    .wbm_adr_i (wb_eth_tx_dma_adr_i),
-    .wbm_dat_i (wb_eth_tx_dma_dat_i),
-    .wbm_sel_i (wb_eth_tx_dma_sel_i),
-    .wbm_we_i  (wb_eth_tx_dma_we_i),
-    .wbm_cyc_i (wb_eth_tx_dma_cyc_i),
-    .wbm_stb_i (wb_eth_tx_dma_stb_i),
-    .wbm_cti_i (wb_eth_tx_dma_cti_i),
-    .wbm_bte_i (wb_eth_tx_dma_bte_i),
-    .wbm_dat_o (wb_eth_tx_dma_dat_o),
-    .wbm_ack_o (wb_eth_tx_dma_ack_o),
-    .wbm_err_o (wb_eth_tx_dma_err_o),
-    .wbm_rty_o (wb_eth_tx_dma_rty_o),
-    .wbs_adr_o ({wb_ddr2_eth_tx_adr_o}),
-    .wbs_dat_o ({wb_ddr2_eth_tx_dat_o}),
-    .wbs_sel_o ({wb_ddr2_eth_tx_sel_o}),
-    .wbs_we_o  ({wb_ddr2_eth_tx_we_o}),
-    .wbs_cyc_o ({wb_ddr2_eth_tx_cyc_o}),
-    .wbs_stb_o ({wb_ddr2_eth_tx_stb_o}),
-    .wbs_cti_o ({wb_ddr2_eth_tx_cti_o}),
-    .wbs_bte_o ({wb_ddr2_eth_tx_bte_o}),
-    .wbs_dat_i ({wb_ddr2_eth_tx_dat_i}),
-    .wbs_ack_i ({wb_ddr2_eth_tx_ack_i}),
-    .wbs_err_i ({wb_ddr2_eth_tx_err_i}),
-    .wbs_rty_i ({wb_ddr2_eth_tx_rty_i}));
 
 wb_data_resize
   #(.aw  (32),

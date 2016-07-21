@@ -55,7 +55,8 @@ module packet_receiver (
     input              wb_ack_i,
 	
 	input      [31:0]  wb_addr_offset,
-	input              wb_addr_ready
+	input              wb_addr_ready,
+	output reg         eth_rx_irq_flag
 	);
 	
 	reg data_out_reg;
@@ -83,6 +84,7 @@ module packet_receiver (
 	wire forward_last;
 	wire forward_empty;
 	reg  forward_enable;
+	reg  wb_addr_ready_edge_buf;
 	
 	reg wait_for_fifo;
 	reg reset_fifo;
@@ -284,6 +286,8 @@ module packet_receiver (
 			wb_sel_o <= 4'b1111;
 			wb_transfer_active <= 0;
 			wb_addr_counter <= 0;
+			wb_addr_ready_edge_buf <= 0;
+			eth_rx_irq_flag <= 0;
 		end else begin
 			if (wb_transfer_active) begin
 				wb_cyc_o <= 1;
@@ -296,13 +300,17 @@ module packet_receiver (
 						wb_cyc_o <= 0;
 						wb_stb_o <= 0;
 						wb_transfer_active <= 0;
+						eth_rx_irq_flag <= 1;
 					end
 				end
-			end else if (eth_buf_empty == 1'b0 && wb_addr_ready == 1'b1) begin
+			end else if (eth_buf_empty == 1'b0 && wb_addr_ready == 1'b1 && wb_addr_ready_edge_buf == 1'b0) begin
 				wb_transfer_active <= 1;
 				wb_adr_o <= wb_addr_offset + wb_addr_counter;
 				wb_addr_counter <= wb_addr_counter + 4;
+			end else if (wb_addr_ready == 1'b0) begin
+				eth_rx_irq_flag <= 0;
 			end
+			wb_addr_ready_edge_buf <= wb_addr_ready;
 		end
 	end
 
