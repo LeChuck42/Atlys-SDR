@@ -1,3 +1,4 @@
+.\..\..\hdl\coregen\forward_buffer.v
 .\..\..\hdl\packet_receiver.v
 .\..\..\hdl\coregen\dac_sample_fifo.v
 .\..\..\hdl\dac_tx.v

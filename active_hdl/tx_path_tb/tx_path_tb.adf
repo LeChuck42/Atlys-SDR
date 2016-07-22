@@ -24,7 +24,7 @@ LANGUAGE=VHDL
 REFRESH_FLOW=1
 FLOWTOOLS=NONE
 FAMILY=Xilinx SPARTAN6
-fileopenfolder=C:\Xilinx\14.7\ISE_DS\ISE\verilog\src
+fileopenfolder=D:\FPGA\atlys_sdr\hdl\coregen
 DisableIEEEWarnings=0
 DisableVitalMsg=0
 VitalAccel=1
@@ -102,20 +102,6 @@ HierarchyInformation=tx_path_tb|sim|0
 ShowHide=ShowTopLevel
 Selected=
 
-[Files.Data]
-.\..\..\hdl\packet_receiver.v=Verilog Source Code
-.\..\..\hdl\dac_tx.v=Verilog Source Code
-.\src\tx_path_tb.vhd=VHDL Source Code
-.\..\..\hdl\coregen\dac_sample_fifo.v=Verilog Source Code
-C:\Xilinx\14.7\ISE_DS\ISE\verilog\src\glbl.v=Verilog Source Code
-
-[Files]
-/..\..\..\hdl\packet_receiver.v=-1
-/..\..\..\hdl\coregen\dac_sample_fifo.v=-1
-/..\..\..\hdl\dac_tx.v=-1
-/tx_path_tb.vhd=-1
-/C:\Xilinx\14.7\ISE_DS\ISE\verilog\src\glbl.v=-1
-
 [LoadVHPI]
 Count=0
 
@@ -124,4 +110,20 @@ unimacro_ver=
 unisims_ver=
 xilinxcorelib_ver=
 simprims_ver=
+
+[Files.Data]
+.\..\..\hdl\packet_receiver.v=Verilog Source Code
+.\..\..\hdl\coregen\dac_sample_fifo.v=Verilog Source Code
+.\..\..\hdl\dac_tx.v=Verilog Source Code
+.\src\tx_path_tb.vhd=VHDL Source Code
+C:\Xilinx\14.7\ISE_DS\ISE\verilog\src\glbl.v=Verilog Source Code
+.\..\..\hdl\coregen\forward_buffer.v=Verilog Source Code
+
+[Files]
+/..\..\..\hdl\coregen\forward_buffer.v=-1
+/..\..\..\hdl\packet_receiver.v=-1
+/..\..\..\hdl\coregen\dac_sample_fifo.v=-1
+/..\..\..\hdl\dac_tx.v=-1
+/tx_path_tb.vhd=-1
+/C:\Xilinx\14.7\ISE_DS\ISE\verilog\src\glbl.v=-1
 

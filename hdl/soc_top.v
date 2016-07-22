@@ -114,7 +114,7 @@ module soc_top # (
 	output wire flash_spi_sck,
 	inout wire [3:0] flash_spi_io,
 	
-	output reg [7:0] pmod
+	output wire [7:0] pmod
 	);
 
 	wire wb_rst, wb_clk;
@@ -186,7 +186,6 @@ module soc_top # (
 		GMII_TX_EN_pin <= GMII_TX_EN;
 		GMII_TX_ER_pin <= GMII_TX_ER;
 		GMII_TXD_pin <= GMII_TXD;
-		pmod <= GMII_TXD;
 	end
 	
 	// LEDs for debugging
@@ -294,18 +293,21 @@ module soc_top # (
 	
 	wire rx_enable;
 	wire tx_enable;
+	wire gpio_tx_status_enable;
 	
 	always @(posedge clk_baud or posedge wb_rst) begin
 		if (wb_rst) begin
 			tx_fifo_status_req <= 0;
 			status_req_clk_div_cnt <= 0;
-		end else begin
+		end else if (gpio_tx_status_enable == 1'b1) begin
 			if (status_req_clk_div_cnt == status_req_clk_div_val) begin
 				tx_fifo_status_req <= ~tx_fifo_status_req;
 				status_req_clk_div_cnt <= 0;
 			end else
 				status_req_clk_div_cnt <= status_req_clk_div_cnt + 1;
-				
+		end else begin
+			tx_fifo_status_req <= 0;
+			status_req_clk_div_cnt <= 0;
 		end
 	end
 	
@@ -315,8 +317,7 @@ module soc_top # (
 	wire eth_tx_fifo_empty;
 	wire eth_tx_fifo_full;
 	wire gpio_tx_buf_rdy;
-	
-	wire eth_tx_fifo_wr = wb_m2s_eth_tx_fifo_sel & wb_m2s_eth_tx_fifo_stb & wb_m2s_eth_tx_fifo_we & ~eth_tx_fifo_full;
+
 	// Send out Ethernet packets
 	packet_sender packet_sender (
 		.clk(clk_125),
@@ -327,38 +328,34 @@ module soc_top # (
 		.wr_src_rdy_o(wr2_src_rdy),
 		.tx_fifo_status(tx_fifo_status_req),
 		.tx_fifo_cnt(tx_fifo_cnt),
-		// primary interface: Configuration Data
-		.pri_fifo_d(eth_tx_fifo_d),
-		.pri_fifo_req(gpio_tx_buf_rdy),
-		.pri_fifo_rd(eth_tx_fifo_rd),
-		.pri_fifo_empty(eth_tx_fifo_empty),
+		// primary interface: DMA
+		.wb_clk_i(wb_clk),
+		.wb_rst_i(wb_rst),
+		.wb_adr_o(wb_m2s_eth_tx_dma_adr),
+		.wb_stb_o(wb_m2s_eth_tx_dma_stb),
+		.wb_cyc_o(wb_m2s_eth_tx_dma_cyc),
+		.wb_cti_o(wb_m2s_eth_tx_dma_cti),
+		.wb_bte_o(wb_m2s_eth_tx_dma_bte),
+		.wb_we_o(wb_m2s_eth_tx_dma_we),
+		.wb_sel_o(wb_m2s_eth_tx_dma_sel),
+		.wb_dat_o(wb_m2s_eth_tx_dma_dat),
+		.wb_dat_i(wb_s2m_eth_tx_dma_dat),
+		.wb_ack_i(wb_s2m_eth_tx_dma_ack),
+		
+		.wb_addr_offset(reg_eth_tx_addr_offset),
+		.wb_addr_ready(gpio_tx_buf_rdy),
+		.wb_buf_size(reg_eth_tx_buf_size),
+		
 		// secondary interface: ADC Data
-		.sec_fifo_d(adc_fifo_d),
-		.sec_packet_size_i(sec_packet_size_i),
-		.sec_fifo_req(~adc_fifo_ae),
-		.sec_fifo_rd(adc_data_re),
+		.adc_fifo_d(adc_fifo_d),
+		.adc_packet_size_i(sec_packet_size_i),
+		.adc_fifo_req(~adc_fifo_ae),
+		.adc_fifo_rd(adc_data_re),
 		.my_mac(reg_my_mac),
 		.my_ip(reg_my_ip),
 		.dst_mac(reg_dst_mac),
 		.dst_ip(reg_dst_ip),
 		.eth_tx_irq_flag(eth_tx_irq_flag));
-	
-	assign wb_s2m_eth_tx_fifo_ack = eth_tx_fifo_wr;
-	assign wb_s2m_eth_tx_fifo_err = 1'b0;
-	assign wb_s2m_eth_tx_fifo_rty = 1'b0;
-	assign wb_s2m_eth_tx_fifo_dat = 0;
-	
-	wb_fifo tx_fifo (
-		.wr_clk(wb_clk),
-		.rd_clk(clk_125),
-		.rst(wb_rst),
-		.din(wb_m2s_eth_tx_fifo_dat),
-		.wr_en(eth_tx_fifo_wr),
-		.rd_en(eth_tx_fifo_rd),
-		.dout(eth_tx_fifo_d),
-		.full(eth_tx_fifo_full),
-		.empty(eth_tx_fifo_empty)
-		);
 	
 	wire [31:0] adc_data;
 	wire clk_adc;
@@ -452,7 +449,8 @@ module soc_top # (
 		                           
 		.wb_addr_offset(reg_eth_rx_addr_offset),
 		.wb_addr_ready(gpio_rx_addr_ready),
-		.eth_rx_irq_flag(eth_rx_irq_flag)
+		.eth_rx_irq_flag(eth_rx_irq_flag),
+		.debug(pmod)
 	);
 	
 	dac_tx dac_tx_inst (
@@ -848,9 +846,9 @@ module soc_top # (
 		.miso_i		(spi0_miso)
 	);
 	
-	wire [32*8-1:0] reg_data_out;
-	wire [32*8-1:0] reg_data_in;
-	wire [   8-1:0] reg_data_we;
+	wire [32*16-1:0] reg_data_out;
+	wire [32*16-1:0] reg_data_in;
+	wire [   16-1:0] reg_data_we;
 	
 	assign reg_data_we = 0;
 	assign reg_data_in = 0;
@@ -860,10 +858,12 @@ module soc_top # (
 	wire [31:0] reg_dst_ip             = reg_data_out[127:96];
 	wire [47:0] reg_dst_mac            = reg_data_out[175:128];
 	wire [31:0] reg_eth_rx_addr_offset = reg_data_out[223:192];
+	wire [31:0] reg_eth_tx_addr_offset = reg_data_out[255:224];
+	wire [9:0]  reg_eth_tx_buf_size    = reg_data_out[265:256];
 	
 	wb_config # (
 		.DATA_WIDTH(32),
-		.ADDR_WIDTH(3))
+		.ADDR_WIDTH(4))
 	wb_config0 (
 		.CLK         (wb_clk),
 	    .RST         (wb_rst),
@@ -913,18 +913,14 @@ module soc_top # (
 		.wb_ack_o (wb_s2m_gpio0_ack),
 		.wb_err_o (wb_s2m_gpio0_err),
 		.wb_rty_o (wb_s2m_gpio0_rty),
-		.gpio_i   (gpio_in_sync),
+		.gpio_i   ({5'd0, gpio_tx_status_enable, gpio_tx_buf_rdy, gpio_rx_packet_loss, gpio_rx_addr_ready, 9'd0, gpio_in_sync[13:0]}),
 		.gpio_o   (gpio_out),
 		.gpio_dir_o ());
 		
 	wire scope_armed, scope_triggered;
 	
 	assign leds[6:0] = gpio_out[22:16];
-	assign gpio_in[22:14] = 0;
-	assign gpio_in[23] = gpio_rx_addr_ready;
-	assign gpio_in[24] = gpio_rx_packet_loss;
-	assign gpio_in[25] = gpio_tx_buf_rdy;
-	assign gpio_in[31:26] = 0;
+	
 	assign gpio_in[7:0] = sw;
 	
 	assign rx_enable = gpio_in_sync[0];
@@ -932,6 +928,7 @@ module soc_top # (
 	
 	assign gpio_rx_addr_ready = gpio_out[23];
 	assign gpio_tx_buf_rdy = gpio_out[25];
+	assign gpio_tx_status_enable = gpio_out[26];
 	
 vhdci_mux vhdci_mux_inst (
 	.clk_in(wb_clk),

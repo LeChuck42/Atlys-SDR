@@ -12,6 +12,7 @@ C:\Aldec\Active-HDL-10.2\vlib\xilinx_ise\verilog\unisims_ver/src/ODDR2.v=S
 d:\FPGA\atlys_sdr/hdl/coregen/dac_sample_fifo.v=S
 C:\Aldec\Active-HDL-10.2\vlib\xilinx_ise\verilog\unisims_ver/src/BUFG.v=S
 C:\Aldec\Active-HDL-10.2\vlib\xilinx_ise\verilog\unisims_ver/src/IBUFDS.v=S
+d:\FPGA\atlys_sdr/hdl/coregen/forward_buffer.v=S
 d:\FPGA\atlys_sdr/hdl/dac_tx.v=S
 d:\FPGA\atlys_sdr/hdl/packet_receiver.v=S
 d:\FPGA\atlys_sdr\active_hdl\tx_path_tb/src/tx_path_tb.vhd=S

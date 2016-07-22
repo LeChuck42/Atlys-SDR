@@ -116,6 +116,11 @@ Discarded input sections
  .group         0x0000000000000000        0x8 ./adc.o
  .group         0x0000000000000000        0x8 ./adc.o
  .group         0x0000000000000000        0x8 ./adc.o
+ .group         0x0000000000000000        0x8 ./arp.o
+ .group         0x0000000000000000        0x8 ./arp.o
+ .group         0x0000000000000000        0x8 ./arp.o
+ .group         0x0000000000000000        0x8 ./arp.o
+ .debug_macro   0x0000000000000000      0x4f6 ./arp.o
  .group         0x0000000000000000        0x8 ./atlys.o
  .group         0x0000000000000000        0x8 ./atlys.o
  .debug_macro   0x0000000000000000      0x4f6 ./atlys.o
@@ -156,12 +161,35 @@ Discarded input sections
  .group         0x0000000000000000        0x8 ./debug.o
  .group         0x0000000000000000        0x8 ./debug.o
  .group         0x0000000000000000        0x8 ./debug.o
+ .group         0x0000000000000000        0x8 ./debug.o
+ .group         0x0000000000000000        0x8 ./debug.o
+ .group         0x0000000000000000        0x8 ./debug.o
  .debug_macro   0x0000000000000000      0x4f6 ./debug.o
- .debug_macro   0x0000000000000000      0x196 ./debug.o
+ .debug_macro   0x0000000000000000      0x1f6 ./debug.o
  .debug_macro   0x0000000000000000       0x46 ./debug.o
  .debug_macro   0x0000000000000000       0x16 ./debug.o
  .debug_macro   0x0000000000000000       0x2e ./debug.o
  .debug_macro   0x0000000000000000       0xa2 ./debug.o
+ .group         0x0000000000000000        0x8 ./eth.o
+ .group         0x0000000000000000        0x8 ./eth.o
+ .group         0x0000000000000000        0x8 ./eth.o
+ .group         0x0000000000000000        0x8 ./eth.o
+ .group         0x0000000000000000        0x8 ./eth.o
+ .group         0x0000000000000000        0x8 ./eth.o
+ .group         0x0000000000000000        0x8 ./eth.o
+ .group         0x0000000000000000        0x8 ./eth.o
+ .group         0x0000000000000000        0x8 ./eth.o
+ .group         0x0000000000000000        0x8 ./eth.o
+ .debug_macro   0x0000000000000000      0x4f6 ./eth.o
+ .debug_macro   0x0000000000000000      0x1f6 ./eth.o
+ .debug_macro   0x0000000000000000       0x1c ./eth.o
+ .debug_macro   0x0000000000000000       0x46 ./eth.o
+ .debug_macro   0x0000000000000000       0x16 ./eth.o
+ .debug_macro   0x0000000000000000       0x2e ./eth.o
+ .debug_macro   0x0000000000000000       0xa2 ./eth.o
+ .debug_macro   0x0000000000000000      0x20e ./eth.o
+ .debug_macro   0x0000000000000000       0x46 ./eth.o
+ .debug_macro   0x0000000000000000       0x1c ./eth.o
  .group         0x0000000000000000        0x8 ./fpga.o
  .group         0x0000000000000000        0x8 ./fpga.o
  .group         0x0000000000000000        0x8 ./fpga.o
@@ -191,17 +219,29 @@ Discarded input sections
  .group         0x0000000000000000        0x8 ./main.o
  .group         0x0000000000000000        0x8 ./main.o
  .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
+ .group         0x0000000000000000        0x8 ./main.o
  .debug_macro   0x0000000000000000      0x4f6 ./main.o
  .debug_macro   0x0000000000000000       0x46 ./main.o
  .debug_macro   0x0000000000000000       0x16 ./main.o
  .debug_macro   0x0000000000000000       0x2e ./main.o
  .debug_macro   0x0000000000000000       0xa2 ./main.o
  .debug_macro   0x0000000000000000      0x20e ./main.o
- .debug_macro   0x0000000000000000      0x196 ./main.o
+ .debug_macro   0x0000000000000000      0x1f6 ./main.o
  .debug_macro   0x0000000000000000       0x16 ./main.o
  .debug_macro   0x0000000000000000       0x34 ./main.o
  .debug_macro   0x0000000000000000       0x22 ./main.o
  .debug_macro   0x0000000000000000       0x4c ./main.o
+ .debug_macro   0x0000000000000000       0x1c ./main.o
+ .debug_macro   0x0000000000000000       0x22 ./main.o
+ .debug_macro   0x0000000000000000       0x46 ./main.o
+ .debug_macro   0x0000000000000000       0x1c ./main.o
+ .group         0x0000000000000000        0x8 ./packet.o
+ .group         0x0000000000000000        0x8 ./packet.o
+ .group         0x0000000000000000        0x8 ./packet.o
+ .debug_macro   0x0000000000000000      0x4f6 ./packet.o
+ .debug_macro   0x0000000000000000       0x22 ./packet.o
+ .debug_macro   0x0000000000000000       0x34 ./packet.o
  .group         0x0000000000000000        0x8 ./spi.o
  .group         0x0000000000000000        0x8 ./spi.o
  .group         0x0000000000000000        0x8 ./spi.o
@@ -228,7 +268,7 @@ Discarded input sections
  .group         0x0000000000000000        0x8 ./spi.o
  .group         0x0000000000000000        0x8 ./spi.o
  .debug_macro   0x0000000000000000      0x4f6 ./spi.o
- .debug_macro   0x0000000000000000      0x196 ./spi.o
+ .debug_macro   0x0000000000000000      0x1f6 ./spi.o
  .debug_macro   0x0000000000000000       0x46 ./spi.o
  .debug_macro   0x0000000000000000       0x16 ./spi.o
  .debug_macro   0x0000000000000000       0x2e ./spi.o
@@ -278,12 +318,13 @@ Discarded input sections
  .group         0x0000000000000000        0x8 ./timer.o
  .group         0x0000000000000000        0x8 ./timer.o
  .debug_macro   0x0000000000000000      0x4f6 ./timer.o
- .debug_macro   0x0000000000000000      0x196 ./timer.o
+ .debug_macro   0x0000000000000000      0x1f6 ./timer.o
  .debug_macro   0x0000000000000000       0x46 ./timer.o
  .debug_macro   0x0000000000000000       0x46 ./timer.o
  .debug_macro   0x0000000000000000       0x16 ./timer.o
  .debug_macro   0x0000000000000000       0x2e ./timer.o
  .debug_macro   0x0000000000000000       0xa2 ./timer.o
+ .debug_macro   0x0000000000000000      0x214 ./timer.o
  .debug_macro   0x0000000000000000       0x1c ./timer.o
  .debug_macro   0x0000000000000000       0x16 ./timer.o
  .debug_macro   0x0000000000000000       0x16 ./timer.o
@@ -392,7 +433,7 @@ LOAD /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
 .iplt
  *(.iplt)
 
-.text           0x0000000000002028     0x8164
+.text           0x0000000000002028     0x8d74
  *(.text.unlikely .text.*_unlikely .text.unlikely.*)
  *(.text.exit .text.exit.*)
  *(.text.startup .text.startup.*)
@@ -406,243 +447,258 @@ LOAD /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
  .text          0x0000000000002148      0x258 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
  .text          0x00000000000023a0      0x14c ./adc.o
                 0x0000000000002480                ADC_SetFormat
- .text          0x00000000000024ec        0x0 ./atlys.o
- .text          0x00000000000024ec      0x3f8 ./clk.o
-                0x0000000000002724                CLK_ReadRegister
-                0x00000000000027b8                CLK_WriteConfig
- .text          0x00000000000028e4      0x228 ./debug.o
-                0x00000000000028e4                DEBUG_LEDCallback
-                0x0000000000002984                DEBUG_TriggerLED
-                0x00000000000029e4                __uart_init
-                0x0000000000002a38                __uart_putc
-                0x0000000000002abc                __uart_getc
- .text          0x0000000000002b0c      0x198 ./fpga.o
-                0x0000000000002be0                FPGA_SetBits
-                0x0000000000002c34                FPGA_ClearBits
- .text          0x0000000000002ca4       0xf8 ./main.o
-                0x0000000000002ca4                blink
-                0x0000000000002d3c                main
- .text          0x0000000000002d9c      0x780 ./spi.o
-                0x0000000000002d9c                SPI_Init
-                0x0000000000002e20                SPI_ChipSelect
-                0x0000000000002fc0                SPI_Write
-                0x0000000000003040                SPI_WaitBusy
-                0x0000000000003078                SPI_Read
-                0x000000000000314c                SPI_SetInterruptCount
-                0x000000000000323c                SPI_SetMode
-                0x00000000000032fc                SPI_Busy
-                0x0000000000003344                SPI_DefaultCallback
-                0x00000000000033c8                SPI_GetMutex
-                0x000000000000344c                SPI_ReleaseMutex
-                0x00000000000034b8                SPI_Interrupt
- .text          0x000000000000351c      0x8e8 ./timer.o
-                0x000000000000351c                TIMER_Init
-                0x0000000000003594                ISR_Timer
-                0x00000000000037b4                TIMER_AddHandler
-                0x0000000000003a5c                TIMER_RemoveHandler
-                0x0000000000003afc                TIMER_Stop
-                0x0000000000003bc4                TIMER_Start
-                0x0000000000003cfc                TIMER_SetReload
-                0x0000000000003dcc                TIMER_GetDelta
- .text          0x0000000000003e04       0x30 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
-                0x0000000000003e04                atexit
- .text          0x0000000000003e34      0x140 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
-                0x0000000000003e34                __register_exitproc
- .text          0x0000000000003f74       0x48 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
-                0x0000000000003f74                exit
- .text          0x0000000000003fbc        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
- .text          0x0000000000003fbc       0x6c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
-                0x0000000000003fbc                iprintf
-                0x0000000000003ffc                _iprintf_r
- .text          0x0000000000004028      0x184 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
-                0x0000000000004028                __impure_init
-                0x000000000000418c                __getreent
- .text          0x00000000000041ac      0x4a8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support-asm.o)
-                0x00000000000041ac                or1k_dmmu_enable
-                0x00000000000041c0                or1k_dmmu_disable
-                0x00000000000041dc                or1k_immu_enable
-                0x00000000000041f0                or1k_immu_disable
-                0x000000000000420c                or1k_cache_init
-                0x0000000000004314                or1k_icache_enable
-                0x000000000000433c                or1k_icache_disable
-                0x0000000000004358                or1k_icache_flush
-                0x0000000000004360                or1k_dcache_enable
-                0x0000000000004388                or1k_dcache_disable
-                0x00000000000043a4                or1k_dcache_flush
-                0x00000000000043ac                or1k_interrupt_handler
-                0x0000000000004438                or1k_interrupt_handler_add
-                0x0000000000004470                or1k_interrupt_enable
-                0x0000000000004498                or1k_interrupt_disable
-                0x00000000000044c4                or1k_exception_handler
-                0x0000000000004628                or1k_exception_handler_add
- .text          0x0000000000004654      0x458 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
-                0x0000000000004654                or1k_timer_interrupt_handler
-                0x00000000000046a4                or1k_interrupts_enable
-                0x00000000000046c8                or1k_interrupts_disable
-                0x00000000000046fc                or1k_interrupts_restore
-                0x0000000000004724                or1k_report
-                0x0000000000004740                or1k_mtspr
-                0x0000000000004758                or1k_mfspr
-                0x0000000000004770                or1k_rand
-                0x00000000000047cc                or1k_timer_init
-                0x0000000000004884                or1k_timer_set_period
-                0x00000000000048f0                or1k_timer_set_handler
-                0x0000000000004918                or1k_timer_set_mode
-                0x0000000000004940                or1k_timer_enable
-                0x0000000000004990                or1k_timer_disable
-                0x00000000000049c4                or1k_timer_restore
-                0x00000000000049ec                or1k_timer_pause
-                0x0000000000004a20                or1k_timer_reset
-                0x0000000000004a60                or1k_timer_get_ticks
-                0x0000000000004a80                or1k_timer_reset_ticks
- .text          0x0000000000004aac     0x1434 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
-                0x0000000000004bc8                __sprint_r
-                0x0000000000004c0c                _vfiprintf_r
-                0x0000000000005da4                vfiprintf
- .text          0x0000000000005ee0      0x1b8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
-                0x0000000000005ee0                __swsetup_r
- .text          0x0000000000006098      0x1e8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
-                0x0000000000006098                __call_exitprocs
- .text          0x0000000000006280      0x404 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
-                0x0000000000006280                __sflush_r
-                0x000000000000659c                _fflush_r
-                0x0000000000006614                fflush
- .text          0x0000000000006684      0x4d4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
-                0x00000000000066b4                _cleanup_r
-                0x0000000000006884                __sfmoreglue
-                0x00000000000068fc                __sfp
-                0x0000000000006a44                _cleanup
-                0x0000000000006a78                __sinit
-                0x0000000000006aa8                __sfp_lock_acquire
-                0x0000000000006abc                __sfp_lock_release
-                0x0000000000006ad0                __sinit_lock_acquire
-                0x0000000000006ae4                __sinit_lock_release
-                0x0000000000006af8                __fp_lock_all
-                0x0000000000006b28                __fp_unlock_all
- .text          0x0000000000006b58      0x22c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
-                0x0000000000006b58                _fputwc_r
-                0x0000000000006d10                fputwc
- .text          0x0000000000006d84      0x48c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
-                0x0000000000006d84                _malloc_trim_r
-                0x0000000000006ed0                _free_r
- .text          0x0000000000007210      0x59c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
-                0x0000000000007210                __sfvwrite_r
- .text          0x00000000000077ac      0x1ac /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
-                0x00000000000077ac                _fwalk
-                0x0000000000007884                _fwalk_reent
- .text          0x0000000000007958      0x18c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
-                0x0000000000007958                _setlocale_r
-                0x00000000000079e8                __locale_charset
-                0x0000000000007a04                __locale_mb_cur_max
-                0x0000000000007a24                __locale_msgcharset
-                0x0000000000007a40                __locale_cjk_lang
-                0x0000000000007a58                _localeconv_r
-                0x0000000000007a74                setlocale
-                0x0000000000007abc                localeconv
- .text          0x0000000000007ae4      0x1dc /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
-                0x0000000000007ae4                __smakebuf_r
- .text          0x0000000000007cc0      0x988 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
-                0x0000000000007cc0                _malloc_r
- .text          0x0000000000008648      0x154 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
-                0x0000000000008648                memchr
- .text          0x000000000000879c      0x15c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
-                0x000000000000879c                memcpy
- .text          0x00000000000088f8      0x1a4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
-                0x00000000000088f8                memmove
- .text          0x0000000000008a9c      0x168 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
-                0x0000000000008a9c                memset
- .text          0x0000000000008c04      0x110 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
-                0x0000000000008c04                __malloc_lock
-                0x0000000000008ca4                __malloc_unlock
- .text          0x0000000000008d14      0x5b8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
-                0x0000000000008d14                _realloc_r
- .text          0x00000000000092cc      0x19c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
-                0x00000000000092cc                __sread
-                0x0000000000009334                __seofread
-                0x000000000000934c                __swrite
-                0x00000000000093dc                __sseek
-                0x0000000000009444                __sclose
- .text          0x0000000000009468      0x124 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
-                0x0000000000009468                strcmp
- .text          0x000000000000958c      0x108 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
-                0x000000000000958c                strlen
- .text          0x0000000000009694      0x1e4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
-                0x0000000000009694                __swbuf_r
-                0x0000000000009830                __swbuf
- .text          0x0000000000009878      0x18c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
-                0x0000000000009878                _wcrtomb_r
-                0x000000000000993c                wcrtomb
- .text          0x0000000000009a04       0xc8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
-                0x0000000000009a04                __ascii_wctomb
-                0x0000000000009a50                _wctomb_r
- .text          0x0000000000009acc      0x194 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
-                0x0000000000009acc                _fclose_r
-                0x0000000000009c28                fclose
- .text          0x0000000000009c60       0x10 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
-                0x0000000000009c60                _exit
- .text          0x0000000000009c70       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
-                0x0000000000009c70                _close_r
- .text          0x0000000000009c90       0x6c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
-                0x0000000000009c90                _fstat_r
- .text          0x0000000000009cfc       0x68 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
-                0x0000000000009cfc                _isatty_r
- .text          0x0000000000009d64       0x68 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
-                0x0000000000009d64                _lseek_r
- .text          0x0000000000009dcc       0xd0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
-                0x0000000000009dcc                _read_r
- .text          0x0000000000009e9c       0x58 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
-                0x0000000000009e9c                _sbrk_r
- .text          0x0000000000009ef4       0xd8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
-                0x0000000000009ef4                _write_r
- .text          0x0000000000009fcc       0x34 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libboard-or1ksim.a(or1ksim.o)
-                0x0000000000009fe4                _board_exit
-                0x0000000000009ff8                _board_init
- .text          0x000000000000a000       0xfc /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/libgcc.a(__udivsi3.o)
-                0x000000000000a000                __udivsi3_internal
-                0x000000000000a000                __udivsi3
- .text          0x000000000000a0fc       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/libgcc.a(__umodsi3.o)
-                0x000000000000a0fc                __umodsi3
- .text          0x000000000000a11c       0x70 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
- .text          0x000000000000a18c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtn.o
+ .text          0x00000000000024ec      0x1c4 ./arp.o
+                0x00000000000024ec                ARP_Request
+ .text          0x00000000000026b0        0x0 ./atlys.o
+ .text          0x00000000000026b0      0x3f8 ./clk.o
+                0x00000000000028e8                CLK_ReadRegister
+                0x000000000000297c                CLK_WriteConfig
+ .text          0x0000000000002aa8      0x3b0 ./debug.o
+                0x0000000000002aa8                DEBUG_LEDCallback
+                0x0000000000002b48                DEBUG_SetLed
+                0x0000000000002cd0                DEBUG_TriggerLED
+                0x0000000000002d30                __uart_init
+                0x0000000000002d84                __uart_putc
+                0x0000000000002e08                __uart_getc
+ .text          0x0000000000002e58      0x76c ./eth.o
+                0x0000000000002e58                ETH_Init
+                0x0000000000002ec4                ETH_CheckPacket
+                0x0000000000003004                ETH_GetEmpty
+                0x00000000000030fc                ETH_GetBuffer
+                0x0000000000003188                ETH_StartTransmit
+                0x00000000000032cc                ETH_Free
+                0x000000000000334c                ETH_RX_Interrupt
+                0x0000000000003548                ETH_TX_Interrupt
+ .text          0x00000000000035c4      0x198 ./fpga.o
+                0x0000000000003698                FPGA_SetBits
+                0x00000000000036ec                FPGA_ClearBits
+ .text          0x000000000000375c      0x150 ./main.o
+                0x000000000000375c                blink
+                0x0000000000003804                main
+ .text          0x00000000000038ac      0x108 ./packet.o
+                0x00000000000038ac                PACKET_Process
+ .text          0x00000000000039b4      0x778 ./spi.o
+                0x00000000000039b4                SPI_Init
+                0x0000000000003a30                SPI_ChipSelect
+                0x0000000000003bd0                SPI_Write
+                0x0000000000003c50                SPI_WaitBusy
+                0x0000000000003c88                SPI_Read
+                0x0000000000003d5c                SPI_SetInterruptCount
+                0x0000000000003e4c                SPI_SetMode
+                0x0000000000003f0c                SPI_Busy
+                0x0000000000003f54                SPI_DefaultCallback
+                0x0000000000003fd8                SPI_GetMutex
+                0x000000000000405c                SPI_ReleaseMutex
+                0x00000000000040c8                SPI_Interrupt
+ .text          0x000000000000412c      0x8e8 ./timer.o
+                0x000000000000412c                TIMER_Init
+                0x00000000000041a4                ISR_Timer
+                0x00000000000043c4                TIMER_AddHandler
+                0x000000000000466c                TIMER_RemoveHandler
+                0x000000000000470c                TIMER_Stop
+                0x00000000000047d4                TIMER_Start
+                0x000000000000490c                TIMER_SetReload
+                0x00000000000049dc                TIMER_GetDelta
+ .text          0x0000000000004a14       0x30 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
+                0x0000000000004a14                atexit
+ .text          0x0000000000004a44      0x140 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
+                0x0000000000004a44                __register_exitproc
+ .text          0x0000000000004b84       0x48 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
+                0x0000000000004b84                exit
+ .text          0x0000000000004bcc        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
+ .text          0x0000000000004bcc       0x6c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
+                0x0000000000004bcc                iprintf
+                0x0000000000004c0c                _iprintf_r
+ .text          0x0000000000004c38      0x184 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
+                0x0000000000004c38                __impure_init
+                0x0000000000004d9c                __getreent
+ .text          0x0000000000004dbc      0x4a8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support-asm.o)
+                0x0000000000004dbc                or1k_dmmu_enable
+                0x0000000000004dd0                or1k_dmmu_disable
+                0x0000000000004dec                or1k_immu_enable
+                0x0000000000004e00                or1k_immu_disable
+                0x0000000000004e1c                or1k_cache_init
+                0x0000000000004f24                or1k_icache_enable
+                0x0000000000004f4c                or1k_icache_disable
+                0x0000000000004f68                or1k_icache_flush
+                0x0000000000004f70                or1k_dcache_enable
+                0x0000000000004f98                or1k_dcache_disable
+                0x0000000000004fb4                or1k_dcache_flush
+                0x0000000000004fbc                or1k_interrupt_handler
+                0x0000000000005048                or1k_interrupt_handler_add
+                0x0000000000005080                or1k_interrupt_enable
+                0x00000000000050a8                or1k_interrupt_disable
+                0x00000000000050d4                or1k_exception_handler
+                0x0000000000005238                or1k_exception_handler_add
+ .text          0x0000000000005264      0x458 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
+                0x0000000000005264                or1k_timer_interrupt_handler
+                0x00000000000052b4                or1k_interrupts_enable
+                0x00000000000052d8                or1k_interrupts_disable
+                0x000000000000530c                or1k_interrupts_restore
+                0x0000000000005334                or1k_report
+                0x0000000000005350                or1k_mtspr
+                0x0000000000005368                or1k_mfspr
+                0x0000000000005380                or1k_rand
+                0x00000000000053dc                or1k_timer_init
+                0x0000000000005494                or1k_timer_set_period
+                0x0000000000005500                or1k_timer_set_handler
+                0x0000000000005528                or1k_timer_set_mode
+                0x0000000000005550                or1k_timer_enable
+                0x00000000000055a0                or1k_timer_disable
+                0x00000000000055d4                or1k_timer_restore
+                0x00000000000055fc                or1k_timer_pause
+                0x0000000000005630                or1k_timer_reset
+                0x0000000000005670                or1k_timer_get_ticks
+                0x0000000000005690                or1k_timer_reset_ticks
+ .text          0x00000000000056bc     0x1434 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
+                0x00000000000057d8                __sprint_r
+                0x000000000000581c                _vfiprintf_r
+                0x00000000000069b4                vfiprintf
+ .text          0x0000000000006af0      0x1b8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
+                0x0000000000006af0                __swsetup_r
+ .text          0x0000000000006ca8      0x1e8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
+                0x0000000000006ca8                __call_exitprocs
+ .text          0x0000000000006e90      0x404 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
+                0x0000000000006e90                __sflush_r
+                0x00000000000071ac                _fflush_r
+                0x0000000000007224                fflush
+ .text          0x0000000000007294      0x4d4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
+                0x00000000000072c4                _cleanup_r
+                0x0000000000007494                __sfmoreglue
+                0x000000000000750c                __sfp
+                0x0000000000007654                _cleanup
+                0x0000000000007688                __sinit
+                0x00000000000076b8                __sfp_lock_acquire
+                0x00000000000076cc                __sfp_lock_release
+                0x00000000000076e0                __sinit_lock_acquire
+                0x00000000000076f4                __sinit_lock_release
+                0x0000000000007708                __fp_lock_all
+                0x0000000000007738                __fp_unlock_all
+ .text          0x0000000000007768      0x22c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
+                0x0000000000007768                _fputwc_r
+                0x0000000000007920                fputwc
+ .text          0x0000000000007994      0x48c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
+                0x0000000000007994                _malloc_trim_r
+                0x0000000000007ae0                _free_r
+ .text          0x0000000000007e20      0x59c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
+                0x0000000000007e20                __sfvwrite_r
+ .text          0x00000000000083bc      0x1ac /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
+                0x00000000000083bc                _fwalk
+                0x0000000000008494                _fwalk_reent
+ .text          0x0000000000008568      0x18c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
+                0x0000000000008568                _setlocale_r
+                0x00000000000085f8                __locale_charset
+                0x0000000000008614                __locale_mb_cur_max
+                0x0000000000008634                __locale_msgcharset
+                0x0000000000008650                __locale_cjk_lang
+                0x0000000000008668                _localeconv_r
+                0x0000000000008684                setlocale
+                0x00000000000086cc                localeconv
+ .text          0x00000000000086f4      0x1dc /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
+                0x00000000000086f4                __smakebuf_r
+ .text          0x00000000000088d0      0x988 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
+                0x00000000000088d0                _malloc_r
+ .text          0x0000000000009258      0x154 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
+                0x0000000000009258                memchr
+ .text          0x00000000000093ac      0x15c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
+                0x00000000000093ac                memcpy
+ .text          0x0000000000009508      0x1a4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
+                0x0000000000009508                memmove
+ .text          0x00000000000096ac      0x168 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
+                0x00000000000096ac                memset
+ .text          0x0000000000009814      0x110 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
+                0x0000000000009814                __malloc_lock
+                0x00000000000098b4                __malloc_unlock
+ .text          0x0000000000009924      0x5b8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
+                0x0000000000009924                _realloc_r
+ .text          0x0000000000009edc      0x19c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
+                0x0000000000009edc                __sread
+                0x0000000000009f44                __seofread
+                0x0000000000009f5c                __swrite
+                0x0000000000009fec                __sseek
+                0x000000000000a054                __sclose
+ .text          0x000000000000a078      0x124 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
+                0x000000000000a078                strcmp
+ .text          0x000000000000a19c      0x108 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
+                0x000000000000a19c                strlen
+ .text          0x000000000000a2a4      0x1e4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
+                0x000000000000a2a4                __swbuf_r
+                0x000000000000a440                __swbuf
+ .text          0x000000000000a488      0x18c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
+                0x000000000000a488                _wcrtomb_r
+                0x000000000000a54c                wcrtomb
+ .text          0x000000000000a614       0xc8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
+                0x000000000000a614                __ascii_wctomb
+                0x000000000000a660                _wctomb_r
+ .text          0x000000000000a6dc      0x194 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
+                0x000000000000a6dc                _fclose_r
+                0x000000000000a838                fclose
+ .text          0x000000000000a870       0x10 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
+                0x000000000000a870                _exit
+ .text          0x000000000000a880       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
+                0x000000000000a880                _close_r
+ .text          0x000000000000a8a0       0x6c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
+                0x000000000000a8a0                _fstat_r
+ .text          0x000000000000a90c       0x68 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
+                0x000000000000a90c                _isatty_r
+ .text          0x000000000000a974       0x68 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
+                0x000000000000a974                _lseek_r
+ .text          0x000000000000a9dc       0xd0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
+                0x000000000000a9dc                _read_r
+ .text          0x000000000000aaac       0x58 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
+                0x000000000000aaac                _sbrk_r
+ .text          0x000000000000ab04       0xd8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
+                0x000000000000ab04                _write_r
+ .text          0x000000000000abdc       0x34 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libboard-or1ksim.a(or1ksim.o)
+                0x000000000000abf4                _board_exit
+                0x000000000000ac08                _board_init
+ .text          0x000000000000ac10       0xfc /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/libgcc.a(__udivsi3.o)
+                0x000000000000ac10                __udivsi3_internal
+                0x000000000000ac10                __udivsi3
+ .text          0x000000000000ad0c       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/libgcc.a(__umodsi3.o)
+                0x000000000000ad0c                __umodsi3
+ .text          0x000000000000ad2c       0x70 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
+ .text          0x000000000000ad9c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtn.o
  *(.gnu.warning)
 
-.fini           0x000000000000a18c       0x1c
+.fini           0x000000000000ad9c       0x1c
  *(SORT(.fini))
- .fini          0x000000000000a18c        0x8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crti.o
-                0x000000000000a18c                _fini
- .fini          0x000000000000a194        0x8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
- .fini          0x000000000000a19c        0xc /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtn.o
-                0x000000000000a1a8                PROVIDE (__etext, .)
-                0x000000000000a1a8                PROVIDE (_etext, .)
-                0x000000000000a1a8                PROVIDE (etext, .)
+ .fini          0x000000000000ad9c        0x8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crti.o
+                0x000000000000ad9c                _fini
+ .fini          0x000000000000ada4        0x8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
+ .fini          0x000000000000adac        0xc /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtn.o
+                0x000000000000adb8                PROVIDE (__etext, .)
+                0x000000000000adb8                PROVIDE (_etext, .)
+                0x000000000000adb8                PROVIDE (etext, .)
 
-.rodata         0x000000000000a1a8      0x5c8
+.rodata         0x000000000000adb8      0x5e4
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata        0x000000000000a1a8       0x18 ./atlys.o
-                0x000000000000a1a8                _board_mem_base
-                0x000000000000a1ac                _board_mem_size
-                0x000000000000a1b0                _board_clk_freq
-                0x000000000000a1b4                _board_uart_base
-                0x000000000000a1b8                _board_uart_baud
-                0x000000000000a1bc                _board_uart_IRQ
- .rodata        0x000000000000a1c0      0x124 ./clk.o
- .rodata        0x000000000000a2e4      0x144 ./spi.o
- .rodata        0x000000000000a428      0x18b ./timer.o
- *fill*         0x000000000000a5b3        0x1 
- .rodata        0x000000000000a5b4        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
-                0x000000000000a5b4                _global_impure_ptr
+ .rodata        0x000000000000adb8       0x18 ./atlys.o
+                0x000000000000adb8                _board_mem_base
+                0x000000000000adbc                _board_mem_size
+                0x000000000000adc0                _board_clk_freq
+                0x000000000000adc4                _board_uart_base
+                0x000000000000adc8                _board_uart_baud
+                0x000000000000adcc                _board_uart_IRQ
+ .rodata        0x000000000000add0      0x124 ./clk.o
+ .rodata        0x000000000000aef4       0x1c ./debug.o
+ .rodata        0x000000000000af10      0x144 ./spi.o
+ .rodata        0x000000000000b054      0x18b ./timer.o
+ *fill*         0x000000000000b1df        0x1 
+ .rodata        0x000000000000b1e0        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
+                0x000000000000b1e0                _global_impure_ptr
  .rodata.str1.1
-                0x000000000000a5b8        0x2 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
+                0x000000000000b1e4        0x2 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
  .rodata.str1.1
                 0x0000000000000000        0x2 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
  .rodata.str1.1
-                0x000000000000a5ba       0x29 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
- *fill*         0x000000000000a5e3        0x1 
- .rodata        0x000000000000a5e4      0x184 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
+                0x000000000000b1e6       0x29 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
+ *fill*         0x000000000000b20f        0x1 
+ .rodata        0x000000000000b210      0x184 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
  .rodata.str1.1
-                0x000000000000a768        0x8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
+                0x000000000000b394        0x8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
                                           0xb (size before relaxing)
-                0x000000000000a770                . = ALIGN (0x4)
+                0x000000000000b39c                . = ALIGN (0x4)
 
 .rodata1
  *(.rodata1)
@@ -664,71 +720,71 @@ LOAD /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
 
 .exception_ranges
  *(.exception_ranges .exception_ranges*)
-                0x000000000000a770                . = ALIGN (0x4)
-                0x000000000000a770                __data_load = .
+                0x000000000000b39c                . = ALIGN (0x4)
+                0x000000000000b39c                __data_load = .
 
-.eh_frame       0x000000000000a770        0x4
-                0x000000000000a770                __data_start = DEFINED (__data_start)?__data_start:.
+.eh_frame       0x000000000000b39c        0x4
+                0x000000000000b39c                __data_start = DEFINED (__data_start)?__data_start:.
  *(.eh_frame)
- .eh_frame      0x000000000000a770        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
- .eh_frame      0x000000000000a770        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
+ .eh_frame      0x000000000000b39c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
+ .eh_frame      0x000000000000b39c        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
 
 .gcc_except_table
-                0x000000000000a774                __data_start = DEFINED (__data_start)?__data_start:.
+                0x000000000000b3a0                __data_start = DEFINED (__data_start)?__data_start:.
  *(.gcc_except_table .gcc_except_table.*)
 
 .exception_ranges
-                0x000000000000a774                __data_start = DEFINED (__data_start)?__data_start:.
+                0x000000000000b3a0                __data_start = DEFINED (__data_start)?__data_start:.
  *(.exception_ranges .exception_ranges*)
 
-.tdata          0x000000000000a774        0x0
-                0x000000000000a774                __data_start = DEFINED (__data_start)?__data_start:.
+.tdata          0x000000000000b3a0        0x0
+                0x000000000000b3a0                __data_start = DEFINED (__data_start)?__data_start:.
  *(.tdata .tdata.* .gnu.linkonce.td.*)
 
 .tbss
  *(.tbss .tbss.* .gnu.linkonce.tb.*)
  *(.tcommon)
 
-.preinit_array  0x000000000000a774        0x0
-                0x000000000000a774                PROVIDE (__preinit_array_start, .)
+.preinit_array  0x000000000000b3a0        0x0
+                0x000000000000b3a0                PROVIDE (__preinit_array_start, .)
  *(.preinit_array)
-                0x000000000000a774                PROVIDE (__preinit_array_end, .)
+                0x000000000000b3a0                PROVIDE (__preinit_array_end, .)
 
-.init_array     0x000000000000a774        0x0
-                0x000000000000a774                PROVIDE (__init_array_start, .)
+.init_array     0x000000000000b3a0        0x0
+                0x000000000000b3a0                PROVIDE (__init_array_start, .)
  *(SORT(.init_array.*))
  *(.init_array)
-                0x000000000000a774                PROVIDE (__init_array_end, .)
+                0x000000000000b3a0                PROVIDE (__init_array_end, .)
 
-.fini_array     0x000000000000a774        0x0
-                0x000000000000a774                PROVIDE (__fini_array_start, .)
+.fini_array     0x000000000000b3a0        0x0
+                0x000000000000b3a0                PROVIDE (__fini_array_start, .)
  *(SORT(.fini_array.*))
  *(.fini_array)
-                0x000000000000a774                PROVIDE (__fini_array_end, .)
+                0x000000000000b3a0                PROVIDE (__fini_array_end, .)
 
-.ctors          0x000000000000a774        0x8
+.ctors          0x000000000000b3a0        0x8
  *crtbegin.o(.ctors)
- .ctors         0x000000000000a774        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
+ .ctors         0x000000000000b3a0        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors)
  *(SORT(.ctors.*))
  *(.ctors)
- .ctors         0x000000000000a778        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
+ .ctors         0x000000000000b3a4        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
 
-.dtors          0x000000000000a77c        0x8
+.dtors          0x000000000000b3a8        0x8
  *crtbegin.o(.dtors)
- .dtors         0x000000000000a77c        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
+ .dtors         0x000000000000b3a8        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
  *crtbegin?.o(.dtors)
  *(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
  *(SORT(.dtors.*))
  *(.dtors)
- .dtors         0x000000000000a780        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
-                0x000000000000a780                __DTOR_END__
+ .dtors         0x000000000000b3ac        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
+                0x000000000000b3ac                __DTOR_END__
 
-.jcr            0x000000000000a784        0x4
+.jcr            0x000000000000b3b0        0x4
  *(.jcr)
- .jcr           0x000000000000a784        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
- .jcr           0x000000000000a784        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
+ .jcr           0x000000000000b3b0        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
+ .jcr           0x000000000000b3b0        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
 
 .data.rel.ro
  *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*)
@@ -737,89 +793,92 @@ LOAD /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
 .dynamic
  *(.dynamic)
 
-.data           0x000000000000a788      0xe78
+.data           0x000000000000b3b4      0xe78
  *(.data .data.* .gnu.linkonce.d.*)
- .data          0x000000000000a788       0x18 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/crt0.o
-                0x000000000000a788                stack_top
-                0x000000000000a78c                stack_bottom
-                0x000000000000a790                stack_size
-                0x000000000000a794                exception_stack_top
-                0x000000000000a798                exception_stack_bottom
-                0x000000000000a79c                exception_stack_size
- .data          0x000000000000a7a0        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crti.o
- .data          0x000000000000a7a0        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
-                0x000000000000a7a0                __dso_handle
- .data          0x000000000000a7a4        0x0 ./adc.o
- .data          0x000000000000a7a4        0x0 ./atlys.o
- .data          0x000000000000a7a4        0x0 ./clk.o
- .data          0x000000000000a7a4        0x0 ./debug.o
- .data          0x000000000000a7a4        0x0 ./fpga.o
- .data          0x000000000000a7a4        0x0 ./main.o
- .data          0x000000000000a7a4        0x0 ./spi.o
- .data          0x000000000000a7a4        0x0 ./timer.o
- .data          0x000000000000a7a4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
- .data          0x000000000000a7a4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
- .data          0x000000000000a7a4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
- .data          0x000000000000a7a4      0x428 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
-                0x000000000000a7a4                _impure_ptr
- .data          0x000000000000abcc        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
- .data          0x000000000000abcc      0x428 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
-                0x000000000000abcc                _exception_impure_ptr
- .data          0x000000000000aff4      0x174 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support-asm.o)
-                0x000000000000aff4                or1k_interrupt_handler_table
-                0x000000000000b074                or1k_interrupt_handler_data_ptr_table
-                0x000000000000b0f4                or1k_exception_handler_table
- .data          0x000000000000b168        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
- .data          0x000000000000b16c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
- .data          0x000000000000b16c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
- .data          0x000000000000b16c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
- .data          0x000000000000b16c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
- .data          0x000000000000b16c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
- .data          0x000000000000b16c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
- .data          0x000000000000b16c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
- .data          0x000000000000b16c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
- .data          0x000000000000b16c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
- .data          0x000000000000b16c       0x7c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
-                0x000000000000b1e4                __mb_cur_max
- .data          0x000000000000b1e8        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
- .data          0x000000000000b1e8      0x410 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
-                0x000000000000b1e8                __malloc_sbrk_base
-                0x000000000000b1ec                __malloc_trim_threshold
-                0x000000000000b1f0                __malloc_av_
- .data          0x000000000000b5f8        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
- .data          0x000000000000b5f8        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
- .data          0x000000000000b5f8        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
- .data          0x000000000000b5f8        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
- .data          0x000000000000b5f8        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
- .data          0x000000000000b5f8        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
- .data          0x000000000000b5f8        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
- .data          0x000000000000b5f8        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
- .data          0x000000000000b5f8        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
- .data          0x000000000000b5f8        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
- .data          0x000000000000b5f8        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
- .data          0x000000000000b5f8        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
-                0x000000000000b5f8                __wctomb
- .data          0x000000000000b5fc        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
- .data          0x000000000000b5fc        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
- .data          0x000000000000b5fc        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
- .data          0x000000000000b5fc        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
- .data          0x000000000000b5fc        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
- .data          0x000000000000b5fc        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
- .data          0x000000000000b5fc        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
- .data          0x000000000000b5fc        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
- .data          0x000000000000b600        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
- .data          0x000000000000b600        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libboard-or1ksim.a(or1ksim.o)
- .data          0x000000000000b600        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/libgcc.a(__udivsi3.o)
- .data          0x000000000000b600        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/libgcc.a(__umodsi3.o)
- .data          0x000000000000b600        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
- .data          0x000000000000b600        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtn.o
+ .data          0x000000000000b3b4       0x18 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/crt0.o
+                0x000000000000b3b4                stack_top
+                0x000000000000b3b8                stack_bottom
+                0x000000000000b3bc                stack_size
+                0x000000000000b3c0                exception_stack_top
+                0x000000000000b3c4                exception_stack_bottom
+                0x000000000000b3c8                exception_stack_size
+ .data          0x000000000000b3cc        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crti.o
+ .data          0x000000000000b3cc        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
+                0x000000000000b3cc                __dso_handle
+ .data          0x000000000000b3d0        0x0 ./adc.o
+ .data          0x000000000000b3d0        0x0 ./arp.o
+ .data          0x000000000000b3d0        0x0 ./atlys.o
+ .data          0x000000000000b3d0        0x0 ./clk.o
+ .data          0x000000000000b3d0        0x0 ./debug.o
+ .data          0x000000000000b3d0        0x0 ./eth.o
+ .data          0x000000000000b3d0        0x0 ./fpga.o
+ .data          0x000000000000b3d0        0x0 ./main.o
+ .data          0x000000000000b3d0        0x0 ./packet.o
+ .data          0x000000000000b3d0        0x0 ./spi.o
+ .data          0x000000000000b3d0        0x0 ./timer.o
+ .data          0x000000000000b3d0        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
+ .data          0x000000000000b3d0        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
+ .data          0x000000000000b3d0        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
+ .data          0x000000000000b3d0      0x428 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
+                0x000000000000b3d0                _impure_ptr
+ .data          0x000000000000b7f8        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
+ .data          0x000000000000b7f8      0x428 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
+                0x000000000000b7f8                _exception_impure_ptr
+ .data          0x000000000000bc20      0x174 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support-asm.o)
+                0x000000000000bc20                or1k_interrupt_handler_table
+                0x000000000000bca0                or1k_interrupt_handler_data_ptr_table
+                0x000000000000bd20                or1k_exception_handler_table
+ .data          0x000000000000bd94        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
+ .data          0x000000000000bd98        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
+ .data          0x000000000000bd98        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
+ .data          0x000000000000bd98        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
+ .data          0x000000000000bd98        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
+ .data          0x000000000000bd98        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
+ .data          0x000000000000bd98        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
+ .data          0x000000000000bd98        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
+ .data          0x000000000000bd98        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
+ .data          0x000000000000bd98        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
+ .data          0x000000000000bd98       0x7c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
+                0x000000000000be10                __mb_cur_max
+ .data          0x000000000000be14        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
+ .data          0x000000000000be14      0x410 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
+                0x000000000000be14                __malloc_sbrk_base
+                0x000000000000be18                __malloc_trim_threshold
+                0x000000000000be1c                __malloc_av_
+ .data          0x000000000000c224        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
+ .data          0x000000000000c224        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
+ .data          0x000000000000c224        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
+ .data          0x000000000000c224        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
+ .data          0x000000000000c224        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
+ .data          0x000000000000c224        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
+ .data          0x000000000000c224        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
+ .data          0x000000000000c224        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
+ .data          0x000000000000c224        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
+ .data          0x000000000000c224        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
+ .data          0x000000000000c224        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
+ .data          0x000000000000c224        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
+                0x000000000000c224                __wctomb
+ .data          0x000000000000c228        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
+ .data          0x000000000000c228        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
+ .data          0x000000000000c228        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
+ .data          0x000000000000c228        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
+ .data          0x000000000000c228        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
+ .data          0x000000000000c228        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
+ .data          0x000000000000c228        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
+ .data          0x000000000000c228        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
+ .data          0x000000000000c22c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
+ .data          0x000000000000c22c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libboard-or1ksim.a(or1ksim.o)
+ .data          0x000000000000c22c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/libgcc.a(__udivsi3.o)
+ .data          0x000000000000c22c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/libgcc.a(__umodsi3.o)
+ .data          0x000000000000c22c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
+ .data          0x000000000000c22c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtn.o
 
 .tm_clone_table
-                0x000000000000b600        0x0
+                0x000000000000c22c        0x0
  .tm_clone_table
-                0x000000000000b600        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
+                0x000000000000c22c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
  .tm_clone_table
-                0x000000000000b600        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
+                0x000000000000c22c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
 
 .data1
  *(.data1)
@@ -835,13 +894,13 @@ LOAD /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
 
 .programmer
  *(.programmer)
-                0x000000000000b600                _edata = .
-                0x000000000000b600                PROVIDE (edata, .)
-                0x000000000000b600                . = ALIGN (0x4)
+                0x000000000000c22c                _edata = .
+                0x000000000000c22c                PROVIDE (edata, .)
+                0x000000000000c22c                . = ALIGN (0x4)
 
 .noinit
  *(.noinit)
-                0x000000000000b600                . = ALIGN (0x4)
+                0x000000000000c22c                . = ALIGN (0x4)
 
 .sbss           0x0000000000080000        0x0
                 0x0000000000080000                __bss_start = .
@@ -849,97 +908,100 @@ LOAD /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
  *(.sbss .sbss.* .gnu.linkonce.sb.*)
  *(.scommon)
 
-.bss            0x0000000000080000       0xe0
+.bss            0x0000000000080000     0x3bac
  *(.dynbss)
  *(.bss .bss.* .gnu.linkonce.b.*)
  .bss           0x0000000000080000        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/crt0.o
  .bss           0x0000000000080000        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crti.o
  .bss           0x0000000000080000       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
  .bss           0x0000000000080020        0x0 ./adc.o
+ .bss           0x0000000000080020        0x0 ./arp.o
  .bss           0x0000000000080020        0x0 ./atlys.o
  .bss           0x0000000000080020        0x0 ./clk.o
  .bss           0x0000000000080020        0x8 ./debug.o
- .bss           0x0000000000080028        0x2 ./fpga.o
- .bss           0x000000000008002a        0x0 ./main.o
- *fill*         0x000000000008002a        0x2 
- .bss           0x000000000008002c        0x4 ./spi.o
- .bss           0x0000000000080030       0x40 ./timer.o
- .bss           0x0000000000080070        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
- .bss           0x0000000000080070        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
- .bss           0x0000000000080070        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
- .bss           0x0000000000080070        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
- .bss           0x0000000000080070        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
- .bss           0x0000000000080070        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
- .bss           0x0000000000080070        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support-asm.o)
- .bss           0x0000000000080070        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
- .bss           0x0000000000080074        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
- .bss           0x0000000000080074        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
- .bss           0x0000000000080074        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
- .bss           0x0000000000080074        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
- .bss           0x0000000000080074        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
- .bss           0x0000000000080074        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
- .bss           0x0000000000080074        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
- .bss           0x0000000000080074        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
- .bss           0x0000000000080074        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
- .bss           0x0000000000080074        0xc /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
-                0x0000000000080074                _PathLocale
-                0x0000000000080078                __mlocale_changed
-                0x000000000008007c                __nlocale_changed
- .bss           0x0000000000080080        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
- .bss           0x0000000000080080       0x34 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
-                0x0000000000080080                __malloc_current_mallinfo
-                0x00000000000800a8                __malloc_max_total_mem
-                0x00000000000800ac                __malloc_max_sbrked_mem
-                0x00000000000800b0                __malloc_top_pad
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libboard-or1ksim.a(or1ksim.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/libgcc.a(__udivsi3.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/libgcc.a(__umodsi3.o)
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
- .bss           0x00000000000800b4        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtn.o
+ .bss           0x0000000000080028     0x3acc ./eth.o
+ .bss           0x0000000000083af4        0x2 ./fpga.o
+ .bss           0x0000000000083af6        0x0 ./main.o
+ .bss           0x0000000000083af6        0x0 ./packet.o
+ *fill*         0x0000000000083af6        0x2 
+ .bss           0x0000000000083af8        0x4 ./spi.o
+ .bss           0x0000000000083afc       0x40 ./timer.o
+ .bss           0x0000000000083b3c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
+ .bss           0x0000000000083b3c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
+ .bss           0x0000000000083b3c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
+ .bss           0x0000000000083b3c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
+ .bss           0x0000000000083b3c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
+ .bss           0x0000000000083b3c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
+ .bss           0x0000000000083b3c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support-asm.o)
+ .bss           0x0000000000083b3c        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
+ .bss           0x0000000000083b40        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
+ .bss           0x0000000000083b40        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
+ .bss           0x0000000000083b40        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
+ .bss           0x0000000000083b40        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
+ .bss           0x0000000000083b40        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
+ .bss           0x0000000000083b40        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
+ .bss           0x0000000000083b40        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
+ .bss           0x0000000000083b40        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
+ .bss           0x0000000000083b40        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
+ .bss           0x0000000000083b40        0xc /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
+                0x0000000000083b40                _PathLocale
+                0x0000000000083b44                __mlocale_changed
+                0x0000000000083b48                __nlocale_changed
+ .bss           0x0000000000083b4c        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
+ .bss           0x0000000000083b4c       0x34 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
+                0x0000000000083b4c                __malloc_current_mallinfo
+                0x0000000000083b74                __malloc_max_total_mem
+                0x0000000000083b78                __malloc_max_sbrked_mem
+                0x0000000000083b7c                __malloc_top_pad
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libboard-or1ksim.a(or1ksim.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/libgcc.a(__udivsi3.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/libgcc.a(__umodsi3.o)
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
+ .bss           0x0000000000083b80        0x0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtn.o
  *(COMMON)
- COMMON         0x00000000000800b4        0x4 ./main.o
-                0x00000000000800b4                dwTest
- COMMON         0x00000000000800b8        0x8 ./spi.o
-                0x00000000000800b8                dwFinished
-                0x00000000000800bc                dwMutex
- COMMON         0x00000000000800c0        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
-                0x00000000000800c0                _current_impure_ptr
- COMMON         0x00000000000800c4        0xc /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
-                0x00000000000800c4                or1k_timer_mode
-                0x00000000000800c8                or1k_timer_ticks
-                0x00000000000800cc                or1k_timer_period
- COMMON         0x00000000000800d0       0x10 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
-                0x00000000000800d0                _malloc_lock_restore_interrupts
-                0x00000000000800d4                _malloc_lock_cnt
-                0x00000000000800d8                _malloc_lock_own
-                0x00000000000800dc                _malloc_lock_restore_timer
-                0x00000000000800e0                . = ALIGN ((. != 0x0)?0x4:0x1)
-                0x00000000000800e0                . = ALIGN (0x4)
-                0x00000000000800e0                . = SEGMENT_START ("ldata-segment", .)
-                0x00000000000800e0                . = ALIGN (0x4)
-                0x00000000000800e0                _end = .
-                0x00000000000800e0                PROVIDE (end, .)
+ COMMON         0x0000000000083b80        0x4 ./main.o
+                0x0000000000083b80                dwTest
+ COMMON         0x0000000000083b84        0x8 ./spi.o
+                0x0000000000083b84                dwFinished
+                0x0000000000083b88                dwMutex
+ COMMON         0x0000000000083b8c        0x4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
+                0x0000000000083b8c                _current_impure_ptr
+ COMMON         0x0000000000083b90        0xc /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
+                0x0000000000083b90                or1k_timer_mode
+                0x0000000000083b94                or1k_timer_ticks
+                0x0000000000083b98                or1k_timer_period
+ COMMON         0x0000000000083b9c       0x10 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
+                0x0000000000083b9c                _malloc_lock_restore_interrupts
+                0x0000000000083ba0                _malloc_lock_cnt
+                0x0000000000083ba4                _malloc_lock_own
+                0x0000000000083ba8                _malloc_lock_restore_timer
+                0x0000000000083bac                . = ALIGN ((. != 0x0)?0x4:0x1)
+                0x0000000000083bac                . = ALIGN (0x4)
+                0x0000000000083bac                . = SEGMENT_START ("ldata-segment", .)
+                0x0000000000083bac                . = ALIGN (0x4)
+                0x0000000000083bac                _end = .
+                0x0000000000083bac                PROVIDE (end, .)
 
 .stab
  *(.stab)
@@ -964,11 +1026,14 @@ LOAD /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
  .comment       0x0000000000000000       0x11 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
                                          0x12 (size before relaxing)
  .comment       0x0000000000000000       0x12 ./adc.o
+ .comment       0x0000000000000000       0x12 ./arp.o
  .comment       0x0000000000000000       0x12 ./atlys.o
  .comment       0x0000000000000000       0x12 ./clk.o
  .comment       0x0000000000000000       0x12 ./debug.o
+ .comment       0x0000000000000000       0x12 ./eth.o
  .comment       0x0000000000000000       0x12 ./fpga.o
  .comment       0x0000000000000000       0x12 ./main.o
+ .comment       0x0000000000000000       0x12 ./packet.o
  .comment       0x0000000000000000       0x12 ./spi.o
  .comment       0x0000000000000000       0x12 ./timer.o
  .comment       0x0000000000000000       0x12 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
@@ -1025,409 +1090,433 @@ LOAD /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x0000000000000000      0x5f0
+.debug_aranges  0x0000000000000000      0x650
  *(.debug_aranges)
  .debug_aranges
                 0x0000000000000000       0x20 ./adc.o
  .debug_aranges
-                0x0000000000000020       0x18 ./atlys.o
+                0x0000000000000020       0x20 ./arp.o
  .debug_aranges
-                0x0000000000000038       0x20 ./clk.o
+                0x0000000000000040       0x18 ./atlys.o
  .debug_aranges
-                0x0000000000000058       0x20 ./debug.o
+                0x0000000000000058       0x20 ./clk.o
  .debug_aranges
-                0x0000000000000078       0x20 ./fpga.o
+                0x0000000000000078       0x20 ./debug.o
  .debug_aranges
-                0x0000000000000098       0x20 ./main.o
+                0x0000000000000098       0x20 ./eth.o
  .debug_aranges
-                0x00000000000000b8       0x20 ./spi.o
+                0x00000000000000b8       0x20 ./fpga.o
  .debug_aranges
-                0x00000000000000d8       0x20 ./timer.o
+                0x00000000000000d8       0x20 ./main.o
  .debug_aranges
-                0x00000000000000f8       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
+                0x00000000000000f8       0x20 ./packet.o
  .debug_aranges
-                0x0000000000000118       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
+                0x0000000000000118       0x20 ./spi.o
  .debug_aranges
-                0x0000000000000138       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
+                0x0000000000000138       0x20 ./timer.o
  .debug_aranges
-                0x0000000000000158       0x18 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
+                0x0000000000000158       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
  .debug_aranges
-                0x0000000000000170       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
+                0x0000000000000178       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
  .debug_aranges
-                0x0000000000000190       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
+                0x0000000000000198       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
  .debug_aranges
-                0x00000000000001b0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
+                0x00000000000001b8       0x18 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
  .debug_aranges
-                0x00000000000001d0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
+                0x00000000000001d0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
  .debug_aranges
-                0x00000000000001f0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
+                0x00000000000001f0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
  .debug_aranges
-                0x0000000000000210       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
+                0x0000000000000210       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
  .debug_aranges
-                0x0000000000000230       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
+                0x0000000000000230       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
  .debug_aranges
-                0x0000000000000250       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
+                0x0000000000000250       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
  .debug_aranges
-                0x0000000000000270       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
+                0x0000000000000270       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
  .debug_aranges
-                0x0000000000000290       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
+                0x0000000000000290       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
  .debug_aranges
-                0x00000000000002b0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
+                0x00000000000002b0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
  .debug_aranges
-                0x00000000000002d0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
+                0x00000000000002d0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
  .debug_aranges
-                0x00000000000002f0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
+                0x00000000000002f0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
  .debug_aranges
-                0x0000000000000310       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
+                0x0000000000000310       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
  .debug_aranges
-                0x0000000000000330       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
+                0x0000000000000330       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
  .debug_aranges
-                0x0000000000000350       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
+                0x0000000000000350       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
  .debug_aranges
-                0x0000000000000370       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
+                0x0000000000000370       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
  .debug_aranges
-                0x0000000000000390       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
+                0x0000000000000390       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
  .debug_aranges
-                0x00000000000003b0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
+                0x00000000000003b0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
  .debug_aranges
-                0x00000000000003d0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
+                0x00000000000003d0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
  .debug_aranges
-                0x00000000000003f0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
+                0x00000000000003f0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
  .debug_aranges
-                0x0000000000000410       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
+                0x0000000000000410       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
  .debug_aranges
-                0x0000000000000430       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
+                0x0000000000000430       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
  .debug_aranges
-                0x0000000000000450       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
+                0x0000000000000450       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
  .debug_aranges
-                0x0000000000000470       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
+                0x0000000000000470       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
  .debug_aranges
-                0x0000000000000490       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
+                0x0000000000000490       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
  .debug_aranges
-                0x00000000000004b0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
+                0x00000000000004b0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
  .debug_aranges
-                0x00000000000004d0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
+                0x00000000000004d0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
  .debug_aranges
-                0x00000000000004f0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
+                0x00000000000004f0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
  .debug_aranges
-                0x0000000000000510       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
+                0x0000000000000510       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
  .debug_aranges
-                0x0000000000000530       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
+                0x0000000000000530       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
  .debug_aranges
-                0x0000000000000550       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
+                0x0000000000000550       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
  .debug_aranges
-                0x0000000000000570       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
+                0x0000000000000570       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
  .debug_aranges
-                0x0000000000000590       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
+                0x0000000000000590       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
  .debug_aranges
-                0x00000000000005b0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
+                0x00000000000005b0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
  .debug_aranges
-                0x00000000000005d0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
+                0x00000000000005d0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
+ .debug_aranges
+                0x00000000000005f0       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
+ .debug_aranges
+                0x0000000000000610       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
+ .debug_aranges
+                0x0000000000000630       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000    0x16442
+.debug_info     0x0000000000000000    0x16a1c
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x0000000000000000      0x102 ./adc.o
- .debug_info    0x0000000000000102       0x94 ./atlys.o
- .debug_info    0x0000000000000196      0x1b7 ./clk.o
- .debug_info    0x000000000000034d      0x118 ./debug.o
- .debug_info    0x0000000000000465       0xe5 ./fpga.o
- .debug_info    0x000000000000054a       0xd5 ./main.o
- .debug_info    0x000000000000061f      0x293 ./spi.o
- .debug_info    0x00000000000008b2      0x2f5 ./timer.o
- .debug_info    0x0000000000000ba7      0x10a /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
- .debug_info    0x0000000000000cb1      0x934 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
- .debug_info    0x00000000000015e5      0x8e4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
- .debug_info    0x0000000000001ec9      0x894 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
- .debug_info    0x000000000000275d      0x9a6 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
- .debug_info    0x0000000000003103      0x938 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
- .debug_info    0x0000000000003a3b      0x824 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
- .debug_info    0x000000000000425f     0x1571 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
- .debug_info    0x00000000000057d0      0x944 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
- .debug_info    0x0000000000006114      0x959 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
- .debug_info    0x0000000000006a6d      0xab6 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
- .debug_info    0x0000000000007523      0xd7f /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
- .debug_info    0x00000000000082a2      0xad6 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
- .debug_info    0x0000000000008d78      0xc06 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
- .debug_info    0x000000000000997e      0xc3d /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
- .debug_info    0x000000000000a5bb      0x99e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
- .debug_info    0x000000000000af59      0xc37 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
- .debug_info    0x000000000000bb90      0xae5 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
- .debug_info    0x000000000000c675      0xd6c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
- .debug_info    0x000000000000d3e1      0x12b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
- .debug_info    0x000000000000d50c      0x131 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
- .debug_info    0x000000000000d63d      0x131 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
- .debug_info    0x000000000000d76e      0x117 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
- .debug_info    0x000000000000d885      0x993 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
- .debug_info    0x000000000000e218      0xc6d /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
- .debug_info    0x000000000000ee85      0xb7c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
- .debug_info    0x000000000000fa01       0xdd /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
- .debug_info    0x000000000000fade       0xdb /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
- .debug_info    0x000000000000fbb9      0x9d7 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
- .debug_info    0x0000000000010590      0xa7c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
- .debug_info    0x000000000001100c      0x9b1 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
- .debug_info    0x00000000000119bd      0xa31 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
- .debug_info    0x00000000000123ee       0x96 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
- .debug_info    0x0000000000012484      0x894 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
- .debug_info    0x0000000000012d18      0xa19 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
- .debug_info    0x0000000000013731      0x8a3 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
- .debug_info    0x0000000000013fd4      0x8c1 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
- .debug_info    0x0000000000014895      0x935 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
- .debug_info    0x00000000000151ca      0x8f9 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
- .debug_info    0x0000000000015ac3      0x97f /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
+ .debug_info    0x0000000000000102      0x194 ./arp.o
+ .debug_info    0x0000000000000296       0x94 ./atlys.o
+ .debug_info    0x000000000000032a      0x1b7 ./clk.o
+ .debug_info    0x00000000000004e1      0x174 ./debug.o
+ .debug_info    0x0000000000000655      0x2e1 ./eth.o
+ .debug_info    0x0000000000000936       0xe5 ./fpga.o
+ .debug_info    0x0000000000000a1b       0xef ./main.o
+ .debug_info    0x0000000000000b0a       0xef ./packet.o
+ .debug_info    0x0000000000000bf9      0x293 ./spi.o
+ .debug_info    0x0000000000000e8c      0x2f5 ./timer.o
+ .debug_info    0x0000000000001181      0x10a /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
+ .debug_info    0x000000000000128b      0x934 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
+ .debug_info    0x0000000000001bbf      0x8e4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
+ .debug_info    0x00000000000024a3      0x894 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
+ .debug_info    0x0000000000002d37      0x9a6 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
+ .debug_info    0x00000000000036dd      0x938 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
+ .debug_info    0x0000000000004015      0x824 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
+ .debug_info    0x0000000000004839     0x1571 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
+ .debug_info    0x0000000000005daa      0x944 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
+ .debug_info    0x00000000000066ee      0x959 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
+ .debug_info    0x0000000000007047      0xab6 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
+ .debug_info    0x0000000000007afd      0xd7f /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
+ .debug_info    0x000000000000887c      0xad6 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
+ .debug_info    0x0000000000009352      0xc06 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
+ .debug_info    0x0000000000009f58      0xc3d /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
+ .debug_info    0x000000000000ab95      0x99e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
+ .debug_info    0x000000000000b533      0xc37 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
+ .debug_info    0x000000000000c16a      0xae5 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
+ .debug_info    0x000000000000cc4f      0xd6c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
+ .debug_info    0x000000000000d9bb      0x12b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
+ .debug_info    0x000000000000dae6      0x131 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
+ .debug_info    0x000000000000dc17      0x131 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
+ .debug_info    0x000000000000dd48      0x117 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
+ .debug_info    0x000000000000de5f      0x993 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
+ .debug_info    0x000000000000e7f2      0xc6d /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
+ .debug_info    0x000000000000f45f      0xb7c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
+ .debug_info    0x000000000000ffdb       0xdd /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_info    0x00000000000100b8       0xdb /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
+ .debug_info    0x0000000000010193      0x9d7 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
+ .debug_info    0x0000000000010b6a      0xa7c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
+ .debug_info    0x00000000000115e6      0x9b1 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
+ .debug_info    0x0000000000011f97      0xa31 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
+ .debug_info    0x00000000000129c8       0x96 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
+ .debug_info    0x0000000000012a5e      0x894 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
+ .debug_info    0x00000000000132f2      0xa19 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
+ .debug_info    0x0000000000013d0b      0x8a3 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
+ .debug_info    0x00000000000145ae      0x8c1 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
+ .debug_info    0x0000000000014e6f      0x935 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
+ .debug_info    0x00000000000157a4      0x8f9 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
+ .debug_info    0x000000000001609d      0x97f /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
 
-.debug_abbrev   0x0000000000000000     0x5206
+.debug_abbrev   0x0000000000000000     0x550a
  *(.debug_abbrev)
  .debug_abbrev  0x0000000000000000       0x88 ./adc.o
- .debug_abbrev  0x0000000000000088       0x36 ./atlys.o
- .debug_abbrev  0x00000000000000be       0xd5 ./clk.o
- .debug_abbrev  0x0000000000000193       0x93 ./debug.o
- .debug_abbrev  0x0000000000000226       0x86 ./fpga.o
- .debug_abbrev  0x00000000000002ac       0xae ./main.o
- .debug_abbrev  0x000000000000035a      0x147 ./spi.o
- .debug_abbrev  0x00000000000004a1      0x144 ./timer.o
- .debug_abbrev  0x00000000000005e5       0xb5 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
- .debug_abbrev  0x000000000000069a      0x20f /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
- .debug_abbrev  0x00000000000008a9      0x1e6 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
- .debug_abbrev  0x0000000000000a8f      0x180 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
- .debug_abbrev  0x0000000000000c0f      0x221 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
- .debug_abbrev  0x0000000000000e30      0x219 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
- .debug_abbrev  0x0000000000001049      0x2ea /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
- .debug_abbrev  0x0000000000001333      0x3a5 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
- .debug_abbrev  0x00000000000016d8      0x20d /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
- .debug_abbrev  0x00000000000018e5      0x21f /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
- .debug_abbrev  0x0000000000001b04      0x282 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
- .debug_abbrev  0x0000000000001d86      0x34b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
- .debug_abbrev  0x00000000000020d1      0x299 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
- .debug_abbrev  0x000000000000236a      0x26b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
- .debug_abbrev  0x00000000000025d5      0x252 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
- .debug_abbrev  0x0000000000002827      0x1c2 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
- .debug_abbrev  0x00000000000029e9      0x2b4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
- .debug_abbrev  0x0000000000002c9d      0x206 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
- .debug_abbrev  0x0000000000002ea3      0x2b4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
- .debug_abbrev  0x0000000000003157       0xab /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
- .debug_abbrev  0x0000000000003202       0xab /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
- .debug_abbrev  0x00000000000032ad       0xab /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
- .debug_abbrev  0x0000000000003358       0x9f /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
- .debug_abbrev  0x00000000000033f7      0x227 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
- .debug_abbrev  0x000000000000361e      0x250 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
- .debug_abbrev  0x000000000000386e      0x22b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
- .debug_abbrev  0x0000000000003a99       0x74 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
- .debug_abbrev  0x0000000000003b0d       0x90 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
- .debug_abbrev  0x0000000000003b9d      0x251 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
- .debug_abbrev  0x0000000000003dee      0x215 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
- .debug_abbrev  0x0000000000004003      0x212 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
- .debug_abbrev  0x0000000000004215      0x29e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
- .debug_abbrev  0x00000000000044b3       0x60 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
- .debug_abbrev  0x0000000000004513      0x19c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
- .debug_abbrev  0x00000000000046af      0x1af /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
- .debug_abbrev  0x000000000000485e      0x1af /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
- .debug_abbrev  0x0000000000004a0d      0x1af /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
- .debug_abbrev  0x0000000000004bbc      0x202 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
- .debug_abbrev  0x0000000000004dbe      0x1e7 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
- .debug_abbrev  0x0000000000004fa5      0x261 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
+ .debug_abbrev  0x0000000000000088       0xc5 ./arp.o
+ .debug_abbrev  0x000000000000014d       0x36 ./atlys.o
+ .debug_abbrev  0x0000000000000183       0xd5 ./clk.o
+ .debug_abbrev  0x0000000000000258       0xbc ./debug.o
+ .debug_abbrev  0x0000000000000314      0x142 ./eth.o
+ .debug_abbrev  0x0000000000000456       0x86 ./fpga.o
+ .debug_abbrev  0x00000000000004dc       0xbf ./main.o
+ .debug_abbrev  0x000000000000059b       0xc3 ./packet.o
+ .debug_abbrev  0x000000000000065e      0x147 ./spi.o
+ .debug_abbrev  0x00000000000007a5      0x144 ./timer.o
+ .debug_abbrev  0x00000000000008e9       0xb5 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
+ .debug_abbrev  0x000000000000099e      0x20f /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
+ .debug_abbrev  0x0000000000000bad      0x1e6 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
+ .debug_abbrev  0x0000000000000d93      0x180 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
+ .debug_abbrev  0x0000000000000f13      0x221 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
+ .debug_abbrev  0x0000000000001134      0x219 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
+ .debug_abbrev  0x000000000000134d      0x2ea /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
+ .debug_abbrev  0x0000000000001637      0x3a5 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
+ .debug_abbrev  0x00000000000019dc      0x20d /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
+ .debug_abbrev  0x0000000000001be9      0x21f /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
+ .debug_abbrev  0x0000000000001e08      0x282 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
+ .debug_abbrev  0x000000000000208a      0x34b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
+ .debug_abbrev  0x00000000000023d5      0x299 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
+ .debug_abbrev  0x000000000000266e      0x26b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
+ .debug_abbrev  0x00000000000028d9      0x252 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
+ .debug_abbrev  0x0000000000002b2b      0x1c2 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
+ .debug_abbrev  0x0000000000002ced      0x2b4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
+ .debug_abbrev  0x0000000000002fa1      0x206 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
+ .debug_abbrev  0x00000000000031a7      0x2b4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
+ .debug_abbrev  0x000000000000345b       0xab /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
+ .debug_abbrev  0x0000000000003506       0xab /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
+ .debug_abbrev  0x00000000000035b1       0xab /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
+ .debug_abbrev  0x000000000000365c       0x9f /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
+ .debug_abbrev  0x00000000000036fb      0x227 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
+ .debug_abbrev  0x0000000000003922      0x250 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
+ .debug_abbrev  0x0000000000003b72      0x22b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
+ .debug_abbrev  0x0000000000003d9d       0x74 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_abbrev  0x0000000000003e11       0x90 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
+ .debug_abbrev  0x0000000000003ea1      0x251 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
+ .debug_abbrev  0x00000000000040f2      0x215 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
+ .debug_abbrev  0x0000000000004307      0x212 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
+ .debug_abbrev  0x0000000000004519      0x29e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
+ .debug_abbrev  0x00000000000047b7       0x60 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
+ .debug_abbrev  0x0000000000004817      0x19c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
+ .debug_abbrev  0x00000000000049b3      0x1af /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
+ .debug_abbrev  0x0000000000004b62      0x1af /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
+ .debug_abbrev  0x0000000000004d11      0x1af /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
+ .debug_abbrev  0x0000000000004ec0      0x202 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
+ .debug_abbrev  0x00000000000050c2      0x1e7 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
+ .debug_abbrev  0x00000000000052a9      0x261 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
 
-.debug_line     0x0000000000000000     0x4fa8
+.debug_line     0x0000000000000000     0x5307
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x0000000000000000      0x155 ./adc.o
- .debug_line    0x0000000000000155       0x36 ./atlys.o
- .debug_line    0x000000000000018b      0x1a5 ./clk.o
- .debug_line    0x0000000000000330      0x1fd ./debug.o
- .debug_line    0x000000000000052d      0x163 ./fpga.o
- .debug_line    0x0000000000000690      0x1b4 ./main.o
- .debug_line    0x0000000000000844      0x294 ./spi.o
- .debug_line    0x0000000000000ad8      0x2c1 ./timer.o
- .debug_line    0x0000000000000d99       0xb1 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
- .debug_line    0x0000000000000e4a      0x186 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
- .debug_line    0x0000000000000fd0      0x151 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
- .debug_line    0x0000000000001121       0xe7 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
- .debug_line    0x0000000000001208      0x147 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
- .debug_line    0x000000000000134f      0x126 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
- .debug_line    0x0000000000001475      0x274 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
- .debug_line    0x00000000000016e9      0x60a /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
- .debug_line    0x0000000000001cf3      0x1b0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
- .debug_line    0x0000000000001ea3      0x18b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
- .debug_line    0x000000000000202e      0x251 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
- .debug_line    0x000000000000227f      0x274 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
- .debug_line    0x00000000000024f3      0x19c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
- .debug_line    0x000000000000268f      0x22f /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
- .debug_line    0x00000000000028be      0x292 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
- .debug_line    0x0000000000002b50      0x17b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
- .debug_line    0x0000000000002ccb      0x17d /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
- .debug_line    0x0000000000002e48      0x1d1 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
- .debug_line    0x0000000000003019      0x341 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
- .debug_line    0x000000000000335a      0x118 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
- .debug_line    0x0000000000003472      0x107 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
- .debug_line    0x0000000000003579      0x111 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
- .debug_line    0x000000000000368a      0x112 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
- .debug_line    0x000000000000379c      0x1b1 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
- .debug_line    0x000000000000394d      0x24b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
- .debug_line    0x0000000000003b98      0x17c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
- .debug_line    0x0000000000003d14       0xcf /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
- .debug_line    0x0000000000003de3       0xf9 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
- .debug_line    0x0000000000003edc      0x1b8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
- .debug_line    0x0000000000004094      0x16e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
- .debug_line    0x0000000000004202      0x165 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
- .debug_line    0x0000000000004367      0x189 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
- .debug_line    0x00000000000044f0       0x5b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
- .debug_line    0x000000000000454b      0x12d /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
- .debug_line    0x0000000000004678      0x19a /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
- .debug_line    0x0000000000004812      0x187 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
- .debug_line    0x0000000000004999      0x186 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
- .debug_line    0x0000000000004b1f      0x1a0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
- .debug_line    0x0000000000004cbf      0x13b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
- .debug_line    0x0000000000004dfa      0x1ae /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
+ .debug_line    0x0000000000000155       0x87 ./arp.o
+ .debug_line    0x00000000000001dc       0x36 ./atlys.o
+ .debug_line    0x0000000000000212      0x1a5 ./clk.o
+ .debug_line    0x00000000000003b7      0x255 ./debug.o
+ .debug_line    0x000000000000060c      0x1f6 ./eth.o
+ .debug_line    0x0000000000000802      0x163 ./fpga.o
+ .debug_line    0x0000000000000965      0x1d2 ./main.o
+ .debug_line    0x0000000000000b37       0x6d ./packet.o
+ .debug_line    0x0000000000000ba4      0x293 ./spi.o
+ .debug_line    0x0000000000000e37      0x2c1 ./timer.o
+ .debug_line    0x00000000000010f8       0xb1 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
+ .debug_line    0x00000000000011a9      0x186 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
+ .debug_line    0x000000000000132f      0x151 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
+ .debug_line    0x0000000000001480       0xe7 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
+ .debug_line    0x0000000000001567      0x147 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
+ .debug_line    0x00000000000016ae      0x126 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
+ .debug_line    0x00000000000017d4      0x274 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
+ .debug_line    0x0000000000001a48      0x60a /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
+ .debug_line    0x0000000000002052      0x1b0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
+ .debug_line    0x0000000000002202      0x18b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
+ .debug_line    0x000000000000238d      0x251 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
+ .debug_line    0x00000000000025de      0x274 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
+ .debug_line    0x0000000000002852      0x19c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
+ .debug_line    0x00000000000029ee      0x22f /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
+ .debug_line    0x0000000000002c1d      0x292 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
+ .debug_line    0x0000000000002eaf      0x17b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
+ .debug_line    0x000000000000302a      0x17d /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
+ .debug_line    0x00000000000031a7      0x1d1 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
+ .debug_line    0x0000000000003378      0x341 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
+ .debug_line    0x00000000000036b9      0x118 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
+ .debug_line    0x00000000000037d1      0x107 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
+ .debug_line    0x00000000000038d8      0x111 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
+ .debug_line    0x00000000000039e9      0x112 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
+ .debug_line    0x0000000000003afb      0x1b1 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
+ .debug_line    0x0000000000003cac      0x24b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
+ .debug_line    0x0000000000003ef7      0x17c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
+ .debug_line    0x0000000000004073       0xcf /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_line    0x0000000000004142       0xf9 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
+ .debug_line    0x000000000000423b      0x1b8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
+ .debug_line    0x00000000000043f3      0x16e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
+ .debug_line    0x0000000000004561      0x165 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
+ .debug_line    0x00000000000046c6      0x189 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
+ .debug_line    0x000000000000484f       0x5b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
+ .debug_line    0x00000000000048aa      0x12d /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
+ .debug_line    0x00000000000049d7      0x19a /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
+ .debug_line    0x0000000000004b71      0x187 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
+ .debug_line    0x0000000000004cf8      0x186 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
+ .debug_line    0x0000000000004e7e      0x1a0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
+ .debug_line    0x000000000000501e      0x13b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
+ .debug_line    0x0000000000005159      0x1ae /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
 
-.debug_frame    0x0000000000000000     0x12f8
+.debug_frame    0x0000000000000000     0x1468
  *(.debug_frame)
  .debug_frame   0x0000000000000000       0xf0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
  .debug_frame   0x00000000000000f0       0x48 ./adc.o
- .debug_frame   0x0000000000000138       0x80 ./clk.o
- .debug_frame   0x00000000000001b8       0x94 ./debug.o
- .debug_frame   0x000000000000024c       0x64 ./fpga.o
- .debug_frame   0x00000000000002b0       0x60 ./main.o
- .debug_frame   0x0000000000000310      0x164 ./spi.o
- .debug_frame   0x0000000000000474       0xec ./timer.o
- .debug_frame   0x0000000000000560       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
- .debug_frame   0x0000000000000588       0x34 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
- .debug_frame   0x00000000000005bc       0x2c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
- .debug_frame   0x00000000000005e8       0x44 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
- .debug_frame   0x000000000000062c       0x54 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
- .debug_frame   0x0000000000000680      0x1e8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
- .debug_frame   0x0000000000000868       0xc0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
- .debug_frame   0x0000000000000928       0x2c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
- .debug_frame   0x0000000000000954       0x3c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
- .debug_frame   0x0000000000000990       0x6c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
- .debug_frame   0x00000000000009fc      0x184 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
- .debug_frame   0x0000000000000b80       0x54 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
- .debug_frame   0x0000000000000bd4       0x50 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
- .debug_frame   0x0000000000000c24       0x3c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
- .debug_frame   0x0000000000000c60       0x60 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
- .debug_frame   0x0000000000000cc0       0xd8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
- .debug_frame   0x0000000000000d98       0x34 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
- .debug_frame   0x0000000000000dcc       0x3c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
- .debug_frame   0x0000000000000e08       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
- .debug_frame   0x0000000000000e30       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
- .debug_frame   0x0000000000000e58       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
- .debug_frame   0x0000000000000e80       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
- .debug_frame   0x0000000000000ea8       0x44 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
- .debug_frame   0x0000000000000eec       0x3c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
- .debug_frame   0x0000000000000f28       0x9c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
- .debug_frame   0x0000000000000fc4       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
- .debug_frame   0x0000000000000fec       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
- .debug_frame   0x0000000000001014       0x4c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
- .debug_frame   0x0000000000001060       0x58 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
- .debug_frame   0x00000000000010b8       0x4c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
- .debug_frame   0x0000000000001104       0x4c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
- .debug_frame   0x0000000000001150       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
- .debug_frame   0x0000000000001178       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
- .debug_frame   0x00000000000011a0       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
- .debug_frame   0x00000000000011c8       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
- .debug_frame   0x00000000000011f0       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
- .debug_frame   0x0000000000001218       0x30 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
- .debug_frame   0x0000000000001248       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
- .debug_frame   0x0000000000001270       0x30 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
- .debug_frame   0x00000000000012a0       0x58 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
+ .debug_frame   0x0000000000000138       0x48 ./arp.o
+ .debug_frame   0x0000000000000180       0x80 ./clk.o
+ .debug_frame   0x0000000000000200       0xb0 ./debug.o
+ .debug_frame   0x00000000000002b0       0xe0 ./eth.o
+ .debug_frame   0x0000000000000390       0x64 ./fpga.o
+ .debug_frame   0x00000000000003f4       0x60 ./main.o
+ .debug_frame   0x0000000000000454       0x2c ./packet.o
+ .debug_frame   0x0000000000000480      0x164 ./spi.o
+ .debug_frame   0x00000000000005e4       0xec ./timer.o
+ .debug_frame   0x00000000000006d0       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
+ .debug_frame   0x00000000000006f8       0x34 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
+ .debug_frame   0x000000000000072c       0x2c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
+ .debug_frame   0x0000000000000758       0x44 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
+ .debug_frame   0x000000000000079c       0x54 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
+ .debug_frame   0x00000000000007f0      0x1e8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
+ .debug_frame   0x00000000000009d8       0xc0 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
+ .debug_frame   0x0000000000000a98       0x2c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
+ .debug_frame   0x0000000000000ac4       0x3c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
+ .debug_frame   0x0000000000000b00       0x6c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
+ .debug_frame   0x0000000000000b6c      0x184 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
+ .debug_frame   0x0000000000000cf0       0x54 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
+ .debug_frame   0x0000000000000d44       0x50 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
+ .debug_frame   0x0000000000000d94       0x3c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
+ .debug_frame   0x0000000000000dd0       0x60 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
+ .debug_frame   0x0000000000000e30       0xd8 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
+ .debug_frame   0x0000000000000f08       0x34 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
+ .debug_frame   0x0000000000000f3c       0x3c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
+ .debug_frame   0x0000000000000f78       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
+ .debug_frame   0x0000000000000fa0       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
+ .debug_frame   0x0000000000000fc8       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
+ .debug_frame   0x0000000000000ff0       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
+ .debug_frame   0x0000000000001018       0x44 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
+ .debug_frame   0x000000000000105c       0x3c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
+ .debug_frame   0x0000000000001098       0x9c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
+ .debug_frame   0x0000000000001134       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_frame   0x000000000000115c       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
+ .debug_frame   0x0000000000001184       0x4c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
+ .debug_frame   0x00000000000011d0       0x58 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
+ .debug_frame   0x0000000000001228       0x4c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
+ .debug_frame   0x0000000000001274       0x4c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
+ .debug_frame   0x00000000000012c0       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
+ .debug_frame   0x00000000000012e8       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
+ .debug_frame   0x0000000000001310       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
+ .debug_frame   0x0000000000001338       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
+ .debug_frame   0x0000000000001360       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
+ .debug_frame   0x0000000000001388       0x30 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
+ .debug_frame   0x00000000000013b8       0x28 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
+ .debug_frame   0x00000000000013e0       0x30 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
+ .debug_frame   0x0000000000001410       0x58 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtend.o
 
-.debug_str      0x0000000000000000     0x95e6
+.debug_str      0x0000000000000000     0x9bda
  *(.debug_str)
  .debug_str     0x0000000000000000     0x23a7 ./adc.o
                                        0x24d8 (size before relaxing)
- .debug_str     0x00000000000023a7      0x869 ./atlys.o
-                                       0x1f64 (size before relaxing)
- .debug_str     0x0000000000002c10      0x124 ./clk.o
+ .debug_str     0x00000000000023a7      0x1c3 ./arp.o
+                                       0x18cd (size before relaxing)
+ .debug_str     0x000000000000256a      0xb53 ./atlys.o
+                                       0x224e (size before relaxing)
+ .debug_str     0x00000000000030bd      0x11b ./clk.o
                                        0x25a6 (size before relaxing)
- .debug_str     0x0000000000002d34     0x1f69 ./debug.o
-                                       0x43d5 (size before relaxing)
- .debug_str     0x0000000000004c9d      0x166 ./fpga.o
+ .debug_str     0x00000000000031d8     0x2136 ./debug.o
+                                       0x5082 (size before relaxing)
+ .debug_str     0x000000000000530e      0x109 ./eth.o
+                                       0x3202 (size before relaxing)
+ .debug_str     0x0000000000005417      0x166 ./fpga.o
                                        0x25ee (size before relaxing)
- .debug_str     0x0000000000004e03      0x2db ./main.o
-                                       0x3125 (size before relaxing)
- .debug_str     0x00000000000050de      0x117 ./spi.o
-                                       0x4e94 (size before relaxing)
- .debug_str     0x00000000000051f5     0x2a33 ./timer.o
-                                       0x775d (size before relaxing)
- .debug_str     0x0000000000007c28       0xdd /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
+ .debug_str     0x000000000000557d      0x134 ./main.o
+                                       0x34b1 (size before relaxing)
+ .debug_str     0x00000000000056b1       0x3a ./packet.o
+                                       0x1847 (size before relaxing)
+ .debug_str     0x00000000000056eb      0x103 ./spi.o
+                                       0x517e (size before relaxing)
+ .debug_str     0x00000000000057ee     0x2a33 ./timer.o
+                                       0x7a47 (size before relaxing)
+ .debug_str     0x0000000000008221       0xdd /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-atexit.o)
                                         0x176 (size before relaxing)
- .debug_str     0x0000000000007d05      0x397 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
+ .debug_str     0x00000000000082fe      0x397 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__atexit.o)
                                         0x552 (size before relaxing)
- .debug_str     0x000000000000809c       0x4e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
+ .debug_str     0x0000000000008695       0x4e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-exit.o)
                                         0x513 (size before relaxing)
- .debug_str     0x00000000000080ea       0x6e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
+ .debug_str     0x00000000000086e3       0x6e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-impure.o)
                                         0x50a (size before relaxing)
- .debug_str     0x0000000000008158       0xa4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
+ .debug_str     0x0000000000008751       0xa4 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-iprintf.o)
                                         0x539 (size before relaxing)
- .debug_str     0x00000000000081fc       0xda /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
+ .debug_str     0x00000000000087f5       0xda /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-impure.o)
                                         0x562 (size before relaxing)
- .debug_str     0x00000000000082d6      0x206 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
+ .debug_str     0x00000000000088cf      0x206 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-or1k-support.o)
                                         0x35a (size before relaxing)
- .debug_str     0x00000000000084dc      0x1c3 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
+ .debug_str     0x0000000000008ad5      0x1c3 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-vfiprintf.o)
                                         0x6d4 (size before relaxing)
- .debug_str     0x000000000000869f       0x48 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
+ .debug_str     0x0000000000008c98       0x48 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wsetup.o)
                                         0x528 (size before relaxing)
- .debug_str     0x00000000000086e7       0x5c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
+ .debug_str     0x0000000000008ce0       0x5c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-__call_atexit.o)
                                         0x537 (size before relaxing)
- .debug_str     0x0000000000008743       0x63 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
+ .debug_str     0x0000000000008d3c       0x63 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fflush.o)
                                         0x563 (size before relaxing)
- .debug_str     0x00000000000087a6      0x113 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
+ .debug_str     0x0000000000008d9f      0x113 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-findfp.o)
                                         0x616 (size before relaxing)
- .debug_str     0x00000000000088b9       0x65 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
+ .debug_str     0x0000000000008eb2       0x65 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fputwc.o)
                                         0x569 (size before relaxing)
- .debug_str     0x000000000000891e      0x172 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
+ .debug_str     0x0000000000008f17      0x172 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-freer.o)
                                         0x663 (size before relaxing)
- .debug_str     0x0000000000008a90       0x6c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
+ .debug_str     0x0000000000009089       0x6c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fvwrite.o)
                                         0x59c (size before relaxing)
- .debug_str     0x0000000000008afc       0x41 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
+ .debug_str     0x00000000000090f5       0x41 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fwalk.o)
                                         0x50f (size before relaxing)
- .debug_str     0x0000000000008b3d      0x23e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
+ .debug_str     0x0000000000009136      0x23e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-locale.o)
                                         0x766 (size before relaxing)
- .debug_str     0x0000000000008d7b      0x120 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
+ .debug_str     0x0000000000009374      0x120 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-makebuf.o)
                                         0x60c (size before relaxing)
- .debug_str     0x0000000000008e9b       0xdf /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
+ .debug_str     0x0000000000009494       0xdf /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mallocr.o)
                                         0x719 (size before relaxing)
- .debug_str     0x0000000000008f7a       0x8a /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
+ .debug_str     0x0000000000009573       0x85 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memchr.o)
                                         0x153 (size before relaxing)
- .debug_str     0x0000000000009004       0x5b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
+ .debug_str     0x00000000000095f8       0x5b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memcpy.o)
                                         0x160 (size before relaxing)
- .debug_str     0x000000000000905f       0x3e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
+ .debug_str     0x0000000000009653       0x3e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memmove.o)
                                         0x16c (size before relaxing)
- .debug_str     0x000000000000909d       0x48 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
+ .debug_str     0x0000000000009691       0x48 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-memset.o)
                                         0x14d (size before relaxing)
- .debug_str     0x00000000000090e5       0xbf /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
+ .debug_str     0x00000000000096d9       0xbf /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-mlock.o)
                                         0x5ef (size before relaxing)
- .debug_str     0x00000000000091a4       0x4e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
+ .debug_str     0x0000000000009798       0x4e /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-reallocr.o)
                                         0x5eb (size before relaxing)
- .debug_str     0x00000000000091f2       0x92 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
+ .debug_str     0x00000000000097e6       0x92 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-stdio.o)
                                         0x55d (size before relaxing)
- .debug_str     0x0000000000009284       0x34 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_str     0x0000000000009878       0x34 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strcmp.o)
                                         0x132 (size before relaxing)
- .debug_str     0x00000000000092b8       0x34 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
+ .debug_str     0x00000000000098ac       0x34 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-strlen.o)
                                         0x14c (size before relaxing)
- .debug_str     0x00000000000092ec       0x39 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
+ .debug_str     0x00000000000098e0       0x39 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wbuf.o)
                                         0x52d (size before relaxing)
- .debug_str     0x0000000000009325       0x4d /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
+ .debug_str     0x0000000000009919       0x4d /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wcrtomb.o)
                                         0x540 (size before relaxing)
- .debug_str     0x0000000000009372       0x56 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
+ .debug_str     0x0000000000009966       0x56 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-wctomb_r.o)
                                         0x54a (size before relaxing)
- .debug_str     0x00000000000093c8       0x44 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
+ .debug_str     0x00000000000099bc       0x44 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libc.a(lib_a-fclose.o)
                                         0x555 (size before relaxing)
- .debug_str     0x000000000000940c       0x89 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
+ .debug_str     0x0000000000009a00       0x89 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(_exit.o)
                                         0x113 (size before relaxing)
- .debug_str     0x0000000000009495       0x2b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
+ .debug_str     0x0000000000009a89       0x2b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(close.o)
                                         0x4e5 (size before relaxing)
- .debug_str     0x00000000000094c0       0x2b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
+ .debug_str     0x0000000000009ab4       0x2b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(fstat.o)
                                         0x5dc (size before relaxing)
- .debug_str     0x00000000000094eb       0x2c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
+ .debug_str     0x0000000000009adf       0x2c /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(isatty.o)
                                         0x4f8 (size before relaxing)
- .debug_str     0x0000000000009517       0x2b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
+ .debug_str     0x0000000000009b0b       0x2b /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(lseek.o)
                                         0x504 (size before relaxing)
- .debug_str     0x0000000000009542       0x2a /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
+ .debug_str     0x0000000000009b36       0x2a /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
                                         0x518 (size before relaxing)
- .debug_str     0x000000000000956c       0x47 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
+ .debug_str     0x0000000000009b60       0x47 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(sbrk.o)
                                         0x50a (size before relaxing)
- .debug_str     0x00000000000095b3       0x33 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
+ .debug_str     0x0000000000009ba7       0x33 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
                                         0x521 (size before relaxing)
 
 .debug_loc      0x0000000000000000     0x6f93
@@ -1507,7 +1596,7 @@ LOAD /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
  .debug_ranges  0x0000000000000660       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(read.o)
  .debug_ranges  0x0000000000000680       0x20 /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/../../../../or1k-elf/lib/libor1k.a(write.o)
 
-.debug_macro    0x0000000000000000     0x2375
+.debug_macro    0x0000000000000000     0x2562
  *(.debug_macro)
  .debug_macro   0x0000000000000000       0x6e ./adc.o
  .debug_macro   0x000000000000006e      0x4f6 ./adc.o
@@ -1517,38 +1606,44 @@ LOAD /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
  .debug_macro   0x00000000000005ee       0xa2 ./adc.o
  .debug_macro   0x0000000000000690      0x20e ./adc.o
  .debug_macro   0x000000000000089e       0x34 ./adc.o
- .debug_macro   0x00000000000008d2       0x1a ./atlys.o
- .debug_macro   0x00000000000008ec      0x196 ./atlys.o
- .debug_macro   0x0000000000000a82       0x77 ./clk.o
- .debug_macro   0x0000000000000af9       0x22 ./clk.o
- .debug_macro   0x0000000000000b1b      0x109 ./debug.o
- .debug_macro   0x0000000000000c24       0x16 ./debug.o
- .debug_macro   0x0000000000000c3a       0x97 ./debug.o
- .debug_macro   0x0000000000000cd1       0x10 ./debug.o
- .debug_macro   0x0000000000000ce1       0x3a ./debug.o
- .debug_macro   0x0000000000000d1b       0x52 ./debug.o
- .debug_macro   0x0000000000000d6d       0x16 ./debug.o
- .debug_macro   0x0000000000000d83       0x19 ./debug.o
- .debug_macro   0x0000000000000d9c      0x180 ./debug.o
- .debug_macro   0x0000000000000f1c       0x10 ./debug.o
- .debug_macro   0x0000000000000f2c       0xef ./debug.o
- .debug_macro   0x000000000000101b       0x22 ./debug.o
- .debug_macro   0x000000000000103d       0xbd ./debug.o
- .debug_macro   0x00000000000010fa       0x16 ./debug.o
- .debug_macro   0x0000000000001110      0x16c ./debug.o
- .debug_macro   0x000000000000127c       0x46 ./debug.o
- .debug_macro   0x00000000000012c2       0x16 ./debug.o
- .debug_macro   0x00000000000012d8       0x77 ./fpga.o
- .debug_macro   0x000000000000134f       0x4c ./fpga.o
- .debug_macro   0x000000000000139b       0xb3 ./main.o
- .debug_macro   0x000000000000144e       0x40 ./main.o
- .debug_macro   0x000000000000148e       0x46 ./main.o
- .debug_macro   0x00000000000014d4       0x1c ./main.o
- .debug_macro   0x00000000000014f0      0x140 ./spi.o
- .debug_macro   0x0000000000001630       0x2e ./spi.o
- .debug_macro   0x000000000000165e      0x13d ./timer.o
- .debug_macro   0x000000000000179b      0x214 ./timer.o
- .debug_macro   0x00000000000019af      0x9c6 ./timer.o
+ .debug_macro   0x00000000000008d2       0x2c ./arp.o
+ .debug_macro   0x00000000000008fe       0x22 ./arp.o
+ .debug_macro   0x0000000000000920       0x34 ./arp.o
+ .debug_macro   0x0000000000000954       0x1c ./arp.o
+ .debug_macro   0x0000000000000970       0x1a ./atlys.o
+ .debug_macro   0x000000000000098a      0x1f6 ./atlys.o
+ .debug_macro   0x0000000000000b80       0x77 ./clk.o
+ .debug_macro   0x0000000000000bf7       0x22 ./clk.o
+ .debug_macro   0x0000000000000c19      0x134 ./debug.o
+ .debug_macro   0x0000000000000d4d       0x16 ./debug.o
+ .debug_macro   0x0000000000000d63       0x97 ./debug.o
+ .debug_macro   0x0000000000000dfa       0x10 ./debug.o
+ .debug_macro   0x0000000000000e0a       0x3a ./debug.o
+ .debug_macro   0x0000000000000e44       0x52 ./debug.o
+ .debug_macro   0x0000000000000e96       0x16 ./debug.o
+ .debug_macro   0x0000000000000eac       0x19 ./debug.o
+ .debug_macro   0x0000000000000ec5      0x180 ./debug.o
+ .debug_macro   0x0000000000001045       0x10 ./debug.o
+ .debug_macro   0x0000000000001055       0xef ./debug.o
+ .debug_macro   0x0000000000001144       0x22 ./debug.o
+ .debug_macro   0x0000000000001166       0xbd ./debug.o
+ .debug_macro   0x0000000000001223       0x16 ./debug.o
+ .debug_macro   0x0000000000001239      0x16c ./debug.o
+ .debug_macro   0x00000000000013a5       0x46 ./debug.o
+ .debug_macro   0x00000000000013eb       0x16 ./debug.o
+ .debug_macro   0x0000000000001401       0x46 ./debug.o
+ .debug_macro   0x0000000000001447      0x214 ./debug.o
+ .debug_macro   0x000000000000165b       0x1c ./debug.o
+ .debug_macro   0x0000000000001677       0x8f ./eth.o
+ .debug_macro   0x0000000000001706       0x77 ./fpga.o
+ .debug_macro   0x000000000000177d       0x4c ./fpga.o
+ .debug_macro   0x00000000000017c9       0xc5 ./main.o
+ .debug_macro   0x000000000000188e       0x40 ./main.o
+ .debug_macro   0x00000000000018ce       0x23 ./packet.o
+ .debug_macro   0x00000000000018f1      0x140 ./spi.o
+ .debug_macro   0x0000000000001a31       0x2e ./spi.o
+ .debug_macro   0x0000000000001a5f      0x13d ./timer.o
+ .debug_macro   0x0000000000001b9c      0x9c6 ./timer.o
 
 .gnu.attributes
  *(.gnu.attributes)
@@ -1558,11 +1653,14 @@ LOAD /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/crtbegin.o
  *(.gnu_debuglink)
  *(.gnu.lto_*)
 LOAD ./adc.o
+LOAD ./arp.o
 LOAD ./atlys.o
 LOAD ./clk.o
 LOAD ./debug.o
+LOAD ./eth.o
 LOAD ./fpga.o
 LOAD ./main.o
+LOAD ./packet.o
 LOAD ./spi.o
 LOAD ./timer.o
 LOAD /opt/or1k-toolchain/lib/gcc/or1k-elf/4.9.1/libgcc.a

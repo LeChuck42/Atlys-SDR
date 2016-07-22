@@ -33,6 +33,6 @@ typedef struct  {
 	unsigned char dstIp[4];
 } arp_ip;
 
-void ARP_Request(unsigned char* pPacket);
+int ARP_Request(int dwPacketId);
 
 #endif /* ARP_H_ */

@@ -36,6 +36,8 @@ static void init()
 	or1k_exception_handler_add(0x8, (or1k_exception_handler_fptr)&or1k_interrupt_handler);
 	TIMER_Init();
 	SPI_Init();
+	ETH_Init();
+	or1k_interrupts_enable();
 }
 
 int main()
@@ -57,7 +59,7 @@ int main()
 		dwPacketId = ETH_CheckPacket();
 		if (dwPacketId != ETH_NO_PACKET)
 		{
-			while (PACKET_Process(ETH_GetBuffer(dwPacketId)) == PACKET_BUSY);
+			while (PACKET_Process(dwPacketId) == PACKET_BUSY);
 			ETH_Free(dwPacketId);
 		}
 	}

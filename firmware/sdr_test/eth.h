@@ -17,6 +17,10 @@
 
 int ETH_CheckPacket();
 unsigned char *ETH_GetBuffer(int dwPacketId);
+int ETH_StartTransmit(int dwPacketId, int dwSize);
 void ETH_Free(int dwPacketId);
+int ETH_GetEmpty();
+void ETH_Init();
+
 
 #endif /* ETH_H_ */

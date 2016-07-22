@@ -28,7 +28,6 @@ void SPI_Init()
 	*ATLYS_SPI_SPER_PTR = 0;
 	or1k_interrupt_handler_add(ATLYS_INTERRUPT_SPI, SPI_Interrupt, 0);
 	or1k_interrupt_enable(ATLYS_INTERRUPT_SPI);
-	or1k_interrupts_enable();
 	SPI_Reset();
 }
 

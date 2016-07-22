@@ -25,7 +25,13 @@ architecture sim of tx_path_tb is
 			packet_loss     : out std_logic;
 
 			my_mac          : in  std_logic_vector(47 downto 0);
-			my_ip           : in  std_logic_vector(31 downto 0));
+			my_ip           : in  std_logic_vector(31 downto 0);
+			
+			forward_rd      : in  std_logic;
+			forward_data    : out std_logic_vector(31 downto 0);
+			forward_last    : out std_logic;
+			forward_empty   : out std_logic;
+			forward_enable  : out std_logic);
 	end component;
 
 	component dac_tx is
@@ -76,6 +82,12 @@ architecture sim of tx_path_tb is
 	signal fifo_data_cnt    : std_logic_vector(15 downto 0);
 	signal fifo_full        : std_logic;
 	signal fifo_empty       : std_logic;
+	
+	signal forward_rd       : std_logic;
+	signal forward_empty    : std_logic;
+	signal forward_data     : std_logic_vector(31 downto 0);
+	signal forward_last     : std_logic;
+	signal forward_enable   : std_logic;
 begin
 
 	packet_receiver_inst: packet_receiver port map (
@@ -90,7 +102,13 @@ begin
 		data_out        => data_out,
 		packet_loss     => packet_loss,
 		my_mac          => my_mac,
-		my_ip           => my_ip);
+		my_ip           => my_ip,
+		forward_rd      => forward_rd,
+		forward_empty   => forward_empty,
+		forward_data    => forward_data,
+		forward_last    => forward_last,
+		forward_enable  => forward_enable
+		);
 
 	dac_tx_inst: dac_tx port map (
 		clk             => clk,
@@ -198,8 +216,9 @@ begin
 		my_ip <= x"c0a80101";
 		rd_flags_i <= (others => '0');
 		rd_data_i <= (others => '0');
-		wait for 100 ns;
+		wait until reset = '0';
 		-- target 0
+		wait until clk = '1';
 		wait until clk = '1';
 		ip_header(x"0090f5de6431",
 		          x"0037ffff3737",
@@ -334,5 +353,23 @@ begin
 		mac_data32(x"00001111");
 		rd_flags_i(1) <= '0';
 		wait;
+	end process;
+	
+	forward_reader: process
+	begin
+		forward_rd <= '0';
+		wait until reset = '0';
+		wait until clk = '1';
+		loop
+			if forward_empty = '0' and forward_enable = '1' then
+				forward_rd <= '1';
+			else
+				wait until clk = '1';
+				next;
+			end if;
+			wait until clk = '1';
+			forward_rd <= '0';
+			wait until clk = '1';
+		end loop;
 	end process;
 end architecture sim;

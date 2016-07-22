@@ -11,6 +11,7 @@
 #include "atlys.h"
 #include "debug.h"
 #include "timer.h"
+#include <or1k-support.h>
 
 static unsigned int dwBlinkCnt;
 static unsigned int dwDebugTimer;
@@ -22,6 +23,34 @@ void DEBUG_LEDCallback()
 	{
 		*ATLYS_GPIO_DATA_PTR &= ~ATLYS_GPIO_LED1;
 		TIMER_Stop(dwDebugTimer);
+	}
+}
+
+void DEBUG_SetLed(unsigned int led, unsigned int state)
+{
+	unsigned int dwInterrupt, dwTimer;
+	unsigned int mask = 0;
+
+	switch(led)
+	{
+		case 0: mask = ATLYS_GPIO_LED0; break;
+		case 1: mask = ATLYS_GPIO_LED1; break;
+		case 2: mask = ATLYS_GPIO_LED2; break;
+		case 3: mask = ATLYS_GPIO_LED3; break;
+		case 4: mask = ATLYS_GPIO_LED4; break;
+		case 5: mask = ATLYS_GPIO_LED5; break;
+		case 6: mask = ATLYS_GPIO_LED6; break;
+		default: return;
+	}
+
+	if (state) {
+		ATLYS_ENTER_CRITICAL(dwInterrupt, dwTimer);
+		*ATLYS_GPIO_DATA_PTR |= mask;
+		ATLYS_EXIT_CRITICAL(dwInterrupt, dwTimer);
+	} else {
+		ATLYS_ENTER_CRITICAL(dwInterrupt, dwTimer);
+		*ATLYS_GPIO_DATA_PTR &= ~mask;
+		ATLYS_EXIT_CRITICAL(dwInterrupt, dwTimer);
 	}
 }
 

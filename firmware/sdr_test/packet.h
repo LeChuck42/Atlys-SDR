@@ -14,8 +14,7 @@
 #define PACKET_DROP		0
 #define PACKET_BUSY		-1
 
-int PACKET_Process(unsigned char* pPacket);
-int PACKET_Create(int size);
+int PACKET_Process(int dwPacketId);
 
 typedef struct {
 	unsigned char dstMac[6];

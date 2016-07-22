@@ -30,5 +30,6 @@
 #define DEBUG_Print_Without_Info(nLogLevel, nLogBook, ...) do {if (nLogLevel>=nLogBook) iprintf(__VA_ARGS__);} while (0)
 
 void DEBUG_TriggerLED();
+void DEBUG_SetLed(unsigned int led, unsigned int state);
 
 #endif /* DEBUG_H_ */

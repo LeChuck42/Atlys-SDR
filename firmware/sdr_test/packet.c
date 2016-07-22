@@ -8,8 +8,9 @@
 #include "packet.h"
 #include "arp.h"
 
-int PACKET_Process(unsigned char* pPacket)
+int PACKET_Process(int dwPacketId)
 {
+	unsigned char* pPacket = ETH_GetBuffer(dwPacketId);
 	header_ethernet* head = pPacket;
 	if (head->dstMac[0] == 0xff &&
 		head->dstMac[1] == 0xff &&
@@ -22,8 +23,7 @@ int PACKET_Process(unsigned char* pPacket)
 		switch (head->etherType)
 		{
 		case ETHERTYPE_ARP:
-			ARP_Request(pPacket);
-			break;
+			return ARP_Request(dwPacketId);
 		case ETHERTYPE_IP:
 			break;
 		default:
@@ -35,10 +35,6 @@ int PACKET_Process(unsigned char* pPacket)
 
 	}
 
-	return PACKET_DONE;
+	return PACKET_DROP;
 }
 
-int PACKET_Create(int size)
-{
-
-}

@@ -56,7 +56,8 @@ module packet_receiver (
 	
 	input      [31:0]  wb_addr_offset,
 	input              wb_addr_ready,
-	output reg         eth_rx_irq_flag
+	output reg         eth_rx_irq_flag,
+	output       [7:0] debug
 	);
 	
 	reg data_out_reg;
@@ -276,6 +277,9 @@ module packet_receiver (
 	assign wb_bte_o = 0; // linear bursts
 	
 	assign eth_buf_rd = (wb_transfer_active) ? wb_ack_i : 0;
+	
+	assign debug = {forward_empty, forward_enable, eth_buf_full, eth_buf_empty, 
+	                forward_last, eth_buf_wr, eth_buf_rd, rd_src_rdy_i};
 	
 	always @(posedge wb_clk_i) begin
 		if (wb_rst_i) begin

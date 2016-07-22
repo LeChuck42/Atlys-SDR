@@ -3,3 +3,4 @@ i<>.\src\tx_path_tb.vhd
 i<>.\..\..\hdl\dac_tx.v
 i<>.\..\..\hdl\coregen\dac_sample_fifo.v
 i<>C:\Xilinx\14.7\ISE_DS\ISE\verilog\src\glbl.v
+i<>.\..\..\hdl\coregen\forward_buffer.v
