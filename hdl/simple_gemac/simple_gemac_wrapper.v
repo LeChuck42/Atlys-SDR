@@ -205,6 +205,6 @@ module simple_gemac_wrapper
 			{ rx_valid, rx_error, rx_ack, rx_f36_src_rdy_int1, rx_f36_dst_rdy_int1, rx_f36_data_int1[34:32]},
 			{ rx_data} };
 
-   assign debug  = debug_tx;
+   assign debug  = simple_gemac_debug[7:0];
 
 endmodule // simple_gemac_wrapper

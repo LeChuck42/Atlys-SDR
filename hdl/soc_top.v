@@ -251,6 +251,8 @@ module soc_top # (
 	
 		.debug(debug_mac));
 	
+	assign pmod = debug_mac[7:0];
+	
 	// After the PLL has locked, configure the MAC and PHY using a state machine
 	wire gemac_ready;
 	wire [3:0] gemac_debug;
@@ -450,7 +452,7 @@ module soc_top # (
 		.wb_addr_offset(reg_eth_rx_addr_offset),
 		.wb_addr_ready(gpio_rx_addr_ready),
 		.eth_rx_irq_flag(eth_rx_irq_flag),
-		.debug(pmod)
+		.debug()
 	);
 	
 	dac_tx dac_tx_inst (
